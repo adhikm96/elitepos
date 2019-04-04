@@ -1,0 +1,2703 @@
+#:kivy 1.10
+#:import Factory kivy.factory.Factory
+#:import datetime datetime
+
+
+<Customer>:
+	customer_name: customer_name
+    contact_number: contact_number
+    contact_email: contact_email
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.17
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+
+		BoxLayout:
+			size_hint_x: 0.2
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+		BoxLayout:
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2)
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		    	
+			orientation: "vertical"
+			BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+			    
+				orientation: "vertical"
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.7
+				    Label:
+						size_hint_y: 3
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Customer"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					size_hint_y: 0.6
+					padding:20
+					Label:
+						size_hint_y: 0.40
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Customer Name"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+
+				    TextInput:
+				    	id: customer_name
+				    	size_hint_y: 0.55
+				    	size_hint_x: 0.2
+				    	font_size: 20
+
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.6
+					Label:
+						size_hint_y: 0.40
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Contact Number"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+
+				    TextInput:
+				    	id: contact_number
+				    	size_hint_y: 0.55
+				    	size_hint_x: 0.2
+				    	font_size: 20
+
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.6
+					Label:
+						size_hint_y: 0.40
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Contact Email"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	id: contact_email
+				    	size_hint_y: 0.55
+				    	size_hint_x: 0.2
+				    	font_size: 20
+
+				BoxLayout:
+					BoxLayout:
+						size_hint_x: 0.2
+					BoxLayout:
+						Button:
+							canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Save"
+		            		size_hint_y: 0.22
+		            		bold: True
+		            		on_press: root.save()
+		            	BoxLayout:
+		            	Button:
+		            		canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Cancel"
+		            		size_hint_y: 0.22
+		            		bold: True
+		            		on_press: root.cencel()
+		            BoxLayout:
+		            	size_hint_x: 0.2
+	            BoxLayout:
+	            	size_hint_y: 0.2
+	        BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+        BoxLayout:
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2)
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+        	size_hint_x: 0.5
+
+
+<Supplier>:
+	supplier_name: supplier_name
+    address: address
+    tax_id_gst_no: tax_id_gst_no
+    contact_number: contact_number
+    email: email
+	canvas.before:
+		Color: 
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.17
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+		BoxLayout:
+			size_hint_x: 0.2
+			canvas.before:
+				Color: 
+				    rgba: (0,0,0,0.2) 
+				Rectangle:
+				    pos: self.pos
+				    size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+				Color: 
+				    rgba: (0,0,0,0.2) 
+				Rectangle:
+				    pos: self.pos
+				    size: self.size
+
+			BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+			    
+				orientation: "vertical"
+				BoxLayout:
+					padding: 20
+					size_hint_y: 1.3
+				    Label:
+						size_hint_y: 0.80
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Supplier"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 20
+					Label:
+						size_hint_y: 1.2
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Supplier Name"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	id: supplier_name
+				    	size_hint_y: 1.3
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				BoxLayout:
+				BoxLayout:
+					padding: 20
+					Label:
+						valign:'top'
+						size_hint_y: 3
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Address"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y:  3
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: address
+
+				BoxLayout:
+					padding: 20
+					Label:
+						size_hint_y: 1.2
+						size_hint_x: 0.2
+						font_size: 20
+				        text: "Tax Id/GST No"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y:1.3
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: tax_id_gst_no
+				BoxLayout:
+					padding: 20
+					Label:
+						size_hint_y: 1.2
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Contact Number"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 1.3
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: contact_number
+
+				BoxLayout:
+					padding: 20
+					Label:
+						size_hint_y: 1.2
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Email"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 1.3
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: email
+				BoxLayout:
+
+				BoxLayout:
+					padding: 20
+					BoxLayout:
+						size_hint_x: 0.2
+					BoxLayout:
+						Button:
+							canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Save"
+		            		size_hint_y: 1.4
+		            		bold: True
+		            		on_press: root.save()
+		            	BoxLayout:
+		            	Button:
+		            		canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Cancel"
+		            		size_hint_y: 1.4
+		            		bold: True
+		            		on_press: root.cencel()
+		            BoxLayout:
+		            	size_hint_x: 0.2
+	            
+	        BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05	
+        BoxLayout:
+        	size_hint_x: 0.5
+        	canvas.before:
+				Color: 
+				    rgba: (0,0,0,0.2) 
+				Rectangle:
+				    pos: self.pos
+				    size: self.size
+
+<CustomTaxTable@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	TextInput:
+		font_size: 20
+		id: tax_disription
+		size_hint_x: 0.60
+	TextInput:
+		font_size: 20
+		id: percentage
+		size_hint_x: 0.20
+	TextInput:
+		font_size: 20
+		id: amount
+		size_hint_x: 0.20
+
+<Category_DropDown>:
+    on_select:
+        app.root.ids.item_screen.ids.category.text = '{}'.format(args[1])  
+
+<Item>:
+	item_name: item_name
+	item_code: item_code
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.17
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+		BoxLayout:
+			size_hint_x: 0.2
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+			    
+				orientation: "vertical" 
+				BoxLayout:
+					padding:20
+					size_hint_y: 1
+				    Label:
+						size_hint_y:2.5
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Item"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding:20
+					size_hint_y: 1
+					Label:
+						size_hint_y: 0.5
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Item Name"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 0.70
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: item_name
+
+				BoxLayout:
+					padding:20
+					size_hint_y: 1
+					Label:
+						size_hint_y: 0.5
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Item Code"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 0.70
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: item_code
+
+				BoxLayout:
+					padding:20
+					size_hint_y: 1
+					Label:
+						size_hint_y: 0.5
+						size_hint_x: 1
+				        font_size: 20
+				        text: "Category"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    Button:
+				    	canvas.before:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+						background_color: 0, 0, 0, 0.1
+						color: 0,0,0,1
+				        id: category
+				        text: 'Select'
+				        on_release: Factory.Category_DropDown().open(self)
+				        size_hint_y: None
+				        height: 35
+
+				BoxLayout:
+					size_hint_y: 0.4
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.2
+					Label:
+						text: 'Tax Discription'
+						size_hint_x: 0.60
+						color: 0,0,0,1
+						bold: True
+					Label:
+						text: "Percentage"
+						size_hint_x: 0.20
+						color: 0,0,0,1
+						bold: True
+					Label:
+						text: 'Amount'
+						size_hint_x: 0.20
+						color: 0,0,0,1
+						bold: True
+				BoxLayout:
+					padding:20
+					size_hint_y: 1.5
+					RecycleView:
+						viewclass: 'CustomTaxTable'
+						data: [{}, {}, {},{}, {}]
+						RecycleGridLayout:
+			                cols: 1
+			                key_selection: 'selectable'
+			                default_size: None, dp(35)
+			                default_size_hint: 1, None
+			                size_hint_y: None
+			                height: self.minimum_height
+			                multiselect: True
+			                touch_multiselect: True
+				BoxLayout:
+					padding:20
+					BoxLayout:
+						size_hint_x: 0.2
+					BoxLayout:
+						Button:
+							canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Save"
+		            		size_hint_y: 0.65
+		            		bold: True
+		            		on_press: root.save()
+
+		            	BoxLayout:
+
+		            	Button:
+		            		canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Cancel"
+		            		size_hint_y: 0.65
+		            		bold: True
+		            		on_press: root.cencel()
+		            BoxLayout:
+		            	size_hint_x: 0.2
+		        
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+        BoxLayout:
+        	size_hint_x: 0.5
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+<Tax_Type_DropDown>:
+    on_select:
+        app.root.ids.taxes_screen.ids.tax_type.text = '{}'.format(args[1])  
+
+<Taxes>:
+	tax_name: tax_name
+	percentage: percentage
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.17
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+		BoxLayout:
+			size_hint_x: 0.2
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+				orientation: "vertical"
+				BoxLayout:
+					padding: 40
+					size_hint_y: 0.2
+				    Label:
+						size_hint_y: 3
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Taxes"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 40
+					orientation: "vertical"
+					BoxLayout:
+						size_hint_y: 0.4
+						Label:
+							size_hint_y: 0.50
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Tax Name"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    TextInput:
+					    	size_hint_y: 0.65
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: tax_name
+
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Tax Type"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Button:
+					    	canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: tax_type
+					        text: 'Select'
+					        on_release: Factory.Tax_Type_DropDown().open(self)
+					        size_hint_y: None
+					        height: 40
+				
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Percentage"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    TextInput:
+					    	size_hint_y: 0.27
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: percentage
+
+					BoxLayout:
+						BoxLayout:
+							size_hint_x: 0.2
+						BoxLayout:
+							Button:
+								canvas.before:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+		    					background_color: 0, 0, 0, 0.1
+		    					color: 0,0,0,1
+			            		text: "Save"
+			            		size_hint_y: 0.3
+			            		bold: True
+			            		on_press: root.save()
+
+			            	BoxLayout:
+
+			            	Button:
+			            		canvas.before:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+		    					background_color: 0, 0, 0, 0.1
+		    					color: 0,0,0,1
+			            		text: "Cancel"
+			            		size_hint_y: 0.3
+			            		bold: True
+			            		on_press: root.cencel()
+			            BoxLayout:
+			            	size_hint_x: 0.2
+
+	        BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+        BoxLayout:
+        	size_hint_x: 0.5
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+<SalesTable@GridLayout>:
+	size_hint:0.9,0.9
+	cols:8
+	spacing: 6
+	padding: 2
+	Label:
+		text: root.item or ""
+		color: 0,0,0,1
+	Label:
+		text: root.rate or ""
+		color: 0,0,0,1
+	TextInput:
+		id: quantity
+		size_hint_x: 0.5
+
+	TextInput:
+		id: discount
+		size_hint_x: 0.5
+	Label:
+		text: root.dis or ""
+		color: 0,0,0,1
+	Label:
+		text: root.amt or ""
+		color: 0,0,0,1
+	Button:
+		canvas.before:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.5
+		text: 'Edit'
+		on_release: print(app.self.index)
+	Button:
+		canvas.before:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.5
+		text: 'Delete'
+
+<Customer_DropDown>:
+    on_select:
+        app.root.ids.sales_screen.ids.customer.text = '{}'.format(args[1]) 
+
+<Sales>:
+	sal: sal
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		canvas.before:
+		    Color:
+		        rgba: (0,0,0,0.1) 
+		    Rectangle:
+		        pos: self.pos
+		        size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.13
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+	
+		BoxLayout:
+        	size_hint_x: 0.1
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+				orientation: "vertical"
+				BoxLayout:
+					padding: 20
+					size_hint_y: 0.17
+				    Label:
+						size_hint_y: 0.80
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Sales"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 20
+					orientation: "vertical"
+				    BoxLayout:
+				    	size_hint_y: 0.1
+						Label:
+							size_hint_y: 1
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Date:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 1
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    BoxLayout:
+					    	size_hint_x: 0.3
+					    Label:
+							size_hint_y: 1
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Time:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 1
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: root.tm or ""
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					BoxLayout:
+						size_hint_y: 0.25
+						Label:
+							size_hint_y: 0.50
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Customer"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Button:
+					    	canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: customer
+					        text: 'Select'
+					        on_release: Factory.Customer_DropDown().open(self)
+					        size_hint_y: None
+					        height: 40
+					    BoxLayout:
+					BoxLayout:
+						size_hint_y: 0.25
+						Label:
+							size_hint_y: 0.50
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Item"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+						TextInput:
+							id: item
+							size_hint_y: 0.65
+					    	font_size: 20
+					    BoxLayout:
+					BoxLayout:
+						size_hint_y: 0.1
+					BoxLayout:
+						size_hint_y: 0.05
+						Label:
+							text: 'Item Code '
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: "Rate"
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: "Qty"
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+							size_hint_x: 0.5
+						Label:
+							text: 'Discount%'
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+							size_hint_x: 0.5
+						Label:
+							text: "Discount"
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: 'Amount'
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							size_hint_x: 0.5
+						Label:
+							size_hint_x: 0.5
+					BoxLayout:
+						size_hint_y: 0.05
+					BoxLayout:
+						canvas.before:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+					
+							Color:
+							    rgba: (1,1,1,1) 
+							Rectangle:
+							    pos: self.pos
+							    size: self.size
+						size_hint_y: 0.7
+						RecycleView:
+							id: sal
+							viewclass: 'SalesTable'
+							RecycleGridLayout:
+				                cols: 1
+				                key_selection: 'selectable'
+				                default_size: None, dp(35)
+				                default_size_hint: 1, None
+				                size_hint_y: None
+				                height: self.minimum_height
+				                multiselect: True
+				                touch_multiselect: True
+				    BoxLayout:
+						size_hint_y: 0.1
+					BoxLayout:
+						size_hint_y: 0.6
+						BoxLayout:
+							size_hint_x: 1.2
+						BoxLayout:
+							BoxLayout:
+								orientation: "vertical"
+								Label:
+									text: 'Sub Total'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.05
+								Label:
+									text: 'Disc.'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									text: 'Taxes'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									text: "Total"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								
+							BoxLayout:
+								orientation: "vertical"
+								Label:
+									text: "554"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.05
+								Label:
+									size_hint_y: 0.04
+								TextInput:
+									text: 
+									font_size: 15
+									text_size: self.size
+									size_hint_y: 0.08
+									size_hint_x: 0.4
+								Label:
+									text: "45454"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									text: "45745"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								
+			BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+
+		BoxLayout:
+        	size_hint_x: 0.2
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+<PurchaseTable@GridLayout>:
+	size_hint:0.9,0.9
+	cols:8
+	spacing: 6
+	padding: 2
+	Label:
+		text: root.item or ""
+		color: 0,0,0,1
+	Label:
+		text: root.rate or ""
+		color: 0,0,0,1
+	TextInput:
+		id: quantity
+		size_hint_x: 0.5
+	TextInput:
+		id: discount
+		size_hint_x: 0.5
+	Label:
+		text: root.dis or ""
+		color: 0,0,0,1
+	Label:
+		text: root.amt or ""
+		color: 0,0,0,1
+	Button:
+		canvas.before:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.5
+		text: 'Edit'
+		on_release: print(app.self.index)
+	Button:
+		canvas.before:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.5
+		text: 'Delete'
+
+<Supplier_DropDown>:
+    on_select:
+        app.root.ids.purchase_screen.ids.supplier.text = '{}'.format(args[1]) 
+
+<Purchase>:
+	pur: pur
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		canvas.before:
+		    Color:
+		        rgba: (0,0,0,0.1) 
+		    Rectangle:
+		        pos: self.pos
+		        size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.13
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+		BoxLayout:
+        	size_hint_x: 0.1
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.02
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+				orientation: "vertical"
+				BoxLayout:
+					padding: 20
+					size_hint_y: 0.17
+				    Label:
+						size_hint_y: 0.80
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Purchase"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 20
+					orientation: "vertical"
+				    BoxLayout:
+				    	size_hint_y: 0.1
+						Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Date:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    BoxLayout:
+					    	size_hint_x: 0.3
+					    Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Time:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: root.tm or "" 
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					BoxLayout:
+						size_hint_y: 0.2
+						Label:
+							size_hint_y: 0.8
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Supplier"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Button:
+					    	canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: supplier
+					        text: 'Select'
+					        on_release: Factory.Supplier_DropDown().open(self)
+					        size_hint_y: None
+					        height: 40
+					    BoxLayout:
+					BoxLayout:
+						size_hint_y: 0.2
+						Label:
+							size_hint_y: 0.8
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Item"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+						TextInput:
+							id: item
+							size_hint_y: 0.60
+					    	font_size: 20
+					    BoxLayout:
+					BoxLayout:
+						size_hint_y: 0.1
+					BoxLayout:
+						size_hint_y: 0.05
+						Label:
+							text: 'Item Code '
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: "Rate"
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: "Qty"
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+							size_hint_x: 0.5
+						Label:
+							text: 'Discount%'
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+							size_hint_x: 0.5
+						Label:
+							text: "Discount"
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: 'Amount'
+							font_size: 15
+							color: 0,0,0,1
+							bold: True
+						Label:
+							size_hint_x: 0.5
+						Label:
+							size_hint_x: 0.5
+					BoxLayout:
+						size_hint_y: 0.05
+					BoxLayout:
+						canvas.before:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+					   
+							Color:
+							    rgba: (1,1,1,1) 
+							Rectangle:
+							    pos: self.pos
+							    size: self.size
+						size_hint_y: 0.5
+						RecycleView:
+							id: pur
+							viewclass: 'PurchaseTable'
+							data: [{},{},{},{},{},{},{},{},{},{},{},{},{}]
+							RecycleGridLayout:
+				                cols: 1
+				                key_selection: 'selectable'
+				                default_size: None, dp(35)
+				                default_size_hint: 1, None
+				                size_hint_y: None
+				                height: self.minimum_height
+				                multiselect: True
+				                touch_multiselect: True
+				    BoxLayout:
+						size_hint_y: 0.1
+					BoxLayout:
+						size_hint_y: 0.5
+						BoxLayout:
+							BoxLayout:
+								orientation: "vertical"
+								Label:
+									text: 'Delivery Date'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.3
+								Label:
+									text: 'Delivery Time'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.3
+								Label:
+									size_hint_y: 0.2
+								Label:
+									valign: 'top'
+									text: 'Notes'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									#size_hint_y: 0.1
+							BoxLayout:
+								orientation: "vertical"
+								DatePicker:
+									pHint: 0.2,0.3
+									font_size: 15
+									text_size: self.size
+									size_hint_y: 0.4
+									size_hint_x: 0.8
+								Label:
+									size_hint_y: 0.1
+								TextInput: 
+									font_size: 15
+									text_size: self.size
+									size_hint_y: 0.4
+									size_hint_x: 0.8
+								Label:
+									size_hint_y: 0.1
+								TextInput:
+									font_size: 15
+									text_size: self.size
+									#size_hint_y: 0.06
+									size_hint_x: 0.8
+							BoxLayout:
+								size_hint_x: 0.2
+
+						BoxLayout:
+							size_hint_x: 0.1		
+						BoxLayout:
+							size_hint_x: 0.6
+							BoxLayout:
+								orientation: "vertical"
+								Label:
+									text: 'Sub Total'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.05
+								Label:
+									text: 'Disc.'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									text: 'Taxes'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									text: "Total"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									size_hint_y: 0.1
+							BoxLayout:
+								orientation: "vertical"
+								Label:
+									text: "554"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.05
+								Label:
+									size_hint_y: 0.04
+								TextInput:
+									text: 
+									font_size: 15
+									text_size: self.size
+									size_hint_y: 0.09
+									size_hint_x: 0.5
+								Label:
+									text: "45454"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									text: "45745"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									text_size: self.size
+									size_hint_y: 0.1
+								Label:
+									size_hint_y: 0.1
+			BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05								
+		BoxLayout:
+        	size_hint_x: 0.2
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+<Item_Code_DropDown>:
+    on_select:
+        app.root.ids.stock_screen.ids.item_code.text = '{}'.format(args[1])  
+
+<Stock>:
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		canvas.before:
+		    Color:
+		        rgba: (0,0,0,0.1) 
+		    Rectangle:
+		        pos: self.pos
+		        size: self.size
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.16
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.1
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+		BoxLayout:
+			size_hint_x: 0.2
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+				orientation: "vertical"
+				BoxLayout:
+					padding: 40
+					size_hint_y: 0.27
+				    Label:
+						size_hint_y: 0.8
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Stock"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 40
+					orientation: "vertical"
+				    BoxLayout:
+				    	size_hint_y: 0.05
+						Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Date:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    BoxLayout:
+					    	size_hint_x: 0.3
+					    Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Time:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 0.8
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: root.tm or ""
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					BoxLayout:
+						size_hint_y: 0.2
+					BoxLayout:
+						size_hint_y: 0.1
+						Label:
+							text: 'Item Code '
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+						Label:
+							id: current_stock
+							text: "Current Stock"
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: 'Revised Stock'
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+
+					BoxLayout:
+						size_hint_y: 0.1
+						Button:
+							canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: item_code
+					        text: 'Select Item Code'
+					        on_release: Factory.Item_Code_DropDown().open(self)
+					        size_hint_y: None
+					        height: 40
+						Label:
+							text: ""
+							size_hint_y: 0.50
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+						TextInput:
+							id: revised_stock
+							size_hint_y: 0.60
+					    	font_size: 20
+					    	halign: 'top'
+					BoxLayout:
+						size_hint_y: 0.2
+					BoxLayout:
+						size_hint_y: 0.1
+						BoxLayout:
+							size_hint_x: 0.2
+						BoxLayout:
+							size_hint_x: 2
+							Button:
+								canvas.before:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+		    					background_color: 0, 0, 0, 0.1
+		    					color: 0,0,0,1
+			            		text: "Submit"
+			            		size_hint_y: 0.7
+			            		bold: True
+			            		on_press:
+			            	BoxLayout:
+			            	BoxLayout:
+			            		
+				            	Button:
+				            		canvas.before:
+								        Color:
+								            rgba: 0, 0, 0, 0.8
+								        Line:
+								            width: 1
+								            rectangle: self.x, self.y, self.width, self.height
+			    					background_color: 0, 0, 0, 0.1
+			    					color: 0,0,0,1
+				            		text: "Cancel"
+				            		size_hint_y: 0.7
+				            		bold: True
+				            		on_press:
+			            	BoxLayout:
+			            		size_hint_x: 0.2
+			BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+        BoxLayout:
+        	size_hint_x: 0.4
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.1) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+<Payment_Type_DropDown>:
+    on_select:
+        app.root.ids.payment_screen.ids.payment_type.text = '{}'.format(args[1])  
+
+<Payment_Mode_DropDown>:
+    on_select:
+        app.root.ids.payment_screen.ids.payment_mode.text = '{}'.format(args[1])  
+
+<Payment>:
+	transaction_ref: transaction_ref
+	card_four_digit: card_four_digit
+	amount: amount
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	BoxLayout:
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			size_hint_x: 0.17
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Cutomer"
+				on_press:root.manager.current= 'customer'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Item"
+				on_press:root.manager.current= 'item'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Taxes"
+				on_press:root.manager.current= 'taxes'
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Sales"
+				on_press:root.manager.current= 'sales'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Purchase"
+				on_press:root.manager.current= 'purchase'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Stock"
+				on_press:root.manager.current= 'stock'
+				
+			Button:
+				canvas.before:
+			        Color:
+			            rgba: 0, 0, 0, 0.8
+			        Line:
+			            width: 1
+			            rectangle: self.x, self.y, self.width, self.height
+				background_color: 0, 0, 0, 0.2
+				color: 0,0,0,1
+				text: "Payment"
+				on_press:root.manager.current= 'payment'
+				
+		BoxLayout:
+			size_hint_x: 0.2
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		BoxLayout:
+			orientation: "vertical"
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+			BoxLayout:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 0.8
+			    	Line:
+			        	width: 1
+			        	rectangle: self.x, self.y, self.width, self.height
+			 
+				orientation: "vertical"
+				BoxLayout:
+					padding: 40
+					size_hint_y: 0.22
+				    Label:
+						size_hint_y: 2
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Payment"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        underline: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 40
+					orientation: "vertical"
+				    BoxLayout:
+				    	size_hint_y: 0.1
+						Label:
+							size_hint_y: 3.5
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Date:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 3.5
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 3.5
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Time"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 3.5
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: root.tm or ""
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Trasaction Ref."
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    TextInput:
+					    	size_hint_y: 0.50
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: transaction_ref
+
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Payment Type"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Button:
+					    	canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: payment_type
+					        text: 'Select'
+					        on_release: Factory.Payment_Type_DropDown().open(self)
+					        size_hint_y: None
+					        height: 40
+
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 1
+					        font_size: 20
+					        text: "Mode Of Payment"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Button:
+					    	canvas.before:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: payment_mode
+					        text: 'Select'
+					        on_release: Factory.Payment_Mode_DropDown().open(self)
+					        size_hint_y: None
+					        height: 40
+					    
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Card Four Digits"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    TextInput:
+					    	size_hint_y: 0.50
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: card_four_digit
+					BoxLayout:
+						Label:
+							size_hint_y: 0.35
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Amount"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    TextInput:
+					    	size_hint_y: 0.50
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: amount
+					BoxLayout:
+						size_hint_y: 0.4
+					BoxLayout:
+						size_hint_y: 1
+						BoxLayout:
+							size_hint_x: 0.2
+						BoxLayout:
+							Button:
+								canvas.before:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+		    					background_color: 0, 0, 0, 0.1
+		    					color: 0,0,0,1
+			            		text: "Save"
+			            		size_hint_y: 0.5
+			            		bold: True
+			            		on_press: root.save()
+
+			            	BoxLayout:
+			            	Button:
+			            		canvas.before:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+		    					background_color: 0, 0, 0, 0.1
+		    					color: 0,0,0,1
+			            		text: "Cancel"
+			            		size_hint_y: 0.5
+			            		bold: True
+			            		on_press: root.cencel()
+			            BoxLayout:
+			            	size_hint_x: 0.2
+
+	        BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.05
+        BoxLayout:
+        	size_hint_x: 0.5
+        	canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2) 
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
+
+
+<Manager>:
+	id: screen_manager
+
+	customer: customer_screen
+	supplier: supplier_screen
+	item: item_screen
+	taxes: taxes_screen
+	sales: sales_screen
+	purchase: purchase_screen
+	stock: stock_screen
+	payment: payment_screen
+
+	Customer:
+		id: customer_screen
+		name: 'customer'
+		manager: screen_manager
+
+	Supplier:
+		id: supplier_screen
+		name: 'supplier'
+		manager: screen_manager
+
+	Item:
+		id: item_screen
+		name: 'item'
+		manager: screen_manager
+
+	Taxes:
+		id: taxes_screen
+		name: 'taxes'
+		manager: screen_manager
+	Sales:
+		id: sales_screen
+		name: 'sales'
+		manager: screen_manager
+
+	Purchase:
+		id: purchase_screen
+		name: 'purchase'
+		manager: screen_manager
+
+	Stock:
+		id: stock_screen
+		name: 'stock'
+		manager: screen_manager
+
+	Payment:
+		id: payment_screen
+		name: 'payment'
+		manager: screen_manager
