@@ -11,26 +11,33 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from KivyCalendar import DatePicker
 from random import sample
+from kivy.uix.listview import ListItemButton
 from string import ascii_lowercase
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.clock import Clock
 import time
 
-
 class Customer(Screen):
     rv_data = ListProperty([{'text': 'A', 'value':'1'}, {'text': 'B','value':'2'}, {'text': 'C','value':'3'}])
     customer_name = ObjectProperty()
     contact_number = ObjectProperty()
     contact_email = ObjectProperty()
-
-    def cencel(self):
+    customer_name_list = ObjectProperty()
+    def cancel(self):
         self.customer_name.text = ""
         self.contact_number.text = ""
         self.contact_email.text = ""
 
     def save(self):
-        pass
+        if not self.customer_name.text=="": 
+            # Get the student name from the TextInputs
+            c_name = self.customer_name.text
+            # Add the student to the ListView
+            self.customer_name_list.adapter.data.extend([c_name ])
+            # Reset the ListView
+            self.customer_name_list._trigger_reset_populate()
+            
 
 class Supplier(Screen):
     supplier_name = ObjectProperty()
@@ -39,7 +46,7 @@ class Supplier(Screen):
     contact_number = ObjectProperty()
     email = ObjectProperty()
 
-    def cencel(self):
+    def cancel(self):
         self.supplier_name.text = ""
         self.address.text = ""
         self.tax_id_gst_no.text = ""
@@ -67,7 +74,7 @@ class Item(Screen):
     item_code = ObjectProperty()
     category = ObjectProperty()
 
-    def cencel(self):
+    def cancel(self):
         self.item_name.text = ""
         self.item_code.text = ""
 
@@ -90,7 +97,7 @@ class Taxes(Screen):
     tax_name = ObjectProperty()
     percentage = ObjectProperty()
 
-    def cencel(self):
+    def cancel(self):
         self.tax_name.text = ""
         self.percentage.text = ""
         
@@ -230,7 +237,7 @@ class Payment(Screen):
     card_four_digit = ObjectProperty()
     amount = ObjectProperty()
 
-    def cencel(self):
+    def cancel(self):
         self.transaction_ref.text = ""
         self.card_four_digit.text = ""
         self.amount.text = ""

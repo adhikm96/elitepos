@@ -1,12 +1,13 @@
 #:kivy 1.10
 #:import Factory kivy.factory.Factory
 #:import datetime datetime
-
-
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import ListItemButton kivy.uix.listview.ListItemButton
 <Customer>:
 	customer_name: customer_name
     contact_number: contact_number
     contact_email: contact_email
+    customer_name_list: customer_name_list_view
 	canvas.before:
 		Color:
 		    rgba: (1,1,1,1) 
@@ -27,7 +28,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -158,7 +159,7 @@
 					size_hint_y: 0.6
 					padding:20
 					Label:
-						size_hint_y: 0.40
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Customer Name"
@@ -168,7 +169,7 @@
 
 				    TextInput:
 				    	id: customer_name
-				    	size_hint_y: 0.55
+				    	size_hint_y: 2.2
 				    	size_hint_x: 0.2
 				    	font_size: 20
 
@@ -176,7 +177,7 @@
 					padding:20
 					size_hint_y: 0.6
 					Label:
-						size_hint_y: 0.40
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Contact Number"
@@ -186,7 +187,7 @@
 
 				    TextInput:
 				    	id: contact_number
-				    	size_hint_y: 0.55
+				    	size_hint_y: 2.2
 				    	size_hint_x: 0.2
 				    	font_size: 20
 
@@ -194,7 +195,7 @@
 					padding:20
 					size_hint_y: 0.6
 					Label:
-						size_hint_y: 0.40
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Contact Email"
@@ -203,7 +204,7 @@
 				        color: 0,0,0,1
 				    TextInput:
 				    	id: contact_email
-				    	size_hint_y: 0.55
+				    	size_hint_y: 2.2
 				    	size_hint_x: 0.2
 				    	font_size: 20
 
@@ -221,7 +222,7 @@
 	    					background_color: 0, 0, 0, 0.1
 	    					color: 0,0,0,1
 		            		text: "Save"
-		            		size_hint_y: 0.22
+		            		size_hint_y: 0.4
 		            		bold: True
 		            		on_press: root.save()
 		            	BoxLayout:
@@ -235,25 +236,51 @@
 	    					background_color: 0, 0, 0, 0.1
 	    					color: 0,0,0,1
 		            		text: "Cancel"
-		            		size_hint_y: 0.22
+		            		size_hint_y: 0.4
 		            		bold: True
-		            		on_press: root.cencel()
+		            		on_press: root.cancel()
 		            BoxLayout:
 		            	size_hint_x: 0.2
 	            BoxLayout:
 	            	size_hint_y: 0.2
 	        BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.05
+				size_hint_y: 1
+		BoxLayout:
+			size_hint_x: 0.1
+			canvas.before:
+		        Color:
+		            rgba: (0,0,0,0.2)
+		        Rectangle:
+		            pos: self.pos
+		            size: self.size
         BoxLayout:
+        	orientation: "vertical"
         	canvas.before:
 		        Color:
 		            rgba: (0,0,0,0.2)
 		        Rectangle:
 		            pos: self.pos
 		            size: self.size
+				Color:
+					rgba: 0, 0, 0, 0.8
+		    	Line:
+		        	width: 1
+		        	rectangle: self.x, self.y, self.width, self.height
         	size_hint_x: 0.5
-
+        	Label:
+				size_hint_y: 0.05
+				size_hint_x: 0.5
+		        font_size: 20
+		        text: "Customer List"
+		        bold: True
+		        color: 0,0,0,1
+		        text_size: self.size
+		    ListView:
+	            id: customer_name_list_view
+	            adapter:
+	                ListAdapter(data=[], cls=ListItemButton)
+		    
 
 <Supplier>:
 	supplier_name: supplier_name
@@ -281,7 +308,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -518,7 +545,7 @@
 		            		text: "Cancel"
 		            		size_hint_y: 1.4
 		            		bold: True
-		            		on_press: root.cencel()
+		            		on_press: root.cancel()
 		            BoxLayout:
 		            	size_hint_x: 0.2
 	            
@@ -578,7 +605,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -831,7 +858,7 @@
 		            		text: "Cancel"
 		            		size_hint_y: 0.65
 		            		bold: True
-		            		on_press: root.cencel()
+		            		on_press: root.cancel()
 		            BoxLayout:
 		            	size_hint_x: 0.2
 		        
@@ -874,7 +901,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -1087,7 +1114,7 @@
 			            		text: "Cancel"
 			            		size_hint_y: 0.3
 			            		bold: True
-			            		on_press: root.cencel()
+			            		on_press: root.cancel()
 			            BoxLayout:
 			            	size_hint_x: 0.2
 
@@ -1183,7 +1210,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -1616,7 +1643,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -2055,7 +2082,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -2348,7 +2375,7 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Cutomer"
+				text: "Customer"
 				on_press:root.manager.current= 'customer'
 			Button:
 				canvas.before:
@@ -2634,7 +2661,7 @@
 			            		text: "Cancel"
 			            		size_hint_y: 0.5
 			            		bold: True
-			            		on_press: root.cencel()
+			            		on_press: root.cancel()
 			            BoxLayout:
 			            	size_hint_x: 0.2
 
