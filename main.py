@@ -22,7 +22,15 @@ class Main_Page(Screen):
 	pass
 
 class Customer_List(Screen):
-	pass
+	def on_pre_enter(self):
+		self.cust.data = [{'customer_name': str('Customer'+' '+str(x)),'contact_number':str('12345'+str(x)),'contact_email':str('Customer'+str(x)+'@gmail.com')}
+                        for x in range(50)]
+
+class CustomerGrid(GridLayout):
+    customer_name = ObjectProperty()
+    contact_number = ObjectProperty()
+    contact_email = ObjectProperty()
+
 
 class Customer(Screen):
     rv_data = ListProperty([{'text': 'A', 'value':'1'}, {'text': 'B','value':'2'}, {'text': 'C','value':'3'}])
