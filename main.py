@@ -18,6 +18,12 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.clock import Clock
 import time
 
+class Main_Page(Screen):
+	pass
+
+class Customer_List(Screen):
+	pass
+
 class Customer(Screen):
     rv_data = ListProperty([{'text': 'A', 'value':'1'}, {'text': 'B','value':'2'}, {'text': 'C','value':'3'}])
     customer_name = ObjectProperty()
@@ -258,14 +264,16 @@ class Payment(Screen):
 
 
 class Manager(ScreenManager):
-    customer = ObjectProperty(None)
-    supplier = ObjectProperty(None)
-    item = ObjectProperty(None)
-    taxes = ObjectProperty(None)
-    sales = ObjectProperty(None)
-    purchase = ObjectProperty(None)
-    stock = ObjectProperty(None)
-    payment = ObjectProperty(None)
+	main_page = ObjectProperty(None)
+	customer_list = ObjectProperty(None)
+	customer = ObjectProperty(None)
+	supplier = ObjectProperty(None)
+	item = ObjectProperty(None)
+	taxes = ObjectProperty(None)
+	sales = ObjectProperty(None)
+	purchase = ObjectProperty(None)
+	stock = ObjectProperty(None)
+	payment = ObjectProperty(None)
 
 class ScreensApp(App):
     def build(self):
