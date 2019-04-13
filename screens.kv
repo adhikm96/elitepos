@@ -63,7 +63,7 @@
 #            width: 1
 #            rectangle: self.x, self.y, self.width, self.height
 #    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
-<Main_Page>:
+<MainPage>:
 	canvas.before:
 		Color:
 		    rgba: (1,1,1,1) 
@@ -135,7 +135,7 @@
 			spacing: 20
 			padding: 40
 			Button:
-				text: "Sales"
+				text: "Sale"
 				canvas.before:
 			        Color:
 			            rgba: 0, 0, 0, 0.8
@@ -183,7 +183,7 @@
 				bold: True
 				font_size: 20
 
-<Customer_List>
+<CustomerList>
 	cust: cust
 	canvas.before:
 		Color:
@@ -358,8 +358,8 @@
 #			            rectangle: self.x, self.y, self.width, self.height
 #				background_color: 0, 0, 0, 0.2
 #				color: 0,0,0,1
-#				text: "Taxes"
-#				on_press:root.manager.current= 'taxes'
+#				text: "tax"
+#				on_press:root.manager.current= 'tax'
 #			Button:
 #				canvas.before:
 #			        Color:
@@ -369,8 +369,8 @@
 #			            rectangle: self.x, self.y, self.width, self.height
 #				background_color: 0, 0, 0, 0.2
 #				color: 0,0,0,1
-#				text: "Sales"
-#				on_press:root.manager.current= 'sales'#
+#				text: "sale"
+#				on_press:root.manager.current= 'sale'#
 
 #			Button:
 #				canvas.before:
@@ -687,8 +687,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "Tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -698,8 +698,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -924,7 +924,7 @@
 		id: amount
 		size_hint_x: 0.20
 
-<Category_DropDown>:
+<CategoryDropDown>:
     on_select:
         app.root.ids.item_screen.ids.category.text = '{}'.format(args[1])  
 
@@ -984,8 +984,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "Tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -995,8 +995,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -1132,7 +1132,7 @@
 						color: 0,0,0,1
 				        id: category
 				        text: 'Select'
-				        on_release: Factory.Category_DropDown().open(self)
+				        on_release: Factory.CategoryDropDown().open(self)
 				        size_hint_y: None
 				        height: 35
 
@@ -1220,11 +1220,11 @@
 		            pos: self.pos
 		            size: self.size
 
-<Tax_Type_DropDown>:
+<TaxTypeDropDown>:
     on_select:
-        app.root.ids.taxes_screen.ids.tax_type.text = '{}'.format(args[1])  
+        app.root.ids.tax_screen.ids.tax_type.text = '{}'.format(args[1])  
 
-<Taxes>:
+<Tax>:
 	tax_name: tax_name
 	percentage: percentage
 	canvas.before:
@@ -1280,8 +1280,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "Tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -1291,8 +1291,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -1364,7 +1364,7 @@
 						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 30
-				        text: "Taxes"
+				        text: "Tax"
 				        text_size: self.size
 				        bold: True
 				        italic: True
@@ -1409,7 +1409,7 @@
 							color: 0,0,0,1
 					        id: tax_type
 					        text: 'Select'
-					        on_release: Factory.Tax_Type_DropDown().open(self)
+					        on_release: Factory.TaxTypeDropDown().open(self)
 					        size_hint_y: None
 					        height: 40
 				
@@ -1476,7 +1476,7 @@
 		            pos: self.pos
 		            size: self.size
 
-<SalesTable@GridLayout>:
+<SaleTable@GridLayout>:
 	size_hint:0.9,0.9
 	cols:8
 	spacing: 6
@@ -1524,11 +1524,11 @@
 		size_hint_x: 0.5
 		text: 'Delete'
 
-<Customer_DropDown>:
+<CustomerDropDown>:
     on_select:
-        app.root.ids.sales_screen.ids.customer.text = '{}'.format(args[1]) 
+        app.root.ids.sale_screen.ids.customer.text = '{}'.format(args[1]) 
 
-<Sales>:
+<Sale>:
 	sal: sal
 	canvas.before:
 		Color:
@@ -1589,8 +1589,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "Tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -1600,8 +1600,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "Sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -1674,7 +1674,7 @@
 						size_hint_y: 0.80
 						size_hint_x: 0.2
 				        font_size: 30
-				        text: "Sales"
+				        text: "sale"
 				        text_size: self.size
 				        bold: True
 				        italic: True
@@ -1740,7 +1740,7 @@
 							color: 0,0,0,1
 					        id: customer
 					        text: 'Select'
-					        on_release: Factory.Customer_DropDown().open(self)
+					        on_release: Factory.CustomerDropDown().open(self)
 					        size_hint_y: None
 					        height: 40
 					    BoxLayout:
@@ -1817,7 +1817,7 @@
 						size_hint_y: 0.7
 						RecycleView:
 							id: sal
-							viewclass: 'SalesTable'
+							viewclass: 'SaleTable'
 							RecycleGridLayout:
 				                cols: 1
 				                key_selection: 'selectable'
@@ -1851,7 +1851,7 @@
 									text_size: self.size
 									size_hint_y: 0.1
 								Label:
-									text: 'Taxes'
+									text: 'Tax'
 									font_size: 15
 									color: 0,0,0,1
 									bold: True
@@ -1957,7 +1957,7 @@
 		size_hint_x: 0.5
 		text: 'Delete'
 
-<Supplier_DropDown>:
+<SupplierDropDown>:
     on_select:
         app.root.ids.purchase_screen.ids.supplier.text = '{}'.format(args[1]) 
 
@@ -2022,8 +2022,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "Tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -2033,8 +2033,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -2172,7 +2172,7 @@
 							color: 0,0,0,1
 					        id: supplier
 					        text: 'Select'
-					        on_release: Factory.Supplier_DropDown().open(self)
+					        on_release: Factory.SupplierDropDown().open(self)
 					        size_hint_y: None
 					        height: 40
 					    BoxLayout:
@@ -2337,7 +2337,7 @@
 									text_size: self.size
 									size_hint_y: 0.1
 								Label:
-									text: 'Taxes'
+									text: 'tax'
 									font_size: 15
 									color: 0,0,0,1
 									bold: True
@@ -2397,7 +2397,7 @@
 		            pos: self.pos
 		            size: self.size
 
-<Item_Code_DropDown>:
+<ItemCodeDropDown>:
     on_select:
         app.root.ids.stock_screen.ids.item_code.text = '{}'.format(args[1])  
 
@@ -2461,8 +2461,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -2472,8 +2472,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.1
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -2624,7 +2624,7 @@
 							color: 0,0,0,1
 					        id: item_code
 					        text: 'Select Item Code'
-					        on_release: Factory.Item_Code_DropDown().open(self)
+					        on_release: Factory.ItemCodeDropDown().open(self)
 					        size_hint_y: None
 					        height: 40
 						Label:
@@ -2689,11 +2689,11 @@
 		            pos: self.pos
 		            size: self.size
 
-<Payment_Type_DropDown>:
+<PaymentTypeDropDown>:
     on_select:
         app.root.ids.payment_screen.ids.payment_type.text = '{}'.format(args[1])  
 
-<Payment_Mode_DropDown>:
+<PaymentModeDropDown>:
     on_select:
         app.root.ids.payment_screen.ids.payment_mode.text = '{}'.format(args[1])  
 
@@ -2754,8 +2754,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Taxes"
-				on_press:root.manager.current= 'taxes'
+				text: "tax"
+				on_press:root.manager.current= 'tax'
 			Button:
 				canvas.before:
 			        Color:
@@ -2765,8 +2765,8 @@
 			            rectangle: self.x, self.y, self.width, self.height
 				background_color: 0, 0, 0, 0.2
 				color: 0,0,0,1
-				text: "Sales"
-				on_press:root.manager.current= 'sales'
+				text: "sale"
+				on_press:root.manager.current= 'sale'
 				
 			Button:
 				canvas.before:
@@ -2917,7 +2917,7 @@
 							color: 0,0,0,1
 					        id: payment_type
 					        text: 'Select'
-					        on_release: Factory.Payment_Type_DropDown().open(self)
+					        on_release: Factory.PaymentTypeDropDown().open(self)
 					        size_hint_y: None
 					        height: 40
 
@@ -2941,7 +2941,7 @@
 							color: 0,0,0,1
 					        id: payment_mode
 					        text: 'Select'
-					        on_release: Factory.Payment_Mode_DropDown().open(self)
+					        on_release: Factory.PaymentModeDropDown().open(self)
 					        size_hint_y: None
 					        height: 40
 					    
@@ -3031,17 +3031,17 @@
 	customer: customer_screen
 	supplier: supplier_screen
 	item: item_screen
-	taxes: taxes_screen
-	sales: sales_screen
+	tax: tax_screen
+	sale: sale_screen
 	purchase: purchase_screen
 	stock: stock_screen
 	payment: payment_screen
-	Main_Page:
+	MainPage:
 		id: main_screen
 		name: 'main_page'
 		manager: screen_manager
 
-	Customer_List:
+	CustomerList:
 		id: customer_list_screen
 		name: 'customer_list'
 		manager: screen_manager
@@ -3061,13 +3061,13 @@
 		name: 'item'
 		manager: screen_manager
 
-	Taxes:
-		id: taxes_screen
-		name: 'taxes'
+	Tax:
+		id: tax_screen
+		name: 'tax'
 		manager: screen_manager
-	Sales:
-		id: sales_screen
-		name: 'sales'
+	Sale:
+		id: sale_screen
+		name: 'sale'
 		manager: screen_manager
 
 	Purchase:
