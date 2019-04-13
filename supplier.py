@@ -22,7 +22,17 @@ class Supplier(Screen):
 
     def save(self):
         pass
+class SupplierGrid(GridLayout):
+    supplier_name = ObjectProperty()
+    address = ObjectProperty()
+    tax_id_gst_no = ObjectProperty()
+    contact_number = ObjectProperty()
+    email = ObjectProperty()
 
+class SupplierList(Screen):
+    def on_pre_enter(self):
+        self.sup.data = [{'supplier_name': str('Supplier'+' '+str(x)),'address':str('Address'+str(x)),'tax_id_gst_no':str('123'+str(x)),'contact_number':str('56465'+str(x)),'email':str('Supplier'+str(x)+'@gmail.com')}
+                        for x in range(50)]
 class SupplierDropDown(DropDown):
     data = ['Supplier 1','Supplier 2','Supplier 3']
     def __init__(self, **kwargs):

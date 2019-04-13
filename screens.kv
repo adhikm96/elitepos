@@ -3,186 +3,141 @@
 #:import datetime datetime
 #: import ListAdapter kivy.adapters.listadapter.ListAdapter
 #: import ListItemButton kivy.uix.listview.ListItemButton
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
 
-<CustomerGrid@GridLayout>:
-	size_hint: 1.2,1.2
-	size_hint_y: 0.6
-	cols:3
-	Button:
-		text: root.customer_name or ""
-		background_color: 0,0,0,0
-		color: 0,0,0,1
-		canvas.before:
-	        Color:
-	            rgba: 0, 0, 0, 0.8
-	        Line:
-	            width: 1
-	            rectangle: self.x, self.y, self.width, self.height
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
-	    text_size: self.size
-	    valign: "middle"
-	    padding_x: 5
-	Button:
-		text: root.contact_number or ""
-		background_color: 0,0,0,0
-		color: 0,0,0,1
-		canvas.before:
-	        Color:
-	            rgba: 0, 0, 0, 0.8
-	        Line:
-	            width: 1
-	            rectangle: self.x, self.y, self.width, self.height
-	    text_size: self.size
-	    valign: "middle"
-	    padding_x: 5
-	Button:
-		text: root.contact_email or ""
-		background_color: 0,0,0,0
-		color: 0,0,0,1
-		canvas.before:
-	        Color:
-	            rgba: 0, 0, 0, 0.8
-	        Line:
-	            width: 1
-	            rectangle: self.x, self.y, self.width, self.height
-	    text_size: self.size
-	    valign: "middle"
-	    padding_x: 5
+<CustomListTitle@Label>:
+	text_size: self.size
+	font_size: 30
+	bold: True
+	color: 0,0,0,1
 
-#<CustomerListButton@ListItemButton>:
-#	 text_size: self.size
-#    selected_color: 1,0,0,0.2
-#    deselected_color: 200, 200, 200, 1 
-#    color: 0, 0, 0, 1
-#    size: (100, '32dp')
-#    canvas.before:
-#        Color:
-#            rgba: 0, 0, 0, 0.8
-#        Line:#
-
-#            width: 1
-#            rectangle: self.x, self.y, self.width, self.height
-#    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
-<MainPage>:
+<CustomListBoxLayout@BoxLayout>:
 	canvas.before:
+	    Color:
+	        rgba: 0, 0, 0, 0.8
+	    Line:
+	        width: 1
+	        rectangle: self.x, self.y, self.width, self.height
+
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
-		canvas.before:
-			Color: 
-			    rgba: (0,0,0,0.2) 
-			Rectangle:
-			    pos: self.pos
-			    size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			spacing: 20
-			padding: 40
-			Button:
-				text: "Customer"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-				on_press:root.manager.current= 'customer_list'
-			Button:
-				text: "Supplier"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-			Button:
-				text: "Item"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-			Button:
-				text: "Tax"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-		BoxLayout:
-			orientation: "vertical"
-			spacing: 20
-			padding: 40
-			Button:
-				text: "Sale"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-			Button:
-				text: "Purchase"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-			Button:
-				text: "Stock"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
-			Button:
-				text: "Payment"
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				bold: True
-				font_size: 20
 
+<CustomListLabel@Label>:
+	text_size: self.size
+	color: 0,0,0,1
+	bold: True
+	padding_x: 5
+	font_size: 18
+
+<CustomListButton@Button>:
+	size_hint_x: 0.1
+	size_hint_y: 1.2
+	canvas.before:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+	background_color: 0, 0, 0, 0.2
+	color: 0,0,0,1
+	bold: True
+
+<CustomListRecycleGridLayout@RecycleGridLayout>:
+	cols: 1
+    key_selection: 'selectable'
+    default_size: None, dp(35)
+    default_size_hint: 1, None
+    size_hint_y: None
+    height: self.minimum_height
+    multiselect: True
+    touch_multiselect: True
+
+
+<CustomGridButton@Button>:
+	background_color: 0,0,0,0
+	color: 0,0,0,1
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+    text_size: self.size
+    valign: "middle"
+    padding_x: 5
+
+<CustomerGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	CustomGridButton:
+		text: root.customer_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.contact_number or ""
+	CustomGridButton:
+		text: root.contact_email or ""
+
+<MainPageButton@Button>:
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+	background_color: 0, 0, 0, 0.2
+	color: 0,0,0,1
+	bold: True
+	font_size: 20
+
+<CustomBoxLayout@BoxLayout>:
+	canvas:
+		Color: 
+		    rgba: (0,0,0,0.2) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+<MainPage>:
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		BoxLayout:
+			orientation: "vertical"
+			spacing: 20
+			padding: 40
+			MainPageButton:
+				text: "Customer"
+				on_press:root.manager.current= 'customer_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
+			MainPageButton:
+				text: "Supplier"
+				on_press:root.manager.current= 'supplier_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
+			MainPageButton:
+				text: "Item"
+			MainPageButton:
+				text: "Tax"
+		BoxLayout:
+			orientation: "vertical"
+			spacing: 20
+			padding: 40
+			MainPageButton:
+				text: "Sale"
+			MainPageButton:
+				text: "Purchase"
+			MainPageButton:
+				text: "Stock"
+			MainPageButton:
+				text: "Payment"
+				
 <CustomerList>
 	cust: cust
 	canvas.before:
@@ -191,243 +146,72 @@
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
+	CustomBoxLayout:
 		padding: 20
-		canvas.before:
-			Color: 
-			    rgba: (0,0,0,0.2) 
-			Rectangle:
-			    pos: self.pos
-			    size: self.size
 		orientation: "vertical"
 		BoxLayout:
 			orientation: "vertical"
 			BoxLayout:
 				spacing: 5
 				size_hint_y: 0.06
-				Label:
-					text: "Customer List"
-					text_size: self.size
-					font_size: 30
-					bold: True
-					color: 0,0,0,1
-					underline: True
-				Button:
-					size_hint_x: 0.1
-					size_hint_y: 1.2
+				CustomListTitle:
+					text: "Customer"
+					
+				CustomListButton:
 					text: "Back"
-					canvas.before:
-				        Color:
-				            rgba: 0, 0, 0, 0.8
-				        Line:
-				            width: 1
-				            rectangle: self.x, self.y, self.width, self.height
-					background_color: 0, 0, 0, 0.2
-					color: 0,0,0,1
-					bold: True
 					on_press:root.manager.current= 'main_page'
-				Button:
-					size_hint_x: 0.1
-					size_hint_y: 1.2
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
 					text: "Add New"
-					canvas.before:
-				        Color:
-				            rgba: 0, 0, 0, 0.8
-				        Line:
-				            width: 1
-				            rectangle: self.x, self.y, self.width, self.height
-					background_color: 0, 0, 0, 0.2
-					color: 0,0,0,1
-					bold: True
 					on_press:root.manager.current= 'customer'
+					on_press: root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
-				Label:
+				CustomListLabel:
 					text: "Customer Name"
-					text_size: self.size
-					color: 0,0,0,1
-					bold: True
-					padding_x: 5
-					font_size: 18
-				Label:
+					
+				CustomListLabel:
 					text: "Contact Number"
-					text_size: self.size
-					color: 0,0,0,1
-					bold: True
-					padding_x: 5
-					font_size: 18
-				Label:
+	
+				CustomListLabel:
 					text: "Contact Email"
-					text_size: self.size
-					color: 0,0,0,1
-					bold: True
-					padding_x: 5
-					font_size: 18
-			BoxLayout:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-			
-					Color:
-					    rgba: (1,1,1,1) 
-					Rectangle:
-					    pos: self.pos
-					    size: self.size
+					
+			CustomListBoxLayout:
 				RecycleView:
 					id:cust
 					viewclass: 'CustomerGrid'
-					RecycleGridLayout:
-		                cols: 1
-		                key_selection: 'selectable'
-		                default_size: None, dp(35)
-		                default_size_hint: 1, None
-		                size_hint_y: None
-		                height: self.minimum_height
-		                multiselect: True
-		                touch_multiselect: True
-				#ListView:
-#					adapter:
-#			            ListAdapter(data=['a','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b'], cls=Factory.CustomerListButton,deselected_color= '200, 200, 200, 1' )
+					CustomListRecycleGridLayout:
+		               
+
+<CustomerLabel@Label>:
+	size_hint_y: 3
+	size_hint_x: 0.2
+    font_size: 20
+    text: "Customer Name"
+    text_size: self.size
+    bold: True
+    color: 0,0,0,1
+<CustomerTexInput@TextInput>:
+	size_hint_y: 2
+	size_hint_x: 0.2
+	font_size: 20
 
 <Customer>:
 	customer_name: customer_name
     contact_number: contact_number
     contact_email: contact_email
-    #customer_name_list: customer_name_list_view
-	canvas.before:
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
+	CustomBoxLayout:
 		orientation: "horizontal"
-		canvas.before:
-	        Color:
-	            rgba: (0,0,0,0.2)
-	        Rectangle:
-	            pos: self.pos
-	            size: self.size
-		    	
-		#BoxLayout:
-#			orientation: "vertical"
-#			size_hint_x: 0.17
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "Customer"
-#				on_press:root.manager.current= 'customer'
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "Supplier"
-#				on_press:root.manager.current= 'supplier'
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "Item"
-#				on_press:root.manager.current= 'item'
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "tax"
-#				on_press:root.manager.current= 'tax'
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "sale"
-#				on_press:root.manager.current= 'sale'#
-
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "Purchase"
-#				on_press:root.manager.current= 'purchase'
-#				
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "Stock"
-#				on_press:root.manager.current= 'stock'
-#				
-#			Button:
-#				canvas.before:
-#			        Color:
-#			            rgba: 0, 0, 0, 0.8
-#			        Line:
-#			            width: 1
-#			            rectangle: self.x, self.y, self.width, self.height
-#				background_color: 0, 0, 0, 0.2
-#				color: 0,0,0,1
-#				text: "Payment"
-#				on_press:root.manager.current= 'payment'
-#				
-
-		#BoxLayout:
-#			size_hint_x: 0.05
-#			canvas.before:
-#		        Color:
-#		            rgba: (0,0,0,0.2) 
-#		        Rectangle:
-#		            pos: self.pos
-#		            size: self.size
-
-		BoxLayout:
+		CustomBoxLayout:
 			spacing: 20
 			padding: 20
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2)
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		    	
 			orientation: "vertical"
 			BoxLayout:
 				size_hint_y: 0.1
@@ -445,6 +229,7 @@
 					color: 0,0,0,1
 					bold: True
 					on_press:root.manager.current= 'customer_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
 				Label:
 			BoxLayout:
 				canvas.before:
@@ -466,68 +251,37 @@
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
 					size_hint_y: 1
 					padding:20
-					Label:
-						size_hint_y: 3
-						size_hint_x: 0.2
-				        font_size: 20
-				        text: "Customer Name"
-				        text_size: self.size
-				        bold: True
-				        color: 0,0,0,1
-
-				    TextInput:
+					CustomerLabel:	
+				        text: "Customer Name"	        
+				    CustomerTexInput:
 				    	id: customer_name
-				    	size_hint_y: 2
-				    	size_hint_x: 0.2
-				    	font_size: 20
-
+				    	
 				BoxLayout:
 					padding:20
 					size_hint_y: 1
-					Label:
-						size_hint_y: 3
-						size_hint_x: 0.2
-				        font_size: 20
+					CustomerLabel:
 				        text: "Contact Number"
-				        text_size: self.size
-				        bold: True
-				        color: 0,0,0,1
-
-				    TextInput:
+				    CustomerTexInput:
 				    	id: contact_number
-				    	size_hint_y: 2
-				    	size_hint_x: 0.2
-				    	font_size: 20
 
 				BoxLayout:
 					padding:20
 					size_hint_y: 1
-					Label:
-						size_hint_y: 3
-						size_hint_x: 0.2
-				        font_size: 20
+					CustomerLabel:
 				        text: "Contact Email"
-				        text_size: self.size
-				        bold: True
-				        color: 0,0,0,1
-				    TextInput:
+				    CustomerTexInput:
 				    	id: contact_email
-				    	size_hint_y: 2
-				    	size_hint_x: 0.2
-				    	font_size: 20
-
 
 				BoxLayout:
 					BoxLayout:
 						size_hint_x: 0.5
 					BoxLayout:
 						Button:
-							canvas.before:
+							canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -560,74 +314,74 @@
 	        BoxLayout:
 				orientation: "vertical"
 				size_hint_y: 1
-		BoxLayout:
-			size_hint_x: 0.1
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2)
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-        BoxLayout:
-        	orientation: "vertical"
-        	size_hint_x: 0.3
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-        	BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.025
-			#BoxLayout:
-#				canvas.before:
-#					Color:
-#						rgba: 0, 0, 0, 0.8
-#			    	Line:
-#			        	width: 1
-#			        	rectangle: self.x, self.y, self.width, self.height
-#			    
-#				orientation: "vertical"
-#	        	Label:
-#	        		canvas.before:
-#				        Color:
-#				            rgba: (1,1,1,1)
-#				        Rectangle:
-#				            pos: self.pos
-#				            size: self.size
-#					size_hint_y: 0.05
-#					size_hint_x: 1
-#			        font_size: 20
-#			        text: "Customer List"
-#			        bold: True
-#			        color: 0,0,0,1
-#			        #text_size: self.size
-#			        underline: True
-#			       
-#			    ListView:
-#					canvas.before:
-#				        Color:
-#				            rgba: (1,1,1,1)
-#				        Rectangle:
-#				            pos: self.pos
-#				            size: self.size
-#		            id: customer_name_list_view
-#		            adapter:
-#		                ListAdapter(data=[], cls=ListItemButton)
-		    BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.025
-		BoxLayout:
-        	orientation: "vertical"
-        	size_hint_x: 0.1
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+		CustomBoxLayout:
+			size_hint_x: 0.5
+             
 
+<SupplierGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:5
+	CustomGridButton:
+		text: root.supplier_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'supplier'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.address or ""
+	CustomGridButton:
+		text: root.tax_id_gst_no or ""
+	CustomGridButton:
+		text: root.contact_number or ""
+	CustomGridButton:
+		text: root.email or ""
+
+<SupplierList>
+	sup: sup
+	canvas.before:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Supplier"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'supplier'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Supplier Name"				
+				CustomListLabel:
+					text: "Address"
+				CustomListLabel:
+					text: "Tax Id/GST No"
+				CustomListLabel:
+					text: "Contact Number"
+				CustomListLabel:
+					text: "Email"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: sup
+					viewclass: 'SupplierGrid'
+					CustomListRecycleGridLayout:
+	       
 <Supplier>:
 	supplier_name: supplier_name
     address: address
@@ -640,123 +394,30 @@
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
+	CustomBoxLayout:
 		orientation: "horizontal"
 		BoxLayout:
+			spacing: 20
+			padding: 20
 			orientation: "vertical"
-			size_hint_x: 0.17
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
-				
-		BoxLayout:
-			size_hint_x: 0.2
-			canvas.before:
-				Color: 
-				    rgba: (0,0,0,0.2) 
-				Rectangle:
-				    pos: self.pos
-				    size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-				Color: 
-				    rgba: (0,0,0,0.2) 
-				Rectangle:
-				    pos: self.pos
-				    size: self.size
-
 			BoxLayout:
-				orientation: "vertical"
 				size_hint_y: 0.05
+				Button:
+					size_hint_x: 0.15
+					size_hint_y: 1.5
+					text: "Back"
+					canvas.before:
+				        Color:
+				            rgba: 0, 0, 0, 0.8
+				        Line:
+				            width: 1
+				            rectangle: self.x, self.y, self.width, self.height
+					background_color: 0, 0, 0, 0.1
+					color: 0,0,0,1
+					bold: True
+					on_press:root.manager.current= 'supplier_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
 			BoxLayout:
 				canvas.before:
 					Color:
@@ -768,21 +429,20 @@
 				orientation: "vertical"
 				BoxLayout:
 					padding: 20
-					size_hint_y: 1.3
+					size_hint_y: 1.2
 				    Label:
-						size_hint_y: 0.80
+						size_hint_y: 10
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "Supplier"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
 					padding: 20
 					Label:
-						size_hint_y: 1.2
+						size_hint_y: 12
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Supplier Name"
@@ -791,7 +451,7 @@
 				        color: 0,0,0,1
 				    TextInput:
 				    	id: supplier_name
-				    	size_hint_y: 1.3
+				    	size_hint_y: 3.5
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				BoxLayout:
@@ -799,7 +459,7 @@
 					padding: 20
 					Label:
 						valign:'top'
-						size_hint_y: 3
+						size_hint_y: 8
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Address"
@@ -807,7 +467,7 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y:  3
+				    	size_hint_y: 8
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: address
@@ -815,7 +475,7 @@
 				BoxLayout:
 					padding: 20
 					Label:
-						size_hint_y: 1.2
+						size_hint_y: 12
 						size_hint_x: 0.2
 						font_size: 20
 				        text: "Tax Id/GST No"
@@ -823,14 +483,14 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y:1.3
+				    	size_hint_y: 3.5
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: tax_id_gst_no
 				BoxLayout:
 					padding: 20
 					Label:
-						size_hint_y: 1.2
+						size_hint_y: 12
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Contact Number"
@@ -838,7 +498,7 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y: 1.3
+				    	size_hint_y: 3.5
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: contact_number
@@ -846,7 +506,7 @@
 				BoxLayout:
 					padding: 20
 					Label:
-						size_hint_y: 1.2
+						size_hint_y: 12
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Email"
@@ -854,7 +514,7 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y: 1.3
+				    	size_hint_y: 3.5
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: email
@@ -863,7 +523,7 @@
 				BoxLayout:
 					padding: 20
 					BoxLayout:
-						size_hint_x: 0.2
+						size_hint_x: 0.4
 					BoxLayout:
 						Button:
 							canvas.before:
@@ -875,7 +535,7 @@
 	    					background_color: 0, 0, 0, 0.1
 	    					color: 0,0,0,1
 		            		text: "Save"
-		            		size_hint_y: 1.4
+		            		size_hint_y: 4
 		            		bold: True
 		            		on_press: root.save()
 		            	BoxLayout:
@@ -889,23 +549,18 @@
 	    					background_color: 0, 0, 0, 0.1
 	    					color: 0,0,0,1
 		            		text: "Cancel"
-		            		size_hint_y: 1.4
+		            		size_hint_y: 4
 		            		bold: True
 		            		on_press: root.cancel()
 		            BoxLayout:
-		            	size_hint_x: 0.2
+		            	size_hint_x: 0.4
 	            
 	        BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.05	
+				size_hint_y: 0.3
         BoxLayout:
         	size_hint_x: 0.5
-        	canvas.before:
-				Color: 
-				    rgba: (0,0,0,0.2) 
-				Rectangle:
-				    pos: self.pos
-				    size: self.size
+        	
 
 <CustomTaxTable@GridLayout>:
 	size_hint: 1.2,1.2
@@ -942,97 +597,7 @@
 		BoxLayout:
 			orientation: "vertical"
 			size_hint_x: 0.17
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
+			
 				
 		BoxLayout:
 			size_hint_x: 0.2
@@ -1238,97 +803,7 @@
 		BoxLayout:
 			orientation: "vertical"
 			size_hint_x: 0.17
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
+			
 				
 		BoxLayout:
 			size_hint_x: 0.2
@@ -1547,99 +1022,7 @@
 		BoxLayout:
 			orientation: "vertical"
 			size_hint_x: 0.13
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
-				
-	
+			
 		BoxLayout:
         	size_hint_x: 0.1
         	canvas.before:
@@ -1980,97 +1363,6 @@
 		BoxLayout:
 			orientation: "vertical"
 			size_hint_x: 0.13
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
 				
 		BoxLayout:
         	size_hint_x: 0.1
@@ -2290,7 +1582,6 @@
 									color: 0,0,0,1
 									bold: True
 									text_size: self.size
-									#size_hint_y: 0.1
 							BoxLayout:
 								orientation: "vertical"
 								DatePicker:
@@ -2311,7 +1602,6 @@
 								TextInput:
 									font_size: 15
 									text_size: self.size
-									#size_hint_y: 0.06
 									size_hint_x: 0.8
 							BoxLayout:
 								size_hint_x: 0.2
@@ -2419,97 +1709,6 @@
 		BoxLayout:
 			orientation: "vertical"
 			size_hint_x: 0.16
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.1
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
 				
 		BoxLayout:
 			size_hint_x: 0.2
@@ -2712,97 +1911,7 @@
 		BoxLayout:
 			orientation: "vertical"
 			size_hint_x: 0.17
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Customer"
-				on_press:root.manager.current= 'customer'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Supplier"
-				on_press:root.manager.current= 'supplier'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Item"
-				on_press:root.manager.current= 'item'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "tax"
-				on_press:root.manager.current= 'tax'
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "sale"
-				on_press:root.manager.current= 'sale'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Purchase"
-				on_press:root.manager.current= 'purchase'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Stock"
-				on_press:root.manager.current= 'stock'
-				
-			Button:
-				canvas.before:
-			        Color:
-			            rgba: 0, 0, 0, 0.8
-			        Line:
-			            width: 1
-			            rectangle: self.x, self.y, self.width, self.height
-				background_color: 0, 0, 0, 0.2
-				color: 0,0,0,1
-				text: "Payment"
-				on_press:root.manager.current= 'payment'
+			
 				
 		BoxLayout:
 			size_hint_x: 0.2
@@ -3030,6 +2139,7 @@
 	customer_list: customer_list_screen
 	customer: customer_screen
 	supplier: supplier_screen
+	supplier_list: supplier_list_screen
 	item: item_screen
 	tax: tax_screen
 	sale: sale_screen
@@ -3049,6 +2159,11 @@
 	Customer:
 		id: customer_screen
 		name: 'customer'
+		manager: screen_manager
+
+	SupplierList:
+		id: supplier_list_screen
+		name: 'supplier_list'
 		manager: screen_manager
 
 	Supplier:

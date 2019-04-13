@@ -38,6 +38,7 @@ class Manager(ScreenManager):
     customer = ObjectProperty(None)
     customer_list = ObjectProperty()
     supplier = ObjectProperty(None)
+    supplier_list = ObjectProperty()
     item = ObjectProperty(None)
     tax = ObjectProperty(None)
     sale = ObjectProperty(None)
