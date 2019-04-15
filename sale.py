@@ -29,3 +29,13 @@ class SaleTable(GridLayout):
     dis = ObjectProperty()
     amt = ObjectProperty()
 
+class SaleGrid(GridLayout):
+    customer_name = ObjectProperty()
+    total = ObjectProperty()
+    
+
+class SaleList(Screen):
+    def on_pre_enter(self):
+        self.sallist.data = [{'customer_name': str('Customer'+' '+str(x)),'total':str('123'+str(x))}
+                        for x in range(50)]
+

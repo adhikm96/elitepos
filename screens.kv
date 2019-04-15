@@ -12,7 +12,7 @@
 	color: 0,0,0,1
 
 <CustomListBoxLayout@BoxLayout>:
-	canvas.before:
+	canvas:
 	    Color:
 	        rgba: 0, 0, 0, 0.8
 	    Line:
@@ -35,7 +35,7 @@
 <CustomListButton@Button>:
 	size_hint_x: 0.1
 	size_hint_y: 1.2
-	canvas.before:
+	canvas:
         Color:
             rgba: 0, 0, 0, 0.8
         Line:
@@ -44,6 +44,43 @@
 	background_color: 0, 0, 0, 0.2
 	color: 0,0,0,1
 	bold: True
+
+<CustomBackButton@Button>:
+	text: "Back"
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+	background_color: 0, 0, 0, 0.1
+	color: 0,0,0,1
+
+<CustomSaveButton@Button>:
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+	background_color: 0, 0, 0, 0.1
+	color: 0,0,0,1
+	bold: True
+	text: "Save"
+	
+
+<CustomCancelButton@Button>:
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+	background_color: 0, 0, 0, 0.1
+	color: 0,0,0,1
+	text: "Cancel"
+	bold: True
+
 
 <CustomListRecycleGridLayout@RecycleGridLayout>:
 	cols: 1
@@ -101,6 +138,16 @@
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
+
+<CustomLineBoxLayout@BoxLayout>:
+	canvas:
+		Color:
+			rgba: 0, 0, 0, 0.8
+    	Line:
+        	width: 1
+        	rectangle: self.x, self.y, self.width, self.height
+
+	
 <MainPage>:
 	canvas:
 		Color:
@@ -123,24 +170,36 @@
 				on_press: root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Item"
+				on_press:root.manager.current= 'item_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Tax"
+				on_press:root.manager.current= 'tax_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
 		BoxLayout:
 			orientation: "vertical"
 			spacing: 20
 			padding: 40
 			MainPageButton:
 				text: "Sale"
+				on_press:root.manager.current= 'sale_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Purchase"
+				on_press:root.manager.current= 'purchase_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Stock"
+				on_press:root.manager.current= 'stock_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Payment"
+				on_press:root.manager.current= 'payment_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
 				
 <CustomerList>
 	cust: cust
-	canvas.before:
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
@@ -193,7 +252,7 @@
     bold: True
     color: 0,0,0,1
 <CustomerTexInput@TextInput>:
-	size_hint_y: 2
+	size_hint_y: 2.1
 	size_hint_x: 0.2
 	font_size: 20
 
@@ -215,30 +274,14 @@
 			orientation: "vertical"
 			BoxLayout:
 				size_hint_y: 0.1
-				Button:
+				CustomBackButton:
 					size_hint_x: 0.15
 					size_hint_y: 1.3
-					text: "Back"
-					canvas.before:
-				        Color:
-				            rgba: 0, 0, 0, 0.8
-				        Line:
-				            width: 1
-				            rectangle: self.x, self.y, self.width, self.height
-					background_color: 0, 0, 0, 0.1
-					color: 0,0,0,1
 					bold: True
 					on_press:root.manager.current= 'customer_list'	
 					on_press: root.manager.transition = SlideTransition(direction="right")
 				Label:
-			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
-			    
+			CustomLineBoxLayout:	
 				orientation: "vertical"
 				BoxLayout:
 					padding:20
@@ -280,33 +323,15 @@
 					BoxLayout:
 						size_hint_x: 0.5
 					BoxLayout:
-						Button:
-							canvas:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Save"
+						CustomSaveButton:
 		            		size_hint_y: 0.7
-		            		bold: True
 		            		on_press: root.save()
+		            		
 		            	BoxLayout:
-		            	Button:
-		            		canvas.before:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Cancel"
+		            	CustomCancelButton:
 		            		size_hint_y: 0.7
-		            		bold: True
 		            		on_press: root.cancel()
+		            		
 		            BoxLayout:
 		            	size_hint_x: 0.5
 	            BoxLayout:
@@ -337,7 +362,7 @@
 
 <SupplierList>
 	sup: sup
-	canvas.before:
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
@@ -388,7 +413,7 @@
     tax_id_gst_no: tax_id_gst_no
     contact_number: contact_number
     email: email
-	canvas.before:
+	canvas:
 		Color: 
 		    rgba: (1,1,1,1) 
 		Rectangle:
@@ -402,30 +427,13 @@
 			orientation: "vertical"
 			BoxLayout:
 				size_hint_y: 0.05
-				Button:
+				CustomBackButton:
 					size_hint_x: 0.15
 					size_hint_y: 1.5
-					text: "Back"
-					canvas.before:
-				        Color:
-				            rgba: 0, 0, 0, 0.8
-				        Line:
-				            width: 1
-				            rectangle: self.x, self.y, self.width, self.height
-					background_color: 0, 0, 0, 0.1
-					color: 0,0,0,1
-					bold: True
 					on_press:root.manager.current= 'supplier_list'	
 					on_press: root.manager.transition = SlideTransition(direction="right")
 				Label:
-			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
-			    
+			CustomLineBoxLayout:
 				orientation: "vertical"
 				BoxLayout:
 					padding: 20
@@ -525,32 +533,12 @@
 					BoxLayout:
 						size_hint_x: 0.4
 					BoxLayout:
-						Button:
-							canvas.before:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Save"
+						CustomSaveButton:
 		            		size_hint_y: 4
-		            		bold: True
 		            		on_press: root.save()
 		            	BoxLayout:
-		            	Button:
-		            		canvas.before:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Cancel"
+		            	CustomCancelButton:
 		            		size_hint_y: 4
-		            		bold: True
 		            		on_press: root.cancel()
 		            BoxLayout:
 		            	size_hint_x: 0.4
@@ -583,69 +571,107 @@
     on_select:
         app.root.ids.item_screen.ids.category.text = '{}'.format(args[1])  
 
-<Item>:
-	item_name: item_name
-	item_code: item_code
-	canvas.before:
+<ItemGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	CustomGridButton:
+		text: root.item_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'item'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.item_code or ""
+	CustomGridButton:
+		text: root.category or ""
+
+<ItemList>
+	itm: itm
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Item"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'item'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Item Name"				
+				CustomListLabel:
+					text: "Item Code"
+				CustomListLabel:
+					text: "Category"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: itm
+					viewclass: 'ItemGrid'
+					CustomListRecycleGridLayout:
+
+<Item>:
+	item_name: item_name
+	item_code: item_code
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
 		orientation: "horizontal"
+		padding: 20
+		spacing: 20					
 		BoxLayout:
 			orientation: "vertical"
-			size_hint_x: 0.17
-			
-				
-		BoxLayout:
-			size_hint_x: 0.2
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
 
 		    BoxLayout:
-				orientation: "vertical"
 				size_hint_y: 0.05
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.5
+					on_press:root.manager.current= 'item_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
 			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
-			    
+				size_hint_y: 0.03
+			CustomLineBoxLayout:
 				orientation: "vertical" 
 				BoxLayout:
 					padding:20
-					size_hint_y: 1
+					size_hint_y: 0.7
 				    Label:
-						size_hint_y:2.5
+						size_hint_y:80
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "Item"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
 					padding:20
-					size_hint_y: 1
+					size_hint_y: 0.5
 					Label:
-						size_hint_y: 0.5
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Item Name"
@@ -653,16 +679,16 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y: 0.70
+				    	size_hint_y: 3
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: item_name
 
 				BoxLayout:
 					padding:20
-					size_hint_y: 1
+					size_hint_y: 0.5
 					Label:
-						size_hint_y: 0.5
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 20
 				        text: "Item Code"
@@ -670,16 +696,16 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y: 0.70
+				    	size_hint_y: 3
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: item_code
 
 				BoxLayout:
 					padding:20
-					size_hint_y: 1
+					size_hint_y: 0.5
 					Label:
-						size_hint_y: 0.5
+						size_hint_y: 3
 						size_hint_x: 1
 				        font_size: 20
 				        text: "Category"
@@ -687,7 +713,7 @@
 				        bold: True
 				        color: 0,0,0,1
 				    Button:
-				    	canvas.before:
+				    	canvas:
 					        Color:
 					            rgba: 0, 0, 0, 0.8
 					        Line:
@@ -695,6 +721,7 @@
 					            rectangle: self.x, self.y, self.width, self.height
 						background_color: 0, 0, 0, 0.1
 						color: 0,0,0,1
+						size_hint_y: 3
 				        id: category
 				        text: 'Select'
 				        on_release: Factory.CategoryDropDown().open(self)
@@ -739,119 +766,130 @@
 				BoxLayout:
 					padding:20
 					BoxLayout:
-						size_hint_x: 0.2
+						size_hint_x: 0.4
 					BoxLayout:
-						Button:
-							canvas.before:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Save"
+						CustomSaveButton:
 		            		size_hint_y: 0.65
-		            		bold: True
 		            		on_press: root.save()
 
 		            	BoxLayout:
-
-		            	Button:
-		            		canvas.before:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Cancel"
+		            	CustomCancelButton:
 		            		size_hint_y: 0.65
-		            		bold: True
 		            		on_press: root.cancel()
 		            BoxLayout:
-		            	size_hint_x: 0.2
+		            	size_hint_x: 0.4
 		        
 		    BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.05
+				size_hint_y: 0.1
         BoxLayout:
         	size_hint_x: 0.5
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+        	
 
 <TaxTypeDropDown>:
     on_select:
         app.root.ids.tax_screen.ids.tax_type.text = '{}'.format(args[1])  
 
-<Tax>:
-	tax_name: tax_name
-	percentage: percentage
-	canvas.before:
+<TaxGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	CustomGridButton:
+		text: root.tax_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'tax'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.tax_type or ""
+	CustomGridButton:
+		text: root.percentage or ""
+
+<TaxList>
+	tx: tx
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Tax"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'tax'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Tax Name"				
+				CustomListLabel:
+					text: "Tax Type"
+				CustomListLabel:
+					text: "Percentage"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: tx
+					viewclass: 'TaxGrid'
+					CustomListRecycleGridLayout:
+
+<Tax>:
+	tax_name: tax_name
+	percentage: percentage
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
 		orientation: "horizontal"
 		BoxLayout:
 			orientation: "vertical"
-			size_hint_x: 0.17
-			
-				
-		BoxLayout:
-			size_hint_x: 0.2
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+			padding: 20
+			spacing: 20
 		    BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.05
-			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
+				size_hint_y: 0.08
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.4
+					on_press:root.manager.current= 'item_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
+			CustomLineBoxLayout:
 				orientation: "vertical"
 				BoxLayout:
-					padding: 40
+					padding: 20
 					size_hint_y: 0.2
 				    Label:
-						size_hint_y: 3
+						size_hint_y: 4
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "Tax"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
-					padding: 40
+					padding: 20
 					orientation: "vertical"
 					BoxLayout:
-						size_hint_y: 0.4
+						size_hint_y: 0.2
 						Label:
-							size_hint_y: 0.50
+							size_hint_y: 2
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Tax Name"
@@ -859,14 +897,15 @@
 					        bold: True
 					        color: 0,0,0,1
 					    TextInput:
-					    	size_hint_y: 0.65
+					    	size_hint_y: 1.7
 					    	size_hint_x: 0.2
 					    	font_size: 20
 					    	id: tax_name
 
 					BoxLayout:
+						size_hint_y: 0.5
 						Label:
-							size_hint_y: 0.35
+							size_hint_y: 2
 							size_hint_x: 1
 					        font_size: 20
 					        text: "Tax Type"
@@ -874,7 +913,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Button:
-					    	canvas.before:
+					    	canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -889,6 +928,7 @@
 					        height: 40
 				
 					BoxLayout:
+						size_hint_y: 0.5
 						Label:
 							size_hint_y: 0.35
 							size_hint_x: 0.2
@@ -898,58 +938,33 @@
 					        bold: True
 					        color: 0,0,0,1
 					    TextInput:
-					    	size_hint_y: 0.27
+					    	size_hint_y: 0.7
 					    	size_hint_x: 0.2
 					    	font_size: 20
 					    	id: percentage
 
 					BoxLayout:
 						BoxLayout:
-							size_hint_x: 0.2
+							size_hint_x: 0.4
 						BoxLayout:
-							Button:
-								canvas.before:
-							        Color:
-							            rgba: 0, 0, 0, 0.8
-							        Line:
-							            width: 1
-							            rectangle: self.x, self.y, self.width, self.height
-		    					background_color: 0, 0, 0, 0.1
-		    					color: 0,0,0,1
-			            		text: "Save"
-			            		size_hint_y: 0.3
-			            		bold: True
+							CustomSaveButton:
+			            		size_hint_y: 0.4
 			            		on_press: root.save()
 
 			            	BoxLayout:
 
-			            	Button:
-			            		canvas.before:
-							        Color:
-							            rgba: 0, 0, 0, 0.8
-							        Line:
-							            width: 1
-							            rectangle: self.x, self.y, self.width, self.height
-		    					background_color: 0, 0, 0, 0.1
-		    					color: 0,0,0,1
-			            		text: "Cancel"
-			            		size_hint_y: 0.3
-			            		bold: True
+			            	CustomCancelButton:
+			            		size_hint_y: 0.4
 			            		on_press: root.cancel()
 			            BoxLayout:
-			            	size_hint_x: 0.2
+			            	size_hint_x: 0.4
 
 	        BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.05
+				size_hint_y: 0.8
         BoxLayout:
         	size_hint_x: 0.5
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+        	
 
 <SaleTable@GridLayout>:
 	size_hint:0.9,0.9
@@ -976,7 +991,7 @@
 		text: root.amt or ""
 		color: 0,0,0,1
 	Button:
-		canvas.before:
+		canvas:
 	        Color:
 	            rgba: 0, 0, 0, 0.8
 	        Line:
@@ -988,7 +1003,7 @@
 		text: 'Edit'
 		on_release: print(app.self.index)
 	Button:
-		canvas.before:
+		canvas:
 	        Color:
 	            rgba: 0, 0, 0, 0.8
 	        Line:
@@ -1003,73 +1018,105 @@
     on_select:
         app.root.ids.sale_screen.ids.customer.text = '{}'.format(args[1]) 
 
-<Sale>:
-	sal: sal
-	canvas.before:
+<SaleGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:2
+	CustomGridButton:
+		text: root.customer_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'sale'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.total or ""
+	
+
+<SaleList>
+	sallist: sallist
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
-		orientation: "horizontal"
-		canvas.before:
-		    Color:
-		        rgba: (0,0,0,0.1) 
-		    Rectangle:
-		        pos: self.pos
-		        size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
 		BoxLayout:
 			orientation: "vertical"
-			size_hint_x: 0.13
-			
-		BoxLayout:
-        	size_hint_x: 0.1
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		    BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.05
 			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Sale"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'sale'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Customer Name"				
+				CustomListLabel:
+					text: "Total"
+				
+			CustomListBoxLayout:
+				RecycleView:
+					id: sallist
+					viewclass: 'SaleGrid'
+					CustomListRecycleGridLayout:
+<Sale>:
+	sal: sal
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "horizontal"
+		padding: 20 
+		spacing: 20
+		BoxLayout:
+			orientation: "vertical"
+		    BoxLayout:
+				size_hint_y: 0.05
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.3
+					bold: True
+					on_press:root.manager.current= 'sale_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+
+				Label:
+			BoxLayout:
+				size_hint_y: 0.03
+			CustomLineBoxLayout:
 				orientation: "vertical"
 				BoxLayout:
 					padding: 20
-					size_hint_y: 0.17
+					size_hint_y: 0.12
 				    Label:
-						size_hint_y: 0.80
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "sale"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
 					padding: 20
 					orientation: "vertical"
 				    BoxLayout:
-				    	size_hint_y: 0.1
+				    	size_hint_y: 0.03
 						Label:
-							size_hint_y: 1
+							size_hint_y: 4
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Date:"
@@ -1077,7 +1124,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 1
+							size_hint_y: 4
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
@@ -1087,7 +1134,7 @@
 					    BoxLayout:
 					    	size_hint_x: 0.3
 					    Label:
-							size_hint_y: 1
+							size_hint_y: 4
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Time:"
@@ -1095,7 +1142,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 1
+							size_hint_y: 4
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: root.tm or ""
@@ -1113,7 +1160,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Button:
-					    	canvas.before:
+					    	canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -1125,7 +1172,7 @@
 					        text: 'Select'
 					        on_release: Factory.CustomerDropDown().open(self)
 					        size_hint_y: None
-					        height: 40
+					        height: 35
 					    BoxLayout:
 					BoxLayout:
 						size_hint_y: 0.25
@@ -1185,7 +1232,7 @@
 					BoxLayout:
 						size_hint_y: 0.05
 					BoxLayout:
-						canvas.before:
+						canvas:
 					        Color:
 					            rgba: 0, 0, 0, 0.8
 					        Line:
@@ -1213,7 +1260,7 @@
 				    BoxLayout:
 						size_hint_y: 0.1
 					BoxLayout:
-						size_hint_y: 0.6
+						size_hint_y: 0.5
 						BoxLayout:
 							size_hint_x: 1.2
 						BoxLayout:
@@ -1279,19 +1326,39 @@
 									bold: True
 									text_size: self.size
 									size_hint_y: 0.1
-								
-			BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.05
+
+					BoxLayout:
+						size_hint_y: 0.1			
+					BoxLayout:
+						size_hint_y: 0.15
+						BoxLayout:
+							size_hint_x: 1.5
+						Button:
+							canvas:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Submit"
+		            		size_hint_y: 1.1
+		            		bold: True
+		            		on_press:
+		            	BoxLayout:
+		            	BoxLayout:
+		            		
+			            	CustomCancelButton:
+			            		size_hint_y: 1.2
+			            		on_press:
+		            	BoxLayout:
+		            		size_hint_x: 1.5
+							
 
 		BoxLayout:
-        	size_hint_x: 0.2
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+        	size_hint_x: 0.5
+        	
 
 <PurchaseTable@GridLayout>:
 	size_hint:0.9,0.9
@@ -1317,7 +1384,7 @@
 		text: root.amt or ""
 		color: 0,0,0,1
 	Button:
-		canvas.before:
+		canvas:
 	        Color:
 	            rgba: 0, 0, 0, 0.8
 	        Line:
@@ -1329,7 +1396,7 @@
 		text: 'Edit'
 		on_release: print(app.self.index)
 	Button:
-		canvas.before:
+		canvas:
 	        Color:
 	            rgba: 0, 0, 0, 0.8
 	        Line:
@@ -1344,73 +1411,104 @@
     on_select:
         app.root.ids.purchase_screen.ids.supplier.text = '{}'.format(args[1]) 
 
-<Purchase>:
-	pur: pur
-	canvas.before:
+<PurchaseGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:2
+	CustomGridButton:
+		text: root.supplier_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'purchase'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.total or ""
+	
+
+<PurchaseList>
+	purlist: purlist
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
-		orientation: "horizontal"
-		canvas.before:
-		    Color:
-		        rgba: (0,0,0,0.1) 
-		    Rectangle:
-		        pos: self.pos
-		        size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
 		BoxLayout:
 			orientation: "vertical"
-			size_hint_x: 0.13
-				
-		BoxLayout:
-        	size_hint_x: 0.1
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		    BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.02
 			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Purchase"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'purchase'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Supplier Name"				
+				CustomListLabel:
+					text: "Total"
+				
+			CustomListBoxLayout:
+				RecycleView:
+					id: purlist
+					viewclass: 'PurchaseGrid'
+					CustomListRecycleGridLayout:
+<Purchase>:
+	pur: pur
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "horizontal"
+		padding: 20
+		spacing: 20
+		BoxLayout:
+			orientation: "vertical"
+		    BoxLayout:
+				size_hint_y: 0.05
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.3
+					bold: True
+					on_press:root.manager.current= 'purchase_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
+			BoxLayout:
+				size_hint_y: 0.03
+			CustomLineBoxLayout:
 				orientation: "vertical"
 				BoxLayout:
 					padding: 20
-					size_hint_y: 0.17
+					size_hint_y: 0.12
 				    Label:
-						size_hint_y: 0.80
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "Purchase"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
 					padding: 20
 					orientation: "vertical"
 				    BoxLayout:
-				    	size_hint_y: 0.1
+				    	size_hint_y: 0.05
 						Label:
-							size_hint_y: 0.8
+							size_hint_y: 3
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Date:"
@@ -1418,7 +1516,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 0.8
+							size_hint_y: 3
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
@@ -1428,7 +1526,7 @@
 					    BoxLayout:
 					    	size_hint_x: 0.3
 					    Label:
-							size_hint_y: 0.8
+							size_hint_y: 3
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Time:"
@@ -1436,7 +1534,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 0.8
+							size_hint_y: 3
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: root.tm or "" 
@@ -1446,7 +1544,7 @@
 					BoxLayout:
 						size_hint_y: 0.2
 						Label:
-							size_hint_y: 0.8
+							size_hint_y: 3
 							size_hint_x: 1
 					        font_size: 20
 					        text: "Supplier"
@@ -1454,7 +1552,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Button:
-					    	canvas.before:
+					    	canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -1466,7 +1564,7 @@
 					        text: 'Select'
 					        on_release: Factory.SupplierDropDown().open(self)
 					        size_hint_y: None
-					        height: 40
+					        height: 35
 					    BoxLayout:
 					BoxLayout:
 						size_hint_y: 0.2
@@ -1482,6 +1580,7 @@
 							id: item
 							size_hint_y: 0.60
 					    	font_size: 20
+					    	size_hint_y: 0.7
 					    BoxLayout:
 					BoxLayout:
 						size_hint_y: 0.1
@@ -1526,7 +1625,7 @@
 					BoxLayout:
 						size_hint_y: 0.05
 					BoxLayout:
-						canvas.before:
+						canvas:
 					        Color:
 					            rgba: 0, 0, 0, 0.8
 					        Line:
@@ -1675,88 +1774,138 @@
 									size_hint_y: 0.1
 								Label:
 									size_hint_y: 0.1
-			BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.05								
+					BoxLayout:
+						size_hint_y: 0.1			
+					BoxLayout:
+						size_hint_y: 0.15
+						BoxLayout:
+							size_hint_x: 1.5
+						Button:
+							canvas:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+	    					background_color: 0, 0, 0, 0.1
+	    					color: 0,0,0,1
+		            		text: "Submit"
+		            		size_hint_y: 1.1
+		            		bold: True
+		            		on_press:
+		            	BoxLayout:
+		            	BoxLayout:
+		            		
+			            	CustomCancelButton:
+			            		size_hint_y: 1.1
+			            		on_press:
+		            	BoxLayout:
+		            		size_hint_x: 1.5
+															
 		BoxLayout:
-        	size_hint_x: 0.2
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+        	size_hint_x: 0.5
+        	
 
 <ItemCodeDropDown>:
     on_select:
         app.root.ids.stock_screen.ids.item_code.text = '{}'.format(args[1])  
 
-<Stock>:
-	canvas.before:
+<StockGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	CustomGridButton:
+		text: root.item_code or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'stock'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.stock or ""
+	
+
+<StockList>
+	sto: sto
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
-		canvas.before:
-		    Color:
-		        rgba: (0,0,0,0.1) 
-		    Rectangle:
-		        pos: self.pos
-		        size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Stock"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'stock'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Item Code"				
+				CustomListLabel:
+					text: "Stock"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: sto
+					viewclass: 'StockGrid'
+					CustomListRecycleGridLayout:
+
+
+<Stock>:
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
 		orientation: "horizontal"
 		BoxLayout:
 			orientation: "vertical"
-			size_hint_x: 0.16
-				
-		BoxLayout:
-			size_hint_x: 0.2
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+			padding: 20
+			spacing: 20
 		    BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.05
-			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
+				size_hint_y: 0.07
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.5
+					on_press:root.manager.current= 'stock_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
+			CustomLineBoxLayout:
 				orientation: "vertical"
 				BoxLayout:
-					padding: 40
-					size_hint_y: 0.27
+					padding: 20
+					size_hint_y: 0.20
 				    Label:
-						size_hint_y: 0.8
+						size_hint_y: 4
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "Stock"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
-					padding: 40
+					padding: 20
 					orientation: "vertical"
 				    BoxLayout:
 				    	size_hint_y: 0.05
 						Label:
-							size_hint_y: 0.8
+							size_hint_y: 2
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Date:"
@@ -1764,7 +1913,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 0.8
+							size_hint_y: 2
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
@@ -1774,7 +1923,7 @@
 					    BoxLayout:
 					    	size_hint_x: 0.3
 					    Label:
-							size_hint_y: 0.8
+							size_hint_y: 2
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: "Time:"
@@ -1782,17 +1931,16 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 0.8
+							size_hint_y: 2
 							size_hint_x: 0.2
 					        font_size: 20
 					        text: root.tm or ""
 					        text_size: self.size
 					        bold: True
 					        color: 0,0,0,1
+					
 					BoxLayout:
 						size_hint_y: 0.2
-					BoxLayout:
-						size_hint_y: 0.1
 						Label:
 							text: 'Item Code '
 							font_size: 20
@@ -1813,7 +1961,7 @@
 					BoxLayout:
 						size_hint_y: 0.1
 						Button:
-							canvas.before:
+							canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -1827,7 +1975,7 @@
 					        size_hint_y: None
 					        height: 40
 						Label:
-							text: ""
+							text: "50"
 							size_hint_y: 0.50
 							font_size: 20
 							color: 0,0,0,1
@@ -1837,16 +1985,16 @@
 							size_hint_y: 0.60
 					    	font_size: 20
 					    	halign: 'top'
+					    	size_hint_y: 1
 					BoxLayout:
 						size_hint_y: 0.2
 					BoxLayout:
 						size_hint_y: 0.1
 						BoxLayout:
-							size_hint_x: 0.2
-						BoxLayout:
-							size_hint_x: 2
+							BoxLayout:
+								size_hint_x: 1.5
 							Button:
-								canvas.before:
+								canvas:
 							        Color:
 							            rgba: 0, 0, 0, 0.8
 							        Line:
@@ -1855,38 +2003,23 @@
 		    					background_color: 0, 0, 0, 0.1
 		    					color: 0,0,0,1
 			            		text: "Submit"
-			            		size_hint_y: 0.7
+			            		size_hint_y: 1.1
 			            		bold: True
 			            		on_press:
 			            	BoxLayout:
 			            	BoxLayout:
 			            		
-				            	Button:
-				            		canvas.before:
-								        Color:
-								            rgba: 0, 0, 0, 0.8
-								        Line:
-								            width: 1
-								            rectangle: self.x, self.y, self.width, self.height
-			    					background_color: 0, 0, 0, 0.1
-			    					color: 0,0,0,1
-				            		text: "Cancel"
-				            		size_hint_y: 0.7
-				            		bold: True
+				            	CustomCancelButton:
+				            		size_hint_y: 1.2
 				            		on_press:
 			            	BoxLayout:
-			            		size_hint_x: 0.2
+			            		size_hint_x: 1.5
 			BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.05
+				size_hint_y: 0.8
         BoxLayout:
         	size_hint_x: 0.4
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.1) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
+        	
 
 <PaymentTypeDropDown>:
     on_select:
@@ -1895,67 +2028,113 @@
 <PaymentModeDropDown>:
     on_select:
         app.root.ids.payment_screen.ids.payment_mode.text = '{}'.format(args[1])  
+<PaymentGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:5
+	CustomGridButton:
+		text: root.transaction_ref  or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'payment'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.card_four_digit or ""
+	CustomGridButton:
+		text: root.amount or ""
+	CustomGridButton:
+		text: root.payment_type or ""
+	CustomGridButton:
+		text: root.mode_of_payment or ""
 
-<Payment>:
-	transaction_ref: transaction_ref
-	card_four_digit: card_four_digit
-	amount: amount
-	canvas.before:
+<PaymentList>
+	pay: pay
+	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
-	BoxLayout:
-		orientation: "horizontal"
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
 		BoxLayout:
 			orientation: "vertical"
-			size_hint_x: 0.17
-			
-				
-		BoxLayout:
-			size_hint_x: 0.2
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		BoxLayout:
-			orientation: "vertical"
-			canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
-		    BoxLayout:
-				orientation: "vertical"
-				size_hint_y: 0.05
 			BoxLayout:
-				canvas.before:
-					Color:
-						rgba: 0, 0, 0, 0.8
-			    	Line:
-			        	width: 1
-			        	rectangle: self.x, self.y, self.width, self.height
-			 
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Payment"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'payment'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Transaction Reference"				
+				CustomListLabel:
+					text: "Card Four Digit"
+				CustomListLabel:
+					text: "Amount"
+				CustomListLabel:
+					text: "Payment Type"
+				CustomListLabel:
+					text: "Mode od Payment"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: pay
+					viewclass: 'PaymentGrid'
+					CustomListRecycleGridLayout:
+
+<Payment>:
+	transaction_ref: transaction_ref
+	card_four_digit: card_four_digit
+	amount: amount
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "horizontal"
+		padding: 20
+		spacing: 20
+		BoxLayout:
+			orientation: "vertical"
+		    BoxLayout:
+				size_hint_y: 0.05
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.3
+					bold: True
+					on_press:root.manager.current= 'payment_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
+			BoxLayout:
+				size_hint_y: 0.03
+			CustomLineBoxLayout: 
 				orientation: "vertical"
 				BoxLayout:
-					padding: 40
-					size_hint_y: 0.22
+					padding: 20
+					size_hint_y: 0.14
 				    Label:
-						size_hint_y: 2
+						size_hint_y: 3
 						size_hint_x: 0.2
 				        font_size: 30
 				        text: "Payment"
 				        text_size: self.size
 				        bold: True
 				        italic: True
-				        underline: True
 				        color: 0,0,0,1
 				BoxLayout:
-					padding: 40
+					padding: 20
 					orientation: "vertical"
 				    BoxLayout:
 				    	size_hint_y: 0.1
@@ -2016,7 +2195,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Button:
-					    	canvas.before:
+					    	canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -2040,7 +2219,7 @@
 					        bold: True
 					        color: 0,0,0,1
 					    Button:
-					    	canvas.before:
+					    	canvas:
 						        Color:
 						            rgba: 0, 0, 0, 0.8
 						        Line:
@@ -2090,7 +2269,7 @@
 							size_hint_x: 0.2
 						BoxLayout:
 							Button:
-								canvas.before:
+								canvas:
 							        Color:
 							            rgba: 0, 0, 0, 0.8
 							        Line:
@@ -2105,7 +2284,7 @@
 
 			            	BoxLayout:
 			            	Button:
-			            		canvas.before:
+			            		canvas:
 							        Color:
 							            rgba: 0, 0, 0, 0.8
 							        Line:
@@ -2122,15 +2301,9 @@
 
 	        BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.05
+				size_hint_y: 0.3
         BoxLayout:
         	size_hint_x: 0.5
-        	canvas.before:
-		        Color:
-		            rgba: (0,0,0,0.2) 
-		        Rectangle:
-		            pos: self.pos
-		            size: self.size
 
 
 <Manager>:
@@ -2141,9 +2314,12 @@
 	supplier: supplier_screen
 	supplier_list: supplier_list_screen
 	item: item_screen
+	item_list: item_list_screen
 	tax: tax_screen
+	tax_list: tax_list_screen
 	sale: sale_screen
 	purchase: purchase_screen
+	stock_list: stock_list_screen
 	stock: stock_screen
 	payment: payment_screen
 	MainPage:
@@ -2171,18 +2347,39 @@
 		name: 'supplier'
 		manager: screen_manager
 
+	ItemList:
+		id: item_list_screen
+		name: 'item_list'
+		manager: screen_manager
+
 	Item:
 		id: item_screen
 		name: 'item'
+		manager: screen_manager
+
+	TaxList:
+		id: tax_list_screen
+		name: 'tax_list'
 		manager: screen_manager
 
 	Tax:
 		id: tax_screen
 		name: 'tax'
 		manager: screen_manager
+
+	SaleList:
+		id: sale_list_screen
+		name: 'sale_list'
+		manager: screen_manager
+
 	Sale:
 		id: sale_screen
 		name: 'sale'
+		manager: screen_manager
+
+	PurchaseList:
+		id: purchase_list_screen
+		name: 'purchase_list'
 		manager: screen_manager
 
 	Purchase:
@@ -2190,9 +2387,19 @@
 		name: 'purchase'
 		manager: screen_manager
 
+	StockList:
+		id: stock_list_screen
+		name: 'stock_list'
+		manager: screen_manager
+
 	Stock:
 		id: stock_screen
 		name: 'stock'
+		manager: screen_manager
+
+	PaymentList:
+		id: payment_list_screen
+		name: 'payment_list'
 		manager: screen_manager
 
 	Payment:

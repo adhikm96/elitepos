@@ -28,3 +28,12 @@ class PurchaseTable(GridLayout):
     dis = ObjectProperty()
     amt = ObjectProperty()
 
+class PurchaseGrid(GridLayout):
+    supplier_name = ObjectProperty()
+    total = ObjectProperty()
+    
+
+class PurchaseList(Screen):
+    def on_pre_enter(self):
+        self.purlist.data = [{'supplier_name': str('Supplier'+' '+str(x)),'total':str('123'+str(x))}
+                        for x in range(50)]
