@@ -9,7 +9,7 @@
 	size_hint_y: 0.6
 	cols:3
 	Button:
-		text: root.customer_name or ""
+		text: root.name or ""
 		background_color: 0,0,0,0
 		color: 0,0,0,1
 		canvas.before:
@@ -18,7 +18,8 @@
 	        Line:
 	            width: 1
 	            rectangle: self.x, self.y, self.width, self.height
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
+	    # on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
+		on_press: root.line_click()
 	    text_size: self.size
 	    valign: "middle"
 	    padding_x: 5
@@ -36,7 +37,7 @@
 	    valign: "middle"
 	    padding_x: 5
 	Button:
-		text: root.contact_email or ""
+		text: root.email_address or ""
 		background_color: 0,0,0,0
 		color: 0,0,0,1
 		canvas.before:
@@ -279,8 +280,8 @@
 					    size: self.size
 				RecycleView:
 					id:cust
-					viewclass: 'CustomerGrid'
-					RecycleGridLayout:
+					viewclass: 'CustomerGrid'					
+					RecycleGridLayout:						
 		                cols: 1
 		                key_selection: 'selectable'
 		                default_size: None, dp(35)
@@ -294,9 +295,9 @@
 #			            ListAdapter(data=['a','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b','b'], cls=Factory.CustomerListButton,deselected_color= '200, 200, 200, 1' )
 
 <Customer>:
-	customer_name: customer_name
+	name: name
     contact_number: contact_number
-    contact_email: contact_email
+    email_address: email_address
     #customer_name_list: customer_name_list_view
 	canvas.before:
 		Color:
@@ -481,7 +482,7 @@
 				        color: 0,0,0,1
 
 				    TextInput:
-				    	id: customer_name
+				    	id: name
 				    	size_hint_y: 2
 				    	size_hint_x: 0.2
 				    	font_size: 20
@@ -516,7 +517,7 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	id: contact_email
+				    	id: email_address
 				    	size_hint_y: 2
 				    	size_hint_x: 0.2
 				    	font_size: 20
