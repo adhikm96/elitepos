@@ -113,13 +113,12 @@
 	size_hint_y: 0.6
 	cols:3
 	CustomGridButton:
-		text: root.customer_name or ""
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+		text: root.name or ""
+	    on_press: root.line_click()
 	CustomGridButton:
 		text: root.contact_number or ""
 	CustomGridButton:
-		text: root.contact_email or ""
+		text: root.email_address or ""
 
 <MainPageButton@Button>:
 	canvas:
@@ -259,9 +258,9 @@
 	font_size: 20
 
 <Customer>:
-	customer_name: customer_name
+	name: name
     contact_number: contact_number
-    contact_email: contact_email
+    email_address: email_address    
 	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
@@ -319,7 +318,7 @@
 					CustomerLabel:
 				        text: "Contact Email"
 				    CustomerTexInput:
-				    	id: contact_email
+				    	id: email_address
 
 				BoxLayout:
 					BoxLayout:
