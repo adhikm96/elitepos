@@ -56,12 +56,14 @@ class CustomerGrid(GridLayout):
     name = ObjectProperty()
     contact_number = ObjectProperty()
     email_address = ObjectProperty()
+    global current_click_idx
+    current_click_idx = ""
 
     def line_click(self):
         global current_click_idx
         current_click_idx = self.idx
         self.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
-        self.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+        self.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="right")
 
 class CustomerList(Screen):
     def on_pre_enter(self):
