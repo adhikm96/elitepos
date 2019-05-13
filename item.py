@@ -7,7 +7,6 @@ from kivy.clock import Clock
 import time
 
 class Item(Screen):
-    #tax_data = ListProperty([{}, {}, {},{}, {}])
     item_name = ObjectProperty()
     item_code = ObjectProperty()
     category = ObjectProperty()
@@ -18,6 +17,16 @@ class Item(Screen):
 
     def save(self):
         pass
+
+class ItemGrid(GridLayout):
+    item_name = ObjectProperty()
+    item_code = ObjectProperty()
+    category = ObjectProperty()
+
+class ItemList(Screen):
+    def on_pre_enter(self):
+        self.itm.data = [{'item_name': str('Item'+' '+str(x)),'category':str('Category'+' '+str(x)),'item_code':str('123'+str(x))}
+                        for x in range(50)]
 
 class ItemCodeDropDown(DropDown):
     data = ['434343','7863313','2137878']

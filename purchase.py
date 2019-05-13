@@ -4,6 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.clock import Clock
 import time
+from sale import PaymentPopup
 
 class Purchase(Screen):
     tm = ObjectProperty()
@@ -22,9 +23,23 @@ class Purchase(Screen):
         self.time = time.strftime("%H:%M:%S", time.localtime())
         self.tm = str(self.time)
 
+    def show_popup(self):
+        p = PaymentPopup(title='Payment',size_hint=(None, None), 
+            size=(800, 600),auto_dismiss= False)
+        p.open()
+
 class PurchaseTable(GridLayout):
     item = ObjectProperty()
     rate = ObjectProperty()
     dis = ObjectProperty()
     amt = ObjectProperty()
 
+class PurchaseGrid(GridLayout):
+    supplier_name = ObjectProperty()
+    total = ObjectProperty()
+    
+
+class PurchaseList(Screen):
+    def on_pre_enter(self):
+        self.purlist.data = [{'supplier_name': str('Supplier'+' '+str(x)),'total':str('123'+str(x))}
+                        for x in range(50)]

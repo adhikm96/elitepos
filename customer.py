@@ -1,5 +1,5 @@
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -61,6 +61,7 @@ class CustomerGrid(GridLayout):
         global current_click_idx
         current_click_idx = self.idx
         self.parent.parent.parent.parent.parent.parent.manager.current= 'customer'
+        self.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
 
 class CustomerList(Screen):
     def on_pre_enter(self):

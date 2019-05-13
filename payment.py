@@ -55,3 +55,14 @@ class PaymentModeDropDown(DropDown):
             btn.bind(on_release=lambda btn: self.select(btn.text))
             self.add_widget(btn)
 
+class PaymentGrid(GridLayout):
+    transaction_ref = ObjectProperty()
+    card_four_digit = ObjectProperty()
+    amount = ObjectProperty()
+    payment_type = ObjectProperty()
+    mode_of_payment = ObjectProperty()
+
+class PaymentList(Screen):
+    def on_pre_enter(self):
+        self.pay.data = [{'transaction_ref': str('Transaction'+' '+str(x)),'card_four_digit':str('12'+str(x)),'amount':str(x),'payment_type':str('type'+str(x)),'mode_of_payment':str('mode'+str(x))}
+                        for x in range(50)]

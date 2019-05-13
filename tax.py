@@ -9,6 +9,7 @@ import time
 class Tax(Screen):
     tax_name = ObjectProperty()
     percentage = ObjectProperty()
+    tax_type = ObjectProperty()
 
     def cancel(self):
         self.tax_name.text = ""
@@ -18,6 +19,15 @@ class Tax(Screen):
     def save(self):
         pass
 
+class TaxGrid(GridLayout):
+    tax_name = ObjectProperty()
+    tax_type = ObjectProperty()
+    percentage = ObjectProperty()
+
+class TaxList(Screen):
+    def on_pre_enter(self):
+        self.tx.data = [{'tax_name': str('Tax'+' '+str(x)),'tax_type':str('type'+' '+str(x)),'percentage':str(str(x))}
+                        for x in range(50)]
 
 class TaxTypeDropDown(DropDown):
     data = ['On Total','Actual']

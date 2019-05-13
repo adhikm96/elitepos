@@ -17,3 +17,12 @@ class Stock(Screen):
     def on_time(self,*args):
         self.time = time.strftime("%H:%M:%S", time.localtime())
         self.tm = str(self.time)
+
+class StockGrid(GridLayout):
+    item_code = ObjectProperty()
+    stock = ObjectProperty()
+
+class StockList(Screen):
+    def on_pre_enter(self):
+        self.sto.data = [{'item_code': str('Item'+' '+str(x)),'stock':str(x)}
+                        for x in range(50)]
