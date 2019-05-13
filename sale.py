@@ -5,10 +5,11 @@ from kivy.uix.button import Button
 from kivy.clock import Clock
 import time
 from kivy.uix.popup import Popup
+from kivy.uix.tabbedpanel import TabbedPanel
+from kivy.uix.tabbedpanel import TabbedPanelItem
 
 class PaymentPopup(Popup):
     tm = ObjectProperty()
-
     time = ObjectProperty(None)
     def __init__(self,**kwargs):
         super(PaymentPopup,self).__init__(**kwargs)
@@ -19,6 +20,10 @@ class PaymentPopup(Popup):
     def on_time(self,*args):
         self.time = time.strftime("%H:%M:%S", time.localtime())
         self.tm = str(self.time)
+
+class SaleTab(TabbedPanel):
+    pass
+
 
 class Sale(Screen):
     tm = ObjectProperty()
@@ -42,6 +47,11 @@ class Sale(Screen):
         p = PaymentPopup(title='Payment',size_hint=(None, None), 
             size=(800, 600),auto_dismiss= False)
         p.open()
+
+    def add_screen(self):
+        tp=SaleTab()
+        panel = TabbedPanelItem()
+        tp.add_widget(panel)
 
 class SaleTable(GridLayout):
     item = ObjectProperty()

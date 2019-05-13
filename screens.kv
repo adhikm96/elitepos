@@ -1096,13 +1096,18 @@
 					on_press: root.manager.transition = SlideTransition(direction="right")
 
 				Label:
+				Button:
+					text: '+'
+					size_hint_x: 0.15
+					size_hint_y: 1.3
+					on_press: root.add_screen()
 			BoxLayout:
 				size_hint_y: 0.03
-			TabbedPanel:
+			SaleTab:
 				do_default_tab: False
 		        background_color: (0,0,0,0.1)    # White colour
 		        border: [0, 0, 0, 0]
-
+		        tab_width: self.parent.width / 12
 		        TabbedPanelItem:
 		        	background_color: (0,0,0,0.1)
 		        	color: (0,0,0,2)
@@ -1372,7 +1377,8 @@
 					            		on_press:
 				            	BoxLayout:
 				            		size_hint_x: 1.5
-									
+
+				
 
 		BoxLayout:
         	size_hint_x: 0.5
