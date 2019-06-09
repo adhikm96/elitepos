@@ -1,0 +1,214 @@
+<ItemCodeDropDown>:
+    on_select:
+        app.root.ids.stock_screen.ids.item_code.text = '{}'.format(args[1])  
+
+<StockGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	CustomGridButton:
+		text: root.item_code or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'stock'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.stock or ""
+	
+
+<StockList>
+	sto: sto
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Stock"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'stock'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Item Code"				
+				CustomListLabel:
+					text: "Stock"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: sto
+					viewclass: 'StockGrid'
+					CustomListRecycleGridLayout:
+
+
+<Stock>:
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "horizontal"
+		BoxLayout:
+			orientation: "vertical"
+			padding: 20
+			spacing: 20
+		    BoxLayout:
+				size_hint_y: 0.07
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.5
+					on_press:root.manager.current= 'stock_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
+			CustomLineBoxLayout:
+				orientation: "vertical"
+				BoxLayout:
+					padding: 20
+					size_hint_y: 0.20
+				    Label:
+						size_hint_y: 4
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Stock"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding: 20
+					orientation: "vertical"
+				    BoxLayout:
+				    	size_hint_y: 0.05
+						Label:
+							size_hint_y: 2
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Date:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 2
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    BoxLayout:
+					    	size_hint_x: 0.3
+					    Label:
+							size_hint_y: 2
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: "Time:"
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					    Label:
+							size_hint_y: 2
+							size_hint_x: 0.2
+					        font_size: 20
+					        text: root.tm or ""
+					        text_size: self.size
+					        bold: True
+					        color: 0,0,0,1
+					
+					BoxLayout:
+						size_hint_y: 0.2
+						Label:
+							text: 'Item Code '
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+						Label:
+							id: current_stock
+							text: "Current Stock"
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+						Label:
+							text: 'Revised Stock'
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+
+					BoxLayout:
+						size_hint_y: 0.1
+						Button:
+							canvas:
+						        Color:
+						            rgba: 0, 0, 0, 0.8
+						        Line:
+						            width: 1
+						            rectangle: self.x, self.y, self.width, self.height
+							background_color: 0, 0, 0, 0.1
+							color: 0,0,0,1
+					        id: item_code
+					        text: 'Select Item Code'
+					        on_release: Factory.ItemCodeDropDown().open(self)
+					        size_hint_y: None
+					        height: 37
+						Label:
+							text: "50"
+							size_hint_y: 0.50
+							font_size: 20
+							color: 0,0,0,1
+							bold: True
+						TextInput:
+							id: revised_stock
+							size_hint_y: 0.60
+					    	font_size: 20
+					    	halign: 'top'
+					    	size_hint_y: 1
+					BoxLayout:
+						size_hint_y: 0.2
+					BoxLayout:
+						size_hint_y: 0.1
+						BoxLayout:
+							BoxLayout:
+								size_hint_x: 1.5
+							Button:
+								canvas:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+		    					background_color: 0, 0, 0, 0.1
+		    					color: 0,0,0,1
+			            		text: "Submit"
+			            		size_hint_y: 1.1
+			            		bold: True
+			            		on_press:
+			            	BoxLayout:
+			            	BoxLayout:
+			            		
+				            	CustomCancelButton:
+				            		size_hint_y: 1.2
+				            		on_press:
+			            	BoxLayout:
+			            		size_hint_x: 1.5
+			BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.8
+        BoxLayout:
+        	size_hint_x: 0.4
+        	

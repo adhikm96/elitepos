@@ -1,0 +1,258 @@
+<CustomTaxTable@GridLayout>:
+	
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	Button:
+		canvas:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0.1
+		color: 0,0,0,1
+        id: tax_type
+        text: root.tax_type or "Select"
+        on_release: root.on_release()
+        size_hint_y: None
+        height: 37
+        size_hint_x: 0.60
+
+	TextInput:
+		font_size: 20
+		id: percent
+		text: str(root.percent)
+		on_text_validate:
+            root.percent = float(self.text)
+		size_hint_x: 0.20
+		on_text: root.update_data()
+	TextInput:
+		font_size: 20
+		id: amount
+		text: str(root.amount)
+		on_text_validate:
+            root.amount = float(self.text)
+		size_hint_x: 0.20
+		on_text: root.update_data()
+
+<CategoryDropDown>:
+    on_select:
+        app.root.ids.item_screen.ids.category.text = '{}'.format(args[1])  
+
+<ItemGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:3
+	CustomGridButton:
+		text: root.name or ""
+	    on_press: root.line_click()
+	CustomGridButton:
+		text: root.item_code or ""
+	CustomGridButton:
+		text: root.category or ""
+
+<ItemList>
+	itm: itm
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Item"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'item'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Item Name"				
+				CustomListLabel:
+					text: "Item Code"
+				CustomListLabel:
+					text: "Category"
+					
+			CustomListBoxLayout:
+				RecycleView:
+					id: itm
+					viewclass: 'ItemGrid'
+					CustomListRecycleGridLayout:
+
+<Item>:
+	main_parent: self
+	name: name
+	item_code: item_code
+	tax_items: tax_items
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "horizontal"
+		padding: 20
+		spacing: 20					
+		BoxLayout:
+			orientation: "vertical"
+
+		    BoxLayout:
+				size_hint_y: 0.05
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.5
+					on_press:root.manager.current= 'item_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				Label:
+			BoxLayout:
+				size_hint_y: 0.03
+			CustomLineBoxLayout:
+				orientation: "vertical" 
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.7
+				    Label:
+						size_hint_y:80
+						size_hint_x: 0.2
+				        font_size: 30
+				        text: "Item"
+				        text_size: self.size
+				        bold: True
+				        italic: True
+				        color: 0,0,0,1
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.5
+					Label:
+						size_hint_y: 3
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Item Name"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 2.2
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: name
+				    	write_tab: False
+
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.5
+					Label:
+						size_hint_y: 3
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Item Code"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 2.2
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: item_code
+				    	write_tab: False
+
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.5
+					Label:
+						size_hint_y: 3
+						size_hint_x: 1
+				        font_size: 20
+				        text: "Category"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    Button:
+				    	canvas:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+						background_color: 0, 0, 0, 0.1
+						color: 0,0,0,1
+						size_hint_y: 3
+				        id: category
+				        text: 'Select'
+				        on_release: Factory.CategoryDropDown().open(self)
+				        size_hint_y: None
+				        height: 40
+
+				BoxLayout:
+					size_hint_y: 0.4
+				BoxLayout:
+					padding:20
+					size_hint_y: 0.2
+					Label:
+						text: 'Tax Type'
+						size_hint_x: 0.60
+						color: 0,0,0,1
+						bold: True
+					Label:
+						text: "Percentage"
+						size_hint_x: 0.20
+						color: 0,0,0,1
+						bold: True
+					Label:
+						text: 'Amount'
+						size_hint_x: 0.20
+						color: 0,0,0,1
+						bold: True
+				BoxLayout:
+					padding:20
+					size_hint_y: 1.5
+					RecycleView:
+						id: tax_items
+						viewclass: 'CustomTaxTable'
+						RecycleGridLayout:
+			                cols: 1
+			                key_selection: 'selectable'
+			                default_size: None, dp(35)
+			                default_size_hint: 1, None
+			                size_hint_y: None
+			                height: self.minimum_height
+			                multiselect: True
+			                touch_multiselect: True
+				BoxLayout:
+					padding:20
+					BoxLayout:
+						size_hint_x: 0.4
+					BoxLayout:
+						CustomSaveButton:
+		            		size_hint_y: 0.65
+		            		on_press: root.save()
+
+		            	BoxLayout:
+		            	CustomCancelButton:
+		            		size_hint_y: 0.65
+		            		on_press: root.cancel()
+		            BoxLayout:
+		            	size_hint_x: 0.4
+		        
+		    BoxLayout:
+				orientation: "vertical"
+				size_hint_y: 0.1
+        BoxLayout:
+        	size_hint_x: 0.5

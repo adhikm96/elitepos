@@ -73,13 +73,23 @@ class CustomerList(Screen):
                             for x in data]
 
 class CustomerDropDown(DropDown):
-    data = ['Customer 1','Customer 2','Customer 3']
+    data =  pconn.get_dbdata('Customer')
+    customer = ObjectProperty()
     def __init__(self, **kwargs):
         super(CustomerDropDown, self).__init__(**kwargs)
         self.add_buttons()
 
+    def set_customer(self, cur):
+        self.customer = cur.value
+        self.select(cur.text)
+
     def add_buttons(self):
-        for index in range(len(self.data)):
-            btn = Button(text='%s' % self.data[index], size_hint_y=None, height=44)
-            btn.bind(on_release=lambda btn: self.select(btn.text))
-            self.add_widget(btn)
+        with db_session:
+            for i in self.data:
+                btn_text = i.name
+                btn = Button(text='%s' % i.name, size_hint_y=None, height=44 )
+                btn.value = i
+                btn.bind(on_release=self.set_customer)
+                self.add_widget(btn)
+
+    

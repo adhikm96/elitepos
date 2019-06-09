@@ -30,10 +30,20 @@ import elitepos.purchase
 import elitepos.stock
 import elitepos.payment
 
-
+from kivy.lang import Builder
+Builder.load_file('ui/screens.kv')
+Builder.load_file('ui/customer.kv')
+Builder.load_file('ui/supplier.kv')
+Builder.load_file('ui/item.kv')
+Builder.load_file('ui/payment.kv')
+Builder.load_file('ui/sale.kv')
+Builder.load_file('ui/purchase.kv')
+Builder.load_file('ui/tax.kv')
+Builder.load_file('ui/stock.kv')
 from pony import orm
 import settings
 from models import db
+
 
 db.bind(**settings.db_params)
 db.generate_mapping()

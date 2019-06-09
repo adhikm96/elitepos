@@ -34,11 +34,11 @@ class Item(db.Entity):
     item_code = Required(str)
     name = Optional(str)
     category = Optional(str)
-    taxes = Set('Tax')
     sales_invoice_items = Set('SalesInvoiceItem')
     purchase_invoice_items = Set('PurchaseInvoiceItem')
     stock_reconciliation_items = Set('StockReconciliationItem')
     stock_ledgers = Set('StockLedger')
+    tax_items = Set('TaxItem')
     PrimaryKey(id, item_code)
 
 
@@ -57,9 +57,9 @@ class Tax(db.Entity):
     _table_ = 'Taxes'
     id = PrimaryKey(int, auto=True)
     name = Optional(str)
-    type = Optional(str)
+    tax_type = Optional(str)
     percent = Optional(float)
-    items = Set(Item)
+    tax_items = Set('TaxItem')
 
 
 class SalesInvoiceItem(db.Entity):
@@ -130,7 +130,7 @@ class Payment(db.Entity):
     p_time = Optional(time)
     transaction_doc = Optional(str)
     transaction_ref = Optional(str)
-    type = Optional(str)
+    payment_type = Optional(str)
     mode_of_payment = Optional(str)
     card_four_digits = Optional(int)
     amount = Optional(float)
@@ -171,6 +171,13 @@ class Account(db.Entity):
     payment_ledgers = Set(PaymentLedger)
 
 
+class TaxItem(db.Entity):
+    id = PrimaryKey(int, auto=True)
+    percent = Optional(float)
+    amount = Optional(float)
+    tax = Required(Tax)
+    item = Required(Item)
+    
 
 # db.generate_mapping()
 # db.generate_mapping(create_tables=True)

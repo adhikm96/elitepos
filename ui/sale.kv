@@ -1,0 +1,415 @@
+<SaleTable@GridLayout>:
+	size_hint:0.9,0.9
+	cols:8
+	spacing: 6
+	padding: 2
+	Label:
+		text: root.item or ""
+		color: 0,0,0,1
+	Label:
+		text: root.rate or ""
+		color: 0,0,0,1
+	TextInput:
+		id: quantity
+		size_hint_x: 0.5
+
+	TextInput:
+		id: discount
+		size_hint_x: 0.5
+	Label:
+		text: root.dis or ""
+		color: 0,0,0,1
+	Label:
+		text: root.amt or ""
+		color: 0,0,0,1
+	Button:
+		canvas:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.5
+		text: 'Edit'
+		on_release: print(app.self.index)
+	Button:
+		canvas:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.5
+		text: 'Delete'
+
+<CustomerDropDown>:
+    on_select:
+        app.root.ids.sale_screen.ids.customer.text = '{}'.format(args[1]) 
+
+<SaleGrid@GridLayout>:
+	size_hint: 1.2,1.2
+	size_hint_y: 0.6
+	cols:2
+	CustomGridButton:
+		text: root.customer_name or ""
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'sale'
+	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	CustomGridButton:
+		text: root.total or ""
+	
+
+<SaleList>
+	sallist: sallist
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		padding: 20
+		orientation: "vertical"
+		BoxLayout:
+			orientation: "vertical"
+			BoxLayout:
+				spacing: 5
+				size_hint_y: 0.06
+				CustomListTitle:
+					text: "Sale"
+					
+				CustomListButton:
+					text: "Back"
+					on_press:root.manager.current= 'main_page'
+					on_press: root.manager.transition = SlideTransition(direction="right")
+				CustomListButton:
+					text: "Add New"
+					on_press:root.manager.current= 'sale'
+					on_press: root.manager.transition = SlideTransition(direction="left")
+					
+			BoxLayout:
+				size_hint_y: 0.1
+				CustomListLabel:
+					text: "Customer Name"				
+				CustomListLabel:
+					text: "Total"
+				
+			CustomListBoxLayout:
+				RecycleView:
+					id: sallist
+					viewclass: 'SaleGrid'
+					CustomListRecycleGridLayout:
+<Sale>:
+	sal: sal
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "horizontal"
+		padding: 20 
+		spacing: 20
+		BoxLayout:
+			orientation: "vertical"
+		    BoxLayout:
+				size_hint_y: 0.05
+				CustomBackButton:
+					size_hint_x: 0.15
+					size_hint_y: 1.3
+					bold: True
+					on_press:root.manager.current= 'sale_list'	
+					on_press: root.manager.transition = SlideTransition(direction="right")
+
+				Label:
+				Button:
+					text: '+'
+					size_hint_x: 0.15
+					size_hint_y: 1.3
+					on_press: root.add_screen()
+			BoxLayout:
+				size_hint_y: 0.03
+			SaleTab:
+				do_default_tab: False
+		        background_color: (0,0,0,0.1)    # White colour
+		        border: [0, 0, 0, 0]
+		        tab_width: self.parent.width / 12
+		        TabbedPanelItem:
+		        	background_color: (0,0,0,0.1)
+		        	color: (0,0,0,2)
+		        	canvas:
+				        Color:
+				            rgba: 0, 0, 0, 1
+				        Line:
+				            width: 1
+				            rectangle: self.x, self.y, self.width, self.height
+        		    text: 'Screen1'
+					CustomLineBoxLayout:
+						orientation: "vertical"
+						BoxLayout:
+							padding: 20
+							size_hint_y: 0.12
+						    Label:
+								size_hint_y: 3
+								size_hint_x: 0.2
+						        font_size: 30
+						        text: "sale"
+						        text_size: self.size
+						        bold: True
+						        italic: True
+						        color: 0,0,0,1
+
+						BoxLayout:
+							padding: 20
+							orientation: "vertical"
+						    BoxLayout:
+						    	size_hint_y: 0.03
+								Label:
+									size_hint_y: 4
+									size_hint_x: 0.2
+							        font_size: 20
+							        text: "Date:"
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							    Label:
+									size_hint_y: 4
+									size_hint_x: 0.2
+							        font_size: 20
+							        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							    BoxLayout:
+							    	size_hint_x: 0.3
+							    Label:
+									size_hint_y: 4
+									size_hint_x: 0.2
+							        font_size: 20
+							        text: "Time:"
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							    Label:
+									size_hint_y: 4
+									size_hint_x: 0.2
+							        font_size: 20
+							        text: root.tm or ""
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							BoxLayout:
+								size_hint_y: 0.25
+								Label:
+									size_hint_y: 0.50
+									size_hint_x: 1
+							        font_size: 20
+							        text: "Customer"
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							    Button:
+							    	canvas:
+								        Color:
+								            rgba: 0, 0, 0, 0.8
+								        Line:
+								            width: 1
+								            rectangle: self.x, self.y, self.width, self.height
+									background_color: 0, 0, 0, 0.1
+									color: 0,0,0,1
+							        id: customer
+							        text: 'Select'
+							        on_release: Factory.CustomerDropDown().open(self)
+							        size_hint_y: None
+							        height: 35
+							    BoxLayout:
+							BoxLayout:
+								size_hint_y: 0.25
+								Label:
+									size_hint_y: 0.50
+									size_hint_x: 1
+							        font_size: 20
+							        text: "Item"
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+								TextInput:
+									id: item
+									size_hint_y: 0.65
+							    	font_size: 20
+							    BoxLayout:
+							BoxLayout:
+								size_hint_y: 0.1
+							BoxLayout:
+								size_hint_y: 0.05
+								Label:
+									text: 'Item Code '
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+								Label:
+									text: "Rate"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+								Label:
+									text: "Qty"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									size_hint_x: 0.5
+								Label:
+									text: 'Discount%'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+									size_hint_x: 0.5
+								Label:
+									text: "Discount"
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+								Label:
+									text: 'Amount'
+									font_size: 15
+									color: 0,0,0,1
+									bold: True
+								Label:
+									size_hint_x: 0.5
+								Label:
+									size_hint_x: 0.5
+							BoxLayout:
+								size_hint_y: 0.05
+							BoxLayout:
+								canvas:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+							
+									Color:
+									    rgba: (1,1,1,1) 
+									Rectangle:
+									    pos: self.pos
+									    size: self.size
+								size_hint_y: 0.7
+								RecycleView:
+									id: sal
+									viewclass: 'SaleTable'
+									RecycleGridLayout:
+						                cols: 1
+						                key_selection: 'selectable'
+						                default_size: None, dp(35)
+						                default_size_hint: 1, None
+						                size_hint_y: None
+						                height: self.minimum_height
+						                multiselect: True
+						                touch_multiselect: True
+						    BoxLayout:
+								size_hint_y: 0.1
+							BoxLayout:
+								size_hint_y: 0.5
+								BoxLayout:
+									size_hint_x: 1.2
+								BoxLayout:
+									BoxLayout:
+										orientation: "vertical"
+										Label:
+											text: 'Sub Total'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.05
+										Label:
+											text: 'Disc.'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											text: 'Tax'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											text: "Total"
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										
+									BoxLayout:
+										orientation: "vertical"
+										Label:
+											text: "554"
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.05
+										Label:
+											size_hint_y: 0.04
+										TextInput:
+											text: 
+											font_size: 15
+											text_size: self.size
+											size_hint_y: 0.08
+											size_hint_x: 0.4
+										Label:
+											text: "45454"
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											text: "45745"
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+
+							BoxLayout:
+								size_hint_y: 0.1			
+							BoxLayout:
+								size_hint_y: 0.15
+								BoxLayout:
+									size_hint_x: 1.5
+								Button:
+									canvas:
+								        Color:
+								            rgba: 0, 0, 0, 0.8
+								        Line:
+								            width: 1
+								            rectangle: self.x, self.y, self.width, self.height
+			    					background_color: 0, 0, 0, 0.1
+			    					color: 0,0,0,1
+				            		text: "Submit"
+				            		size_hint_y: 1.1
+				            		bold: True
+				            		on_press: root.show_popup()
+				            	BoxLayout:
+				            	BoxLayout:
+				            		
+					            	CustomCancelButton:
+					            		size_hint_y: 1.1
+					            		on_press:
+				            	BoxLayout:
+				            		size_hint_x: 1.5
+
+				
+
+		BoxLayout:
+        	size_hint_x: 0.5
+        	
