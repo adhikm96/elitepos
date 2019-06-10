@@ -9,17 +9,25 @@ from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.uix.tabbedpanel import TabbedPanelItem
 
 class PaymentPopup(Popup):
-    tm = ObjectProperty()
     time = ObjectProperty(None)
+    p_date = ObjectProperty()
+    p_time = ObjectProperty()
+    transaction_ref = ObjectProperty()
+    payment_type = ObjectProperty()
+    mode_of_payment = ObjectProperty()
+    card_four_digits = ObjectProperty()
+    amount = ObjectProperty()
+
+    
     def __init__(self,**kwargs):
         super(PaymentPopup,self).__init__(**kwargs)
         self.time = time.strftime("%H:%M:%S", time.localtime())
-        self.tm = str(self.time)
+        self.p_time = str(self.time)
         Clock.schedule_interval(self.on_time,1/60.0)
 
     def on_time(self,*args):
         self.time = time.strftime("%H:%M:%S", time.localtime())
-        self.tm = str(self.time)
+        self.p_time = str(self.time)
 
 class SaleTab(TabbedPanel):
     pass

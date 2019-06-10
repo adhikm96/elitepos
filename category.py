@@ -6,8 +6,23 @@ from kivy.uix.button import Button
 from kivy.clock import Clock
 import time
 
-class Category():
-    pass
+class Category(Screen):
+    name = ObjectProperty()
+
+    def cancel(self):
+        self.ids.name.text = ""
+
+    def save(self):
+        pass
+
+
+class CategoryGrid(GridLayout):
+    name = ObjectProperty()
+
+class CategoryList(Screen):
+    def on_pre_enter(self):
+        self.cat.data =  [{'name': str('Category'+' '+str(x))}
+                        for x in range(50)]
 
 class CategoryDropDown(DropDown):
     data = ['Category 1','Category 2','Category 3']

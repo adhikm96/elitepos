@@ -4,7 +4,11 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from kivy.clock import Clock
-import time
+import time, settings
+from pos_helper import pconn
+from pony.orm import *
+
+current_click_idx = ""
 
 class Payment(Screen):
     p_date = ObjectProperty()
@@ -43,16 +47,16 @@ class Payment(Screen):
         global current_click_idx
         payload = self
         if current_click_idx and current_click_idx != "":
-            res = pconn.update_single_dbrecord(current_click_idx, 'Tax', payload)
+            res = pconn.update_single_dbrecord(current_click_idx, 'Payment', payload)
             if res == "Success":
                 current_click_idx = ""
-                self.manager.current= 'tax_list'
+                self.manager.current= 'payment_list'
             else:
                 pass
         else:
-            res = pconn.insert_single_dbrecord('Tax', payload)
+            res = pconn.insert_single_dbrecord('Payment', payload)
             if res == "Success":
-                self.manager.current= 'tax_list'
+                self.manager.current= 'payment_list'
             else:
                 pass
 
@@ -92,13 +96,19 @@ class PaymentModeDropDown(DropDown):
             self.add_widget(btn)
 
 class PaymentGrid(GridLayout):
-    transaction_ref = ObjectProperty()
-    card_four_digit = ObjectProperty()
-    amount = ObjectProperty()
-    payment_type = ObjectProperty()
-    mode_of_payment = ObjectProperty()
+    idx = ObjectProperty()
+    global current_click_idx
+    current_click_idx = ""
+
+    def line_click(self):
+        global current_click_idx
+        current_click_idx = self.idx
+        self.parent.parent.parent.parent.parent.parent.manager.current= 'payment'
+        self.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="right")
 
 class PaymentList(Screen):
     def on_pre_enter(self):
-        self.pay.data = [{'transaction_ref': str('Transaction'+' '+str(x)),'card_four_digit':str('12'+str(x)),'amount':str(x),'payment_type':str('type'+str(x)),'mode_of_payment':str('mode'+str(x))}
-                        for x in range(50)]
+        data = pconn.get_dbdata('Payment')   
+        with db_session:
+            self.pay.data = [{'idx': str(x.id), 'p_date': str(x.p_date),'p_time':str(x.p_time),'transaction_ref':str(x.transaction_ref),'payment_type':str(x.payment_type),'mode_of_payment':str(x.mode_of_payment),'card_four_digits':str(x.card_four_digits),'amount':str(x.amount)}
+                            for x in data]

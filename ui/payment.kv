@@ -99,7 +99,9 @@
 
 <Payment>:
 	transaction_ref: transaction_ref
-	card_four_digit: card_four_digit
+	payment_type: payment_type
+	mode_of_payment: mode_of_payment
+	card_four_digits: card_four_digits
 	amount: amount
 	canvas:
 		Color:
@@ -147,7 +149,7 @@
 					        text: "Date:"
 					    CustomPaymentDateTimeLabel:
 					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
-					        id: root.p_date
+					        #id: p_date
 					    CustomPaymentDateTimeLabel:
 					        text: "Time"
 					    CustomPaymentDateTimeLabel:
@@ -177,7 +179,7 @@
 							size_hint_x: 1
 					        text: "Mode Of Payment"
 					    CustomePaymentButton:
-					        id: payment_mode
+					        id: mode_of_payment
 					        text: 'Select'
 					        on_release: Factory.PaymentModeDropDown().open(self)
 					    
@@ -189,7 +191,7 @@
 					    	size_hint_y: 0.60
 					    	size_hint_x: 0.2
 					    	font_size: 20
-					    	id: card_four_digit
+					    	id: card_four_digits
 					    	write_tab: False
 					BoxLayout:
 						CustomPaymentLabel:
@@ -264,7 +266,7 @@
 						    CustomPaymentDateTimeLabel:
 						        text: "Time"
 						    CustomPaymentDateTimeLabel:
-						        text: root.tm or ""
+						        text: root.p_time or ""
 						BoxLayout:
 							CustomPaymentLabel:
 								size_hint_x: 0.2

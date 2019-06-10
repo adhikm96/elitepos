@@ -41,6 +41,8 @@ class Supplier(Screen):
         self.ids.tax_no.text = ""
         self.ids.contact_number.text = ""
         self.ids.email_address.text = ""
+        global current_click_idx
+        current_click_idx = ""
 
     def save(self):
         global current_click_idx

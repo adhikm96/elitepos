@@ -25,13 +25,15 @@ class Tax(Screen):
                 self.ids.percent.text = str(data.percent)
         else:
             self.ids.name.text = ""
-            self.ids.tax_type.text = "select"
+            self.ids.tax_type.text = "Select"
             self.ids.percent.text = ""
 
     def cancel(self):
         self.ids.name.text = ""
-        self.ids.tax_type.text = ""
+        self.ids.tax_type.text = "Select"
         self.ids.percent.text = ""
+        global current_click_idx
+        current_click_idx = ""
 
     def save(self):
         global current_click_idx

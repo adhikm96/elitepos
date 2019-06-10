@@ -29,6 +29,7 @@ import elitepos.sale
 import elitepos.purchase
 import elitepos.stock
 import elitepos.payment
+import elitepos.category
 
 from kivy.lang import Builder
 Builder.load_file('ui/screens.kv')
@@ -40,6 +41,7 @@ Builder.load_file('ui/sale.kv')
 Builder.load_file('ui/purchase.kv')
 Builder.load_file('ui/tax.kv')
 Builder.load_file('ui/stock.kv')
+Builder.load_file('ui/category.kv')
 from pony import orm
 import settings
 from models import db
@@ -69,6 +71,8 @@ class Manager(ScreenManager):
     stock_list = ObjectProperty()
     payment = ObjectProperty(None)
     payment_list = ObjectProperty()
+    category_list = ObjectProperty(None)
+    category = ObjectProperty()
     # main_page = ObjectProperty("MainPage")
     # customer = ObjectProperty("Customer")
     # customer_list = ObjectProperty("CustomerList")

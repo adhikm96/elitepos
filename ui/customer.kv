@@ -34,7 +34,8 @@
 					on_press: root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press:root.manager.current= 'customer'
+					on_press: app.root.ids.customer_screen.cancel()
+					on_press: root.manager.current= 'customer'
 					on_press: root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:

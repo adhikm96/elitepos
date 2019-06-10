@@ -39,6 +39,9 @@ class Item(Screen):
     def cancel(self):
         self.ids.name.text = ""
         self.ids.item_code.text = ""
+        self.tax_items.data = [{'idx': e, 'record_id': 0, 'instance':'TaxItem', 'pclass': self, 'tax_type':"", 'tax': "", 'percent': 0, 'amount': 0 } for e in range(5)]
+        global current_click_idx
+    	current_click_idx = ""
 
     def save(self):
         # raise ValueError(self.ids.tax_items.data)
@@ -79,7 +82,7 @@ class ItemList(Screen):
         with db_session:
             self.itm.data = [{'idx': str(x.id), 'name': str(x.name),'item_code':str(x.item_code)}
                             for x in data]
-
+    	
 class ItemCodeDropDown(DropDown):
     data = ['434343','7863313','2137878']
     def __init__(self, **kwargs):

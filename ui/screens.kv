@@ -168,7 +168,9 @@
 				on_press: root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Category"
-				
+				on_press:root.manager.current= 'category_list'
+				on_press: root.manager.transition = SlideTransition(direction="left")
+
 		BoxLayout:
 			orientation: "vertical"
 			spacing: 40
@@ -211,6 +213,9 @@
 	stock_list: stock_list_screen
 	stock: stock_screen
 	payment: payment_screen
+	category_list: category_list_screen
+	category: category_screen 
+
 	MainPage:
 		id: main_screen
 		name: 'main_page'
@@ -294,4 +299,14 @@
 	Payment:
 		id: payment_screen
 		name: 'payment'
+		manager: screen_manager
+
+	CategoryList:
+		id: category_list_screen
+		name: 'category_list'
+		manager: screen_manager
+
+	Category:
+		id: category_screen
+		name: 'category'
 		manager: screen_manager
