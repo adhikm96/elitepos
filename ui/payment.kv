@@ -4,17 +4,17 @@
 
 <PaymentModeDropDown>:
     on_select:
-        app.root.ids.payment_screen.ids.payment_mode.text = '{}'.format(args[1])  
+        app.root.ids.payment_screen.ids.mode_of_payment.text = '{}'.format(args[1])  
+
 <PaymentGrid@GridLayout>:
 	size_hint: 1.2,1.2
 	size_hint_y: 0.6
 	cols:5
 	CustomGridButton:
 		text: root.transaction_ref  or ""
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'payment'
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+	    on_press: root.line_click()
 	CustomGridButton:
-		text: root.card_four_digit or ""
+		text: root.card_four_digits or ""
 	CustomGridButton:
 		text: root.amount or ""
 	CustomGridButton:
@@ -43,12 +43,15 @@
 					
 				CustomListButton:
 					text: "Back"
-					on_press:root.manager.current= 'main_page'
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press:
+						root.manager.current= 'main_page'
+						root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press:root.manager.current= 'payment'
-					on_press: root.manager.transition = SlideTransition(direction="left")
+					on_press: 
+						root.make_current_click_idx_null()
+						root.manager.current= 'payment'
+						root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
@@ -65,6 +68,15 @@
 					
 			CustomListBoxLayout:
 				RecycleView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
 					id: pay
 					viewclass: 'PaymentGrid'
 					CustomListRecycleGridLayout:
@@ -121,8 +133,10 @@
 					size_hint_x: 0.15
 					size_hint_y: 1.5
 					bold: True
-					on_press:root.manager.current= 'payment_list'	
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press: 
+						app.root.ids.payment_list_screen.make_current_click_idx_null()
+						root.manager.current= 'payment_list'	
+						root.manager.transition = SlideTransition(direction="right")
 				Label:
 			BoxLayout:
 				size_hint_y: 0.03
@@ -147,14 +161,22 @@
 				    	size_hint_y: 0.1
 						CustomPaymentDateTimeLabel:
 					        text: "Date:"
+					    DatePicker:					
+							pHint: 0.2,0.3
+							font_size: 15
+							text_size: self.size
+							size_hint_y: 4.1
+							size_hint_x: 0.20
+					    	id: p_date
+					    BoxLayout:
+					    	size_hint_x: 0.4
 					    CustomPaymentDateTimeLabel:
-					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
-					        #id: p_date
-					    CustomPaymentDateTimeLabel:
-					        text: "Time"
+					        text: "Time:"
 					    CustomPaymentDateTimeLabel:
 					        text: root.p_time or ""
 					        id: p_time
+					    BoxLayout:
+					    	size_hint_x: 0.4
 					BoxLayout:
 						CustomPaymentLabel:
 							size_hint_x: 0.2
@@ -172,7 +194,10 @@
 					        text: "Payment Type"
 					    CustomePaymentButton:
 					        id: payment_type
-					        on_release: Factory.PaymentTypeDropDown().open(self)
+					        on_release: Factory.PaymentTypeDropDown(root).open(self)
+					        text_size: self.size
+					        padding_x: 10
+							valign: "middle"
 
 					BoxLayout:
 						CustomPaymentLabel:
@@ -181,7 +206,10 @@
 					    CustomePaymentButton:
 					        id: mode_of_payment
 					        text: 'Select'
-					        on_release: Factory.PaymentModeDropDown().open(self)
+					        on_release: Factory.PaymentModeDropDown(root).open(self)
+					        text_size: self.size
+					        padding_x: 10
+							valign: "middle"
 					    
 					BoxLayout:
 						CustomPaymentLabel:
@@ -227,7 +255,7 @@
         BoxLayout:
         	size_hint_x: 0.5
 
-<PaymentPopup>:
+<SalePaymentPopup>:
 	BoxLayout:
 		canvas:
 			Color:
@@ -261,12 +289,23 @@
 					    	size_hint_y: 0.1
 							CustomPaymentDateTimeLabel:
 						        text: "Date:"
-						    CustomPaymentDateTimeLabel:
-						        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
+						        size_hint_x: 0.10
+						    DatePicker:		
+								pHint: 0.2,0.3
+								font_size: 15
+								text_size: self.size
+								size_hint_y: 4
+								size_hint_x: 0.15
+						    	id: p_date
+						    BoxLayout:
+								size_hint_x: 0.20
 						    CustomPaymentDateTimeLabel:
 						        text: "Time"
+						        size_hint_x: 0.10
 						    CustomPaymentDateTimeLabel:
+						    	id: p_time
 						        text: root.p_time or ""
+						        size_hint_x: 0.15
 						BoxLayout:
 							CustomPaymentLabel:
 								size_hint_x: 0.2
@@ -277,23 +316,31 @@
 						    	font_size: 20
 						    	id: transaction_ref
 						    	write_tab: False
+						    	multiline: False
 
 						BoxLayout:
 							CustomPaymentLabel:
 								size_hint_x: 1
 						        text: "Payment Type"
 						    CustomePaymentButton:
+						    	text: "Receive"
 						        id: payment_type
-						        on_release: Factory.PaymentTypeDropDown().open(self)
+						        on_release: Factory.SalePaymentTypeDropDown(root).open(self)
+						        text_size: self.size
+						        padding_x: 10
+								valign: "middle"
 
 						BoxLayout:
 							CustomPaymentLabel:
 								size_hint_x: 1
 						        text: "Mode Of Payment"
 						    CustomePaymentButton:
-						        id: payment_mode
-						        on_release: Factory.PaymentModeDropDown().open(self)
-						    
+						        id: mode_of_payment
+						        text: "Cash"
+						        on_release: Factory.SalePaymentModeDropDown(root).open(self)
+						    	text_size: self.size
+						        padding_x: 10
+								valign: "middle"
 						BoxLayout:
 							CustomPaymentLabel:
 								size_hint_x: 0.2
@@ -302,8 +349,13 @@
 						    	size_hint_y: 0.55
 						    	size_hint_x: 0.2
 						    	font_size: 20
-						    	id: card_four_digit
+						    	id: card_four_digits
+						    	text: str(root.card_four_digits or "")
+						    	on_text_validate:
+						    		root.card_four_digits = int(self.text)
+						    	input_filter: 'int'
 						    	write_tab: False
+						    	multiline: False
 
 						BoxLayout:
 							CustomPaymentLabel:
@@ -314,7 +366,145 @@
 						    	size_hint_x: 0.2
 						    	font_size: 20
 						    	id: amount
+						    	input_filter: 'float'
 						    	write_tab: False
+						    	multiline: False
+				    			on_text_validate: root.save()
+						BoxLayout:
+							size_hint_y: 0.4
+						BoxLayout:
+							size_hint_y: 1
+							BoxLayout:
+								size_hint_x: 0.2
+							BoxLayout:
+								CustomSaveButton:
+				            		size_hint_y: 0.5
+				            		on_press:  root.save()
+
+				            	BoxLayout:
+				            	CustomCancelButton:
+				            		size_hint_y: 0.5
+				            		on_press: root.cancel()
+				            BoxLayout:
+				            	size_hint_x: 0.2
+
+		    
+
+<PurchasePaymentPopup>:
+	BoxLayout:
+		canvas:
+			Color:
+			    rgba: (1,1,1,1) 
+			Rectangle:
+			    pos: self.pos
+			    size: self.size
+		CustomBoxLayout:
+			orientation: "horizontal"
+			padding: 20
+			spacing: 20
+			BoxLayout:
+				orientation: "vertical"
+			    BoxLayout:
+					size_hint_y: 0.05
+					CustomBackButton:
+						size_hint_x: 0.15
+						size_hint_y: 1.4
+						bold: True	
+						on_press: root.dismiss()
+					Label:
+				BoxLayout:
+					size_hint_y: 0.03
+				CustomLineBoxLayout: 
+					orientation: "vertical"
+					
+					BoxLayout:
+						padding: 20
+						orientation: "vertical"
+					    BoxLayout:
+					    	size_hint_y: 0.1
+							CustomPaymentDateTimeLabel:
+						        text: "Date:"
+						        size_hint_x: 0.10
+						    DatePicker:		
+								pHint: 0.2,0.3
+								font_size: 15
+								text_size: self.size
+								size_hint_y: 4
+								size_hint_x: 0.15
+						    	id: p_date
+						    BoxLayout:
+								size_hint_x: 0.20
+						    CustomPaymentDateTimeLabel:
+						        text: "Time:"
+						        size_hint_x: 0.10
+						    CustomPaymentDateTimeLabel:
+						    	id: p_time
+						        text: root.p_time or ""
+						        size_hint_x: 0.15
+						BoxLayout:
+							CustomPaymentLabel:
+								size_hint_x: 0.2
+						        text: "Trasaction Ref."
+						    TextInput:
+						    	size_hint_y: 0.55
+						    	size_hint_x: 0.2
+						    	font_size: 20
+						    	id: transaction_ref
+						    	write_tab: False
+						    	multiline: False
+
+						BoxLayout:
+							CustomPaymentLabel:
+								size_hint_x: 1
+						        text: "Payment Type"
+						    CustomePaymentButton:
+						    	text: "Pay"
+						        id: payment_type
+						        on_release: Factory.PurchasePaymentTypeDropDown(root).open(self)
+						        text_size: self.size
+						        padding_x: 10
+								valign: "middle"
+
+						BoxLayout:
+							CustomPaymentLabel:
+								size_hint_x: 1
+						        text: "Mode Of Payment"
+						    CustomePaymentButton:
+						        id: mode_of_payment
+						        text: "Cash"
+						        on_release: Factory.PurchasePaymentModeDropDown(root).open(self)
+						    	text_size: self.size
+						        padding_x: 10
+								valign: "middle"
+						BoxLayout:
+							CustomPaymentLabel:
+								size_hint_x: 0.2
+						        text: "Card Four Digits"
+						    TextInput:
+						    	size_hint_y: 0.55
+						    	size_hint_x: 0.2
+						    	font_size: 20
+						    	id: card_four_digits
+						    	text: str(root.card_four_digits or "")
+						    	on_text_validate:
+						    		root.card_four_digits = int(self.text)
+						    	input_filter: 'int'
+						    	write_tab: False
+						    	multiline: False
+
+						BoxLayout:
+							CustomPaymentLabel:
+								size_hint_x: 0.2
+						        text: "Amount"
+						    TextInput:
+						    	size_hint_y: 0.55
+						    	size_hint_x: 0.2
+						    	font_size: 20
+						    	id: amount
+						    	input_filter: 'float'
+						    	write_tab: False
+						    	multiline: False
+				    			on_text_validate: root.save()
 
 						BoxLayout:
 							size_hint_y: 0.4
@@ -325,7 +515,7 @@
 							BoxLayout:
 								CustomSaveButton:
 				            		size_hint_y: 0.5
-				            		on_press: root.save()
+				            		on_press:  root.save()
 
 				            	BoxLayout:
 				            	CustomCancelButton:
@@ -334,7 +524,5 @@
 				            BoxLayout:
 				            	size_hint_x: 0.2
 
-		        
-	        BoxLayout:
-	        	size_hint_x: 0.3
+		      
 		

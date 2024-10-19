@@ -4,6 +4,7 @@
 	cols: 1
 	CustomGridButton:
 		text: root.name or ""
+		on_press: root.line_click()
 
 <CategoryList>
 	cat: cat
@@ -26,13 +27,15 @@
 					
 				CustomListButton:
 					text: "Back"
-					on_press:root.manager.current= 'main_page'
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press:
+						root.manager.current= 'main_page'
+						root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press: app.root.ids.supplier_screen.cancel()
-					on_press:root.manager.current= 'category'
-					on_press: root.manager.transition = SlideTransition(direction="left")
+					on_press: 
+						root.make_current_click_idx_null()
+						root.manager.current= 'category'
+						root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
@@ -41,6 +44,15 @@
 					
 			CustomListBoxLayout:
 				RecycleView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
 					id: cat
 					viewclass: 'CategoryGrid'
 					CustomListRecycleGridLayout:
@@ -65,8 +77,10 @@
 				CustomBackButton:
 					size_hint_x: 0.15
 					size_hint_y: 2
-					on_press:root.manager.current= 'category_list'	
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press:
+						app.root.ids.category_list_screen.make_current_click_idx_null()
+						root.manager.current= 'category_list'	
+						root.manager.transition = SlideTransition(direction="right")
 				Label:
 			CustomLineBoxLayout:
 				orientation: "vertical"
@@ -93,11 +107,13 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	id: root.name
+				    	id: name
 				    	size_hint_y: 1
 				    	size_hint_x: 0.2
-				    	font_size: 20
+				    	font_size: 17
 				    	write_tab: False
+				    	multiline: False
+				    	on_text_validate: root.save()
 				
 				BoxLayout:
 					padding: 20
@@ -107,10 +123,13 @@
 						CustomSaveButton:
 		            		size_hint_y: 1.1
 		            		on_press: root.save()
+		            		text: root.update_button_text or ""
 		            	BoxLayout:
 		            	CustomCancelButton:
 		            		size_hint_y: 1.1
 		            		on_press: root.cancel()
+		            		text: root.delete_button_text or ""
+		            		
 		            BoxLayout:
 		            	size_hint_x: 0.5
 	            

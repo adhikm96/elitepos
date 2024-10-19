@@ -6,3 +6,5 @@ kivy.deps.glew
 kivy
 KivyCalendar
 pony
+pyjasper
+pyreportjasper

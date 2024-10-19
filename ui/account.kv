@@ -1,21 +1,25 @@
-<SupplierGrid@GridLayout>:
+<AccountTypeDropDown>:
+    on_select:
+        app.root.ids.account_screen.ids.account_type.text = '{}'.format(args[1])  
+
+<ActivityDropDown>:
+    on_select:
+        app.root.ids.account_screen.ids.activity.text = '{}'.format(args[1])  
+
+<AccountGrid@GridLayout>:
 	size_hint: 1.2,1.2
 	size_hint_y: 0.6
-	cols:5
+	cols: 3
 	CustomGridButton:
-		text: root.name or ""
-	    on_press: root.line_click()
+		text: root.account_name  or ""
+		on_press: root.line_click()
 	CustomGridButton:
-		text: root.address or ""
+		text: root.account_type or ""
 	CustomGridButton:
-		text: root.tax_no or ""
-	CustomGridButton:
-		text: root.contact_number or ""
-	CustomGridButton:
-		text: root.email_address or ""
+		text: root.activity or ""
 
-<SupplierList>
-	sup: sup
+<AccountList>
+	act: act
 	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
@@ -31,8 +35,7 @@
 				spacing: 5
 				size_hint_y: 0.06
 				CustomListTitle:
-					text: "Supplier"
-					
+					text: "Account"
 				CustomListButton:
 					text: "Back"
 					on_press:
@@ -42,22 +45,17 @@
 					text: "Add New"
 					on_press: 
 						root.make_current_click_idx_null()
-						root.manager.current= 'supplier'
+						root.manager.current= 'account'
 						root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
 				CustomListLabel:
-					text: "Supplier Name"				
+					text: "Account Name"				
 				CustomListLabel:
-					text: "Address"
+					text: "Account Type"
 				CustomListLabel:
-					text: "Tax Id/GST No"
-				CustomListLabel:
-					text: "Contact Number"
-				CustomListLabel:
-					text: "Email"
-					
+					text: "Activity"
 			CustomListBoxLayout:
 				RecycleView:
 					scroll_type:['bars', 'content']
@@ -69,16 +67,11 @@
 				        Rectangle:
 				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
 				            size: self.bar_width, self.height * self.vbar[1]
-					id: sup
-					viewclass: 'SupplierGrid'
+					id: act
+					viewclass: 'AccountGrid'
 					CustomListRecycleGridLayout:
 	       
-<Supplier>:
-	name: name
-    address: address
-    tax_no: tax_no
-    contact_number: contact_number
-    email_address: email_address
+<Account>:
 	canvas:
 		Color: 
 		    rgba: (1,1,1,1) 
@@ -92,141 +85,124 @@
 			padding: 20
 			orientation: "vertical"
 			BoxLayout:
-				size_hint_y: 0.05
+				size_hint_y: 0.001
+			BoxLayout:
+				size_hint_y: 0.1
 				CustomBackButton:
 					size_hint_x: 0.15
-					size_hint_y: 1.5
-					on_press: 
-						app.root.ids.supplier_list_screen.make_current_click_idx_null()
-						root.manager.current= 'supplier_list'	
+					size_hint_y: 2.5
+					on_press:
+						app.root.ids.account_list_screen.make_current_click_idx_null()
+						root.manager.current= 'account_list'	
 						root.manager.transition = SlideTransition(direction="right")
 				Label:
 			CustomLineBoxLayout:
+				size_hint_y: 2
 				orientation: "vertical"
+				padding: 20
 				BoxLayout:
-					padding: 20
-					size_hint_y: 1.2
+					size_hint_y: 0.5
 				    Label:
-						size_hint_y: 10
+						size_hint_y: 1.5
 						size_hint_x: 0.2
 				        font_size: 30
-				        text: "Supplier"
+				        text: "Account"
 				        text_size: self.size
 				        bold: True
 				        italic: True
 				        color: 0,0,0,1
 				BoxLayout:
-					padding: 20
 					Label:
 						size_hint_y: 12
 						size_hint_x: 0.2
 				        font_size: 20
-				        text: "Supplier Name"
+				        text: "Account Name"
 				        text_size: self.size
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	id: name
-				    	size_hint_y: 2.5
+				    	id: account_name
+				    	size_hint_y: 0.65
 				    	size_hint_x: 0.2
-				    	font_size: 20
+				    	font_size: 17
 				    	write_tab: False
-				    	multiline: False
 				BoxLayout:
-				BoxLayout:
-					padding: 20
-					Label:
-						valign:'top'
-						size_hint_y: 6
-						size_hint_x: 0.2
-				        font_size: 20
-				        text: "Address"
-				        text_size: self.size
-				        bold: True
-				        color: 0,0,0,1
-				    TextInput:
-				    	size_hint_y: 6
-				    	size_hint_x: 0.2
-				    	font_size: 20
-				    	id: address
-				    	write_tab: False
-
-				BoxLayout:
-					padding: 20
-					Label:
-						size_hint_y: 12
-						size_hint_x: 0.2
-						font_size: 20
-				        text: "Tax Id/GST No"
-				        text_size: self.size
-				        bold: True
-				        color: 0,0,0,1
-				    TextInput:
-				    	size_hint_y: 2.6
-				    	size_hint_x: 0.2
-				    	font_size: 20
-				    	id: tax_no
-				    	write_tab: False
-				    	multiline: False
-				BoxLayout:
-					padding: 20
 					Label:
 						size_hint_y: 12
 						size_hint_x: 0.2
 				        font_size: 20
-				        text: "Contact Number"
 				        text_size: self.size
 				        bold: True
 				        color: 0,0,0,1
-				        input_filter: 'float'
-				    TextInput:
-				    	size_hint_y: 2.5
+				        text: "Account Type"
+				    Button:
+				        id: account_type
+				        text: 'Select'
+				        on_release: Factory.AccountTypeDropDown(root).open(self)
+				        text_size: self.size
+				        size_hint_y: 0.65
 				    	size_hint_x: 0.2
-				    	font_size: 20
-				    	id: contact_number
-				    	write_tab: False
-				    	multiline: False
-
+				    	font_size: 15
+				        padding_x: 10
+						valign: "middle"
+						canvas:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+						background_color: 0, 0, 0, 0.1
+						color: 0,0,0,1
+					    
 				BoxLayout:
-					padding: 20
 					Label:
 						size_hint_y: 12
 						size_hint_x: 0.2
 				        font_size: 20
-				        text: "Email"
 				        text_size: self.size
 				        bold: True
 				        color: 0,0,0,1
-				    TextInput:
-				    	size_hint_y: 2.6
+				        text: "Activity"
+				    Button:
+				        id: activity
+				        text: 'Select'
+				        on_release: Factory.ActivityDropDown(root).open(self)
+				        text_size: self.size
+				        padding_x: 10
+				        size_hint_y: 0.65
 				    	size_hint_x: 0.2
-				    	font_size: 20
-				    	id: email_address
-				    	write_tab: False
-				    	multiline: False
-				    	on_text_validate: root.save()
+				    	font_size: 15
+						valign: "middle"
+						valign: "middle"
+						canvas:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+						background_color: 0, 0, 0, 0.1
+						color: 0,0,0,1
 				BoxLayout:
-
+					size_hint_y: 0.5
 				BoxLayout:
-					padding: 20
+					
 					BoxLayout:
-						size_hint_x: 0.4
+						size_hint_x: 0.5
 					BoxLayout:
 						CustomSaveButton:
-		            		size_hint_y: 3
-		            		text: root.update_button_text or ""
+		            		size_hint_y: 0.7
 		            		on_press: root.save()
 		            	BoxLayout:
 		            	CustomCancelButton:
-		            		size_hint_y: 3
+		            		size_hint_y: 0.7
 		            		on_press: root.cancel()
 		            		text: root.delete_button_text or ""
 		            BoxLayout:
-		            	size_hint_x: 0.4
+		            	size_hint_x: 0.5
 	            
 	        BoxLayout:
 				orientation: "vertical"
-				size_hint_y: 0.3
+				size_hint_y: 2
         BoxLayout:
         	size_hint_x: 0.5
         	

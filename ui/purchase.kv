@@ -1,26 +1,55 @@
 <PurchaseTable@GridLayout>:
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
 	size_hint:0.9,0.9
-	cols:8
-	spacing: 6
+	cols: 8
+	spacing: 8
 	padding: 2
 	Label:
-		text: root.item or ""
+		id: item_code
+		text: root.item_code or ""
 		color: 0,0,0,1
-	Label:
-		text: root.rate or ""
-		color: 0,0,0,1
+		text_size: self.size
+		valign: "middle"
+		padding_x: 5
+	TextInput:
+		size_hint_x: 0.5
+		id: rate
+		on_text: root.cal_amt(app.root.ids.purchase_screen)
+		text: str(root.rate or "")
+		write_tab: False
+		input_filter: 'float'
 	TextInput:
 		id: quantity
 		size_hint_x: 0.5
+		text: str(root.quantity or "1")
+		on_text: root.cal_amt(app.root.ids.purchase_screen)
+		write_tab: False
+		input_filter: 'float'
+	TextInput:
+		id: discount_percent
+		size_hint_x: 0.5
+		text: str(root.discount_percent or "")
+		on_text: root.cal_amt(app.root.ids.purchase_screen)
+		write_tab: False
 	TextInput:
 		id: discount
 		size_hint_x: 0.5
+		text: str(root.discount or "")
+		on_text: root.cal_amt(app.root.ids.purchase_screen)
+		write_tab: False
+		input_filter: 'float'
 	Label:
-		text: root.dis or ""
+		id:amount
 		color: 0,0,0,1
-	Label:
-		text: root.amt or ""
-		color: 0,0,0,1
+		size_hint_x: 0.5
+		text_size: self.size
+		valign: "middle"
+		padding_x: 5
 	Button:
 		canvas:
 	        Color:
@@ -31,32 +60,87 @@
 		background_color: 0, 0, 0, 0
 		color: 0,0,0,1
 		size_hint_x: 0.5
-		text: 'Edit'
-		on_release: print(app.self.index)
-	Button:
-		canvas:
-	        Color:
-	            rgba: 0, 0, 0, 0.8
-	        Line:
-	            width: 1
-	            rectangle: self.x, self.y, self.width, self.height
-		background_color: 0, 0, 0, 0
-		color: 0,0,0,1
-		size_hint_x: 0.5
-		text: 'Delete'
 
-<SupplierDropDown>:
-    on_select:
-        app.root.ids.purchase_screen.ids.supplier.text = '{}'.format(args[1]) 
+		text: 'Remove'
+		on_release: root.remove_data(app.root.ids.purchase_screen)
+<PurchasePaymentTable@GridLayout>:
+	size_hint:0.9,0.9
+	cols: 8
+	spacing: 6
+	padding: 2
+	Label:
+		text: str(root.p_date) or ""
+		color: 0,0,0,1
+		size_hint_x: 0.6
+		text_size: self.size
+		valign: "middle"
+	Label:
+		id: rate
+		text: str(root.p_time) or ""
+		color: 0,0,0,1
+		size_hint_x: 0.6
+		text_size: self.size
+		valign: "middle"
+	Label:
+		text: str(root.transaction_ref) or ""
+		color: 0,0,0,1
+		text_size: self.size
+		valign: "middle"
+		size_hint_x: 0.8
+	Label:
+		text: str(root.payment_type) or ""
+		color: 0,0,0,1
+		size_hint_x: 0.6
+		text_size: self.size
+		valign: "middle"
+	Label:
+		text: str(root.mode_of_payment) or ""
+		color: 0,0,0,1
+		size_hint_x: 0.6
+		text_size: self.size
+		valign: "middle"
+	Label:
+		text: str(root.card_four_digits) or ""
+		color: 0,0,0,1
+		size_hint_x: 0.6
+		text_size: self.size
+		valign: "middle"
+	Label:
+		text: str(root.amount) or ""
+		color: 0,0,0,1	
+		size_hint_x: 0.6
+		text_size: self.size
+		valign: "middle"
+	Button:
+		canvas:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.6
+
+		text: 'Remove'
+		on_release: root.remove_data()
+
 
 <PurchaseGrid@GridLayout>:
 	size_hint: 1.2,1.2
 	size_hint_y: 0.6
-	cols:2
+	cols: 6
 	CustomGridButton:
-		text: root.supplier_name or ""
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'purchase'
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+		text: root.supplier or ""
+	    on_press: root.line_click()
+	CustomGridButton:
+		text: root.invoice_date or ""
+	CustomGridButton:
+		text: root.subtotal or ""
+	CustomGridButton:
+		text: root.discount or ""
+	CustomGridButton:
+		text: root.taxes or ""
 	CustomGridButton:
 		text: root.total or ""
 	
@@ -79,30 +163,76 @@
 				size_hint_y: 0.06
 				CustomListTitle:
 					text: "Purchase"
-					
+					size_hint_x: 0.5
+				Label:
+					text: "Search By Supplier"
+					size_hint_x: 0.2
+					color: 0,0,0,1
+				TextInput:
+					id: selected_supplier
+					size_hint_y: 0.8
+					size_hint_x: 0.3
+					on_text: root.on_supplier_input_for_search()
+				Label:
+					text: "Search By Date"
+					size_hint_x: 0.2
+					color: 0,0,0,1
+				DatePicker:	
+					id: selected_date
+					pHint: 0.2,0.3
+					font_size: 15
+					text_size: self.size
+					size_hint_y: 0.8
+					size_hint_x: 0.13
+					on_text: root.on_search_date()
+					text: ""
+				BoxLayout:
+					size_hint_x: 0.1
 				CustomListButton:
 					text: "Back"
-					on_press:root.manager.current= 'main_page'
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					size_hint_x: 0.15
+					on_press:
+						root.manager.current= 'main_page'
+						root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press:root.manager.current= 'purchase'
-					on_press: root.manager.transition = SlideTransition(direction="left")
+					size_hint_x: 0.15
+					on_press: 
+						root.make_current_click_idx_null()
+						root.manager.current= 'purchase'
+						root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
 				CustomListLabel:
 					text: "Supplier Name"				
 				CustomListLabel:
+					text: "Date"
+				CustomListLabel:
+					text: "Sub Total"
+				CustomListLabel:
+					text: "Discount"
+				CustomListLabel:
+					text: "Tax"
+				CustomListLabel:
 					text: "Total"
 				
 			CustomListBoxLayout:
 				RecycleView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
 					id: purlist
 					viewclass: 'PurchaseGrid'
 					CustomListRecycleGridLayout:
 <Purchase>:
-	pur: pur
+	purchase_invoice_items: purchase_invoice_items
 	canvas:
 		Color:
 		    rgba: (1,1,1,1) 
@@ -121,325 +251,415 @@
 					size_hint_x: 0.15
 					size_hint_y: 1.3
 					bold: True
-					on_press:root.manager.current= 'purchase_list'	
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press: 
+						app.root.ids.purchase_list_screen.make_current_click_idx_null()
+						root.manager.current= 'purchase_list'	
+						root.manager.transition = SlideTransition(direction="right")
 				Label:
 			BoxLayout:
 				size_hint_y: 0.03
 			CustomLineBoxLayout:
 				orientation: "vertical"
-				BoxLayout:
-					padding: 20
-					size_hint_y: 0.12
-				    Label:
-						size_hint_y: 3
-						size_hint_x: 0.2
-				        font_size: 30
-				        text: "Purchase"
-				        text_size: self.size
-				        bold: True
-				        italic: True
-				        color: 0,0,0,1
-				BoxLayout:
-					padding: 20
-					orientation: "vertical"
-				    BoxLayout:
-				    	size_hint_y: 0.05
-						Label:
-							size_hint_y: 3
-							size_hint_x: 0.2
-					        font_size: 20
-					        text: "Date:"
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
-					    Label:
-							size_hint_y: 3
-							size_hint_x: 0.2
-					        font_size: 20
-					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
-					    BoxLayout:
-					    	size_hint_x: 0.3
-					    Label:
-							size_hint_y: 3
-							size_hint_x: 0.2
-					        font_size: 20
-					        text: "Time:"
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
-					    Label:
-							size_hint_y: 3
-							size_hint_x: 0.2
-					        font_size: 20
-					        text: root.tm or "" 
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
-					BoxLayout:
-						size_hint_y: 0.2
-						Label:
-							size_hint_y: 3
-							size_hint_x: 1
-					        font_size: 20
-					        text: "Supplier"
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
-					    Button:
-					    	canvas:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-							background_color: 0, 0, 0, 0.1
-							color: 0,0,0,1
-					        id: supplier
-					        text: 'Select'
-					        on_release: Factory.SupplierDropDown().open(self)
-					        size_hint_y: None
-					        height: 35
-					    BoxLayout:
-					BoxLayout:
-						size_hint_y: 0.2
-						Label:
-							size_hint_y: 0.8
-							size_hint_x: 1
-					        font_size: 20
-					        text: "Item"
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
-						TextInput:
-							id: item
-							size_hint_y: 0.60
-					    	font_size: 20
-					    	size_hint_y: 0.7
-					    BoxLayout:
-					BoxLayout:
-						size_hint_y: 0.1
-					BoxLayout:
-						size_hint_y: 0.05
-						Label:
-							text: 'Item Code '
-							font_size: 15
-							color: 0,0,0,1
-							bold: True
-						Label:
-							text: "Rate"
-							font_size: 15
-							color: 0,0,0,1
-							bold: True
-						Label:
-							text: "Qty"
-							font_size: 15
-							color: 0,0,0,1
-							bold: True
-							size_hint_x: 0.5
-						Label:
-							text: 'Discount%'
-							font_size: 15
-							color: 0,0,0,1
-							bold: True
-							size_hint_x: 0.5
-						Label:
-							text: "Discount"
-							font_size: 15
-							color: 0,0,0,1
-							bold: True
-						Label:
-							text: 'Amount'
-							font_size: 15
-							color: 0,0,0,1
-							bold: True
-						Label:
-							size_hint_x: 0.5
-						Label:
-							size_hint_x: 0.5
-					BoxLayout:
-						size_hint_y: 0.05
-					BoxLayout:
-						canvas:
-					        Color:
-					            rgba: 0, 0, 0, 0.8
-					        Line:
-					            width: 1
-					            rectangle: self.x, self.y, self.width, self.height
-					   
-							Color:
-							    rgba: (1,1,1,1) 
-							Rectangle:
-							    pos: self.pos
-							    size: self.size
-						size_hint_y: 0.5
-						RecycleView:
-							id: pur
-							viewclass: 'PurchaseTable'
-							data: [{},{},{},{},{},{},{},{},{},{},{},{},{}]
-							RecycleGridLayout:
-				                cols: 1
-				                key_selection: 'selectable'
-				                default_size: None, dp(35)
-				                default_size_hint: 1, None
-				                size_hint_y: None
-				                height: self.minimum_height
-				                multiselect: True
-				                touch_multiselect: True
-				    BoxLayout:
-						size_hint_y: 0.1
-					BoxLayout:
-						size_hint_y: 0.5
+				ScrollView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
+					GridLayout:
+				        cols: 1
+				        size_hint_y: 1.5
+				        height: self.minimum_height
 						BoxLayout:
-							BoxLayout:
-								orientation: "vertical"
+							padding: 20
+							size_hint_y: 0.08
+						    Label:
+								size_hint_y: 3
+								size_hint_x: 0.2
+						        font_size: 30
+						        text: "Purchase"
+						        text_size: self.size
+						        bold: True
+						        italic: True
+						        color: 0,0,0,1
+						BoxLayout:
+							padding: 20
+							orientation: "vertical"
+						    BoxLayout:
+						    	size_hint_y: 0.02
 								Label:
-									text: 'Delivery Date'
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.3
-								Label:
-									text: 'Delivery Time'
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.3
-								Label:
-									size_hint_y: 0.2
-								Label:
-									valign: 'top'
-									text: 'Notes'
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-							BoxLayout:
-								orientation: "vertical"
-								DatePicker:
+									size_hint_y: 3
+									size_hint_x: 0.05
+							        font_size: 20
+							        text: "Date:"
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							    DatePicker:					
 									pHint: 0.2,0.3
 									font_size: 15
 									text_size: self.size
-									size_hint_y: 0.4
-									size_hint_x: 0.8
-								Label:
-									size_hint_y: 0.1
-								TextInput: 
-									font_size: 15
-									text_size: self.size
-									size_hint_y: 0.4
-									size_hint_x: 0.8
-								Label:
-									size_hint_y: 0.1
-								TextInput:
-									font_size: 15
-									text_size: self.size
-									size_hint_x: 0.8
+									size_hint_y: 3.5
+									size_hint_x: 0.08
+							    	id: invoice_date
+							    BoxLayout:
+							    	size_hint_x: 0.3
+							    Label:
+									size_hint_y: 3.5
+									size_hint_x: 0.05
+							        font_size: 20
+							        text: "Time:"
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
+							    Label:
+									size_hint_y: 3
+									size_hint_x: 0.2
+							        font_size: 20
+							        id: invoice_time
+							        text: root.invoice_time or "" 
+							        text_size: self.size
+							        bold: True
+							        color: 0,0,0,1
 							BoxLayout:
-								size_hint_x: 0.2
+								size_hint_y: 0.15
+								Label:
+									size_hint_y: 3
+									size_hint_x: 1
+							        font_size: 20
+							        text: "Supplier"
+							        text_size: self.size
+							        bold: True
+							        padding_x: 100
+							        color: 0,0,0,1
 
-						BoxLayout:
-							size_hint_x: 0.1		
-						BoxLayout:
-							size_hint_x: 0.6
+							    TextInput:
+									id: supplier_name
+									text: str(root.supplier_name) or ""
+									size_hint_y: 0.55
+							    	font_size: 17
+							    	on_text: root.on_supplier_input()
+							    	on_focus: root.on_focus(self.text)
+							    BoxLayout:
 							BoxLayout:
-								orientation: "vertical"
+								size_hint_y: 0.15
 								Label:
-									text: 'Sub Total'
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.05
-								Label:
-									text: 'Disc.'
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.1
-								Label:
-									text: 'tax'
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.1
-								Label:
-									text: "Total"
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.1
-								Label:
-									size_hint_y: 0.1
-							BoxLayout:
-								orientation: "vertical"
-								Label:
-									text: "554"
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.05
-								Label:
-									size_hint_y: 0.04
+									size_hint_y: 0.8
+									size_hint_x: 1
+							        font_size: 20
+							        text: "Item"
+							        text_size: self.size
+							        padding_x: 100
+							        bold: True
+							        color: 0,0,0,1
 								TextInput:
-									text: 
-									font_size: 15
-									text_size: self.size
-									size_hint_y: 0.09
-									size_hint_x: 0.5
-								Label:
-									text: "45454"
+									id: item_code
+									text: str(root.item_code) or ""
+									size_hint_y: 0.55
+							    	font_size: 17
+							    	on_text: root.on_item_input()
+							    BoxLayout:
+							    	size_hint_x: 0.03
+							    CustomListButton:
+							    	text: "Add New"
+							    	on_release: root.open_item_pop()
+							    	size_hint_y: 0.55
+							    	size_hint_x: 0.27
+							    BoxLayout:
+							    	size_hint_x: 0.70
+							BoxLayout:
+								size_hint_y: 0.05
+							BoxLayout:
+								size_hint_y: 0.05
+								CustomHeadingLabel:
+									text: 'Item Code '
 									font_size: 15
 									color: 0,0,0,1
 									bold: True
-									text_size: self.size
-									size_hint_y: 0.1
+									size_hint_x: 1.9
+								CustomHeadingLabel:
+									text: "Rate"
+									size_hint_x: 1
+								CustomHeadingLabel:
+									text: "Qty"
+									
+								CustomHeadingLabel:
+									text: 'Discount%'
+									
+								CustomHeadingLabel:
+									text: "Discount"
+									
+								CustomHeadingLabel:
+									text: 'Amount'
+									
+								CustomHeadingLabel:
+							BoxLayout:
+								canvas:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+							   
+									Color:
+									    rgba: (1,1,1,1) 
+									Rectangle:
+									    pos: self.pos
+									    size: self.size
+								size_hint_y: 0.5
+								RecycleView:
+									id: purchase_invoice_items
+									viewclass: 'PurchaseTable'
+									RecycleGridLayout:
+						                cols: 1
+						                key_selection: 'selectable'
+						                default_size: None, dp(35)
+						                default_size_hint: 1, None
+						                size_hint_y: None
+						                height: self.minimum_height
+						                multiselect: True
+						                touch_multiselect: True
+						    BoxLayout:
+								size_hint_y: 0.03
+							BoxLayout:
+								size_hint_y: 0.4
+								BoxLayout:
+									BoxLayout:
+										orientation: "vertical"
+										Label:
+											text: 'Delivery Date'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.3
+										Label:
+											text: 'Delivery Time'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.3
+										Label:
+											size_hint_y: 0.2
+										Label:
+											valign: 'top'
+											text: 'Notes'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+									BoxLayout:
+										orientation: "vertical"
+										DatePicker:
+											id: delivery_date
+											pHint: 0.2,0.3
+											font_size: 15
+											text_size: self.size
+											size_hint_y: 0.4
+											size_hint_x: 0.8
+										Label:
+											size_hint_y: 0.1
+										TextInput: 
+											font_size: 15
+											text_size: self.size
+											size_hint_y: 0.4
+											size_hint_x: 0.8
+										Label:
+											size_hint_y: 0.1
+										TextInput:
+											id: notes
+											font_size: 15
+											text_size: self.size
+											size_hint_x: 0.8
+									BoxLayout:
+										size_hint_x: 0.2
+
+								BoxLayout:
+									size_hint_x: 0.1		
+								BoxLayout:
+									size_hint_x: 0.6
+									BoxLayout:
+										orientation: "vertical"
+										Label:
+											text: 'Sub Total'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.05
+										Label:
+											text: 'Disc.'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											text: 'tax'
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											text: "Total"
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											size_hint_y: 0.1
+									BoxLayout:
+										orientation: "vertical"
+										Label:
+											id: subtotal
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.05
+										Label:
+											size_hint_y: 0.04
+										TextInput:
+											id: discount
+											on_text: root.cal_tot()
+											font_size: 15
+											text_size: self.size
+											input_filter: 'float'
+											size_hint_y: 0.09
+											size_hint_x: 0.5
+										Label:
+											id: taxes
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											id: total
+											font_size: 15
+											color: 0,0,0,1
+											bold: True
+											text_size: self.size
+											size_hint_y: 0.1
+										Label:
+											size_hint_y: 0.1
+
+							BoxLayout:
+								size_hint_y: 0.2
+								Button:
+									canvas:
+								        Color:
+								            rgba: 0, 0, 0, 0.8
+								        Line:
+								            width: 1
+								            rectangle: self.x, self.y, self.width, self.height
+			    					background_color: 0, 0, 0, 0.1
+			    					color: 0,0,0,1
+				            		size_hint_y: 0.5
+				            		bold: True
+									text: "Make Payment"
+									on_release: Factory.PurchasePaymentPopup(root).open()
 								Label:
-									text: "45745"
-									font_size: 15
-									color: 0,0,0,1
-									bold: True
-									text_size: self.size
-									size_hint_y: 0.1
-								Label:
-									size_hint_y: 0.1
-					BoxLayout:
-						size_hint_y: 0.1			
-					BoxLayout:
-						size_hint_y: 0.15
-						BoxLayout:
-							size_hint_x: 1.5
-						Button:
-							canvas:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-	    					background_color: 0, 0, 0, 0.1
-	    					color: 0,0,0,1
-		            		text: "Submit"
-		            		size_hint_y: 1.1
-		            		bold: True
-		            		on_press: root.show_popup()
-		            	BoxLayout:
-		            	BoxLayout:
-		            		
-			            	CustomCancelButton:
-			            		size_hint_y: 1.1
-			            		on_press:
-		            	BoxLayout:
-		            		size_hint_x: 1.5
+									size_hint_x: 7
+							BoxLayout:
+								size_hint_y: 0.05
+							BoxLayout:
+								size_hint_y: 0.05
+								CustomHeadingLabel:
+									text: 'Pay Date'
+									size_hint_x: 0.6
+								CustomHeadingLabel:
+									text: "Pay Time"
+									size_hint_x: 0.6
+								CustomHeadingLabel:
+									text: "Tran Ref."
+									size_hint_x: 0.8
+									
+								CustomHeadingLabel:
+									text: 'Pay Type'
+									size_hint_x: 0.6
+								CustomHeadingLabel:
+									text: "Mode of Pay"
+									size_hint_x: 0.6
+								CustomHeadingLabel:
+									text: 'Card No.'
+									size_hint_x: 0.6
+								CustomHeadingLabel:
+									text: 'Amount'
+									size_hint_x: 0.6
+								CustomHeadingLabel:
+									size_hint_x: 0.6
+							BoxLayout:
+								canvas:
+							        Color:
+							            rgba: 0, 0, 0, 0.8
+							        Line:
+							            width: 1
+							            rectangle: self.x, self.y, self.width, self.height
+							
+									Color:
+									    rgba: (1,1,1,1) 
+									Rectangle:
+									    pos: self.pos
+									    size: self.size
+								size_hint_y: 0.3
+								RecycleView:
+									id: payments
+									viewclass: 'PurchasePaymentTable'
+									RecycleGridLayout:
+						                cols: 1
+						                key_selection: 'selectable'
+						                default_size: None, dp(35)
+						                default_size_hint: 1, None
+						                size_hint_y: None
+						                height: self.minimum_height
+						                multiselect: True
+						                touch_multiselect: True			
+							BoxLayout:
+								size_hint_y: 0.15
+								BoxLayout:
+									size_hint_x: 1.6
+								Button:
+									canvas:
+								        Color:
+								            rgba: 0, 0, 0, 0.8
+								        Line:
+								            width: 1
+								            rectangle: self.x, self.y, self.width, self.height
+			    					background_color: 0, 0, 0, 0.1
+			    					color: 0,0,0,1
+				            		text: "Submit"
+				            		size_hint_y: 0.7
+				            		bold: True
+				            		on_press: root.save()
+				            	BoxLayout:
+				            	BoxLayout:
+				            		
+					            	CustomCancelButton:
+					            		size_hint_y: 0.7
+					            		on_press: root.cancel()
+				            	BoxLayout:
+				            		size_hint_x: 1.6
 															
 		BoxLayout:
         	size_hint_x: 0.5
-        	
+   
+
+<PurchasePaymentPopup@Popup>:
+	title: 'Payment'
+    size_hint: (None, None)
+    size: (600, 600)
+    auto_dismiss: False
+
+<PurchaseItemPopup@Popup>:
+	title: 'New Item'
+    size_hint: (None, None)
+    size: (600, 500)
+    auto_dismiss: False

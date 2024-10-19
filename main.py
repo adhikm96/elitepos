@@ -2,6 +2,7 @@ import sys
 from os import path
 import kivy
 from kivy.app import App
+from kivy.config import Config
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty,ListProperty
 from kivy.uix.recyclegridlayout import RecycleGridLayout
@@ -13,7 +14,6 @@ from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from KivyCalendar import DatePicker
 from random import sample
-from kivy.uix.listview import ListItemButton
 from string import ascii_lowercase
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
@@ -30,6 +30,9 @@ import elitepos.purchase
 import elitepos.stock
 import elitepos.payment
 import elitepos.category
+import elitepos.account
+import elitepos.login
+import elitepos.user
 
 from kivy.lang import Builder
 Builder.load_file('ui/screens.kv')
@@ -42,6 +45,9 @@ Builder.load_file('ui/purchase.kv')
 Builder.load_file('ui/tax.kv')
 Builder.load_file('ui/stock.kv')
 Builder.load_file('ui/category.kv')
+Builder.load_file('ui/account.kv')
+Builder.load_file('ui/login.kv')
+Builder.load_file('ui/user.kv')
 from pony import orm
 import settings
 from models import db
@@ -54,39 +60,35 @@ class MainPage(Screen):
 	pass
 
 class Manager(ScreenManager):    
-    main_page = ObjectProperty(None)
-    customer = ObjectProperty(None)
-    customer_list = ObjectProperty()
-    supplier = ObjectProperty(None)
-    supplier_list = ObjectProperty()
-    item = ObjectProperty(None)
-    item_list = ObjectProperty()
-    tax = ObjectProperty(None)
-    tax_list = ObjectProperty()
-    sale = ObjectProperty(None)
-    sale_list = ObjectProperty()
-    purchase = ObjectProperty(None)
-    purchase_list = ObjectProperty()
-    stock = ObjectProperty(None)
-    stock_list = ObjectProperty()
-    payment = ObjectProperty(None)
-    payment_list = ObjectProperty()
-    category_list = ObjectProperty(None)
-    category = ObjectProperty()
-    # main_page = ObjectProperty("MainPage")
-    # customer = ObjectProperty("Customer")
-    # customer_list = ObjectProperty("CustomerList")
-    # supplier = ObjectProperty("Supplier")
-    # item = ObjectProperty("Item")
-    # tax = ObjectProperty("Tax")
-    # sale = ObjectProperty("Sale")
-    # purchase = ObjectProperty("Purchase")
-    # stock = ObjectProperty("Stock")
-    # payment = ObjectProperty("Payment")
-
+	login = ObjectProperty(None)
+	main_page = ObjectProperty(None)
+	customer = ObjectProperty(None)
+	customer_list = ObjectProperty()
+	supplier = ObjectProperty(None)
+	supplier_list = ObjectProperty()
+	item = ObjectProperty(None)
+	item_list = ObjectProperty()
+	tax = ObjectProperty(None)
+	tax_list = ObjectProperty()
+	sale = ObjectProperty(None)
+	sale_list = ObjectProperty()
+	purchase = ObjectProperty(None)
+	purchase_list = ObjectProperty()
+	stock = ObjectProperty(None)
+	stock_list = ObjectProperty()
+	payment = ObjectProperty(None)
+	payment_list = ObjectProperty()
+	category_list = ObjectProperty(None)
+	category = ObjectProperty()
+	account_list = ObjectProperty(None)
+	account = ObjectProperty()
+	user_list = ObjectProperty(None)
+	user = ObjectProperty()
+    
 class ScreensApp(App):
     def build(self):
-        return Manager()
+    	Config.set('graphics', 'window_state', 'maximized')	
+    	return Manager()
  
 SA =  ScreensApp()
  

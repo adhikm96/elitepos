@@ -3,6 +3,13 @@ from datetime import time
 from pony.orm import *
 
 db = Database()
+
+class User(db.Entity):
+    _table_ = 'Users'
+    id = PrimaryKey(int, auto=True)
+    name = Optional(str)
+    email_address = Optional(str)
+    password = Optional(str)
     
 class Customer(db.Entity):
     _table_ = 'Customers'
@@ -34,6 +41,7 @@ class Item(db.Entity):
     item_code = Required(str)
     name = Optional(str)
     category = Optional(str)
+    valuation_rate = Optional(float)
     sales_invoice_items = Set('SalesInvoiceItem')
     purchase_invoice_items = Set('PurchaseInvoiceItem')
     stock_reconciliation_items = Set('StockReconciliationItem')
@@ -68,6 +76,7 @@ class SalesInvoiceItem(db.Entity):
     sales_invoice = Required(SalesInvoice)
     item_code = Optional(str)
     rate = Optional(float)
+    quantity = Optional(int)
     discount = Optional(float)
     discount_percent = Optional(float)
     amount = Optional(float)
@@ -97,10 +106,11 @@ class PurchaseInvoiceItem(db.Entity):
     id = PrimaryKey(int, auto=True)
     purchase_invoice = Required(PurchaseInvoice)
     item_code = Optional(str)
-    rate = Optional(str)
-    discount = Optional(str)
-    discount_percent = Optional(str)
-    amount = Optional(str)
+    rate = Optional(float)
+    quantity = Optional(int)
+    discount = Optional(float)
+    discount_percent = Optional(float)
+    amount = Optional(float)
     tax_string = Optional(str)
     item = Required(Item)
 
@@ -134,14 +144,14 @@ class Payment(db.Entity):
     mode_of_payment = Optional(str)
     card_four_digits = Optional(int)
     amount = Optional(float)
-    sales_invoice = Required(SalesInvoice)
-    purchase_invoice = Required(PurchaseInvoice)
+    sales_invoice = Optional(SalesInvoice)
+    purchase_invoice = Optional(PurchaseInvoice)
 
 
 class PaymentLedger(db.Entity):
     _table_ = 'PaymentLedgers'
     id = PrimaryKey(int, auto=True)
-    account = Required('Account')
+    account = Optional('Account')
     debit = Optional(float)
     credit = Optional(float)
     amount = Optional(float)
@@ -152,23 +162,15 @@ class PaymentLedger(db.Entity):
 
 
 class StockLedger(db.Entity):
-    _table_ = 'StockLedgers'
+    _table_ = 'StockLegers'
     id = PrimaryKey(int, auto=True)
     item = Required(Item)
-    quantity = Optional(str)
+    quantity = Optional(int)
     transaction_doc = Optional(str)
     transaction_ref = Optional(str)
     sl_date = Optional(date)
     sl_time = Optional(time)
 
-
-class Account(db.Entity):
-    _table_ = 'Accounts'
-    id = PrimaryKey(int, auto=True)
-    name = Optional(str)
-    account_doc = Optional(str)
-    account_ref = Optional(str)
-    payment_ledgers = Set(PaymentLedger)
 
 
 class TaxItem(db.Entity):
@@ -178,6 +180,19 @@ class TaxItem(db.Entity):
     tax = Required(Tax)
     item = Required(Item)
     
+class Category(db.Entity):
+    _table_ = 'Category'
+    id = PrimaryKey(int, auto=True)
+    name = Optional(str)
+
+class Account(db.Entity):
+    _table_ = 'Accounts'
+    id = PrimaryKey(int, auto=True)
+    account_name = Optional(str)
+    account_type = Optional(str)
+    activity = Optional(str)
+    payment_ledgers = Set('PaymentLedger')
+
 
 # db.generate_mapping()
 # db.generate_mapping(create_tables=True)

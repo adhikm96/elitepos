@@ -1,18 +1,61 @@
-<ItemCodeDropDown>:
-    on_select:
-        app.root.ids.stock_screen.ids.item_code.text = '{}'.format(args[1])  
-
 <StockGrid@GridLayout>:
 	size_hint: 1.2,1.2
 	size_hint_y: 0.6
 	cols:3
 	CustomGridButton:
-		text: root.item_code or ""
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'stock'
-	    on_press: self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
+		text: root.sr_date or ""
+		on_press: 
+			root.line_click()
+	    	self.parent.parent.parent.parent.parent.parent.parent.manager.current= 'stock'
+	    	self.parent.parent.parent.parent.parent.parent.parent.manager.transition = SlideTransition(direction="left")
 	CustomGridButton:
-		text: root.stock or ""
+		text: root.sr_time or ""
 	
+<StockReconciliationItemTable@GridLayout>:
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+	size_hint:0.9,0.9
+	cols: 4
+	spacing: 6
+	padding: 2
+	Label:
+		id: item_code
+		text: str(root.item_code) or ""
+		color: 0,0,0,1
+		text_size: self.size
+		valign: "middle"
+		padding_x: 5
+	Label:
+		id: current_stock
+		text: str(root.current_stock) or "0"
+		color: 0,0,0,1
+		text_size: self.size
+		valign: "middle"
+		padding_x: 5
+	TextInput:
+		id: revised_stock
+		text: str(root.revised_stock or "0")
+		write_tab: False
+		input_filter: 'float'
+		on_text: root.cal_stock(app.root.ids.stock_screen)
+	Button:
+		canvas:
+	        Color:
+	            rgba: 0, 0, 0, 0.8
+	        Line:
+	            width: 1
+	            rectangle: self.x, self.y, self.width, self.height
+		background_color: 0, 0, 0, 0
+		color: 0,0,0,1
+		size_hint_x: 0.4
+
+		text: 'Remove'
+		on_release: root.remove_data()
+
 
 <StockList>
 	sto: sto
@@ -31,26 +74,38 @@
 				spacing: 5
 				size_hint_y: 0.06
 				CustomListTitle:
-					text: "Stock"
+					text: "Stock Reconciliation"
 					
 				CustomListButton:
 					text: "Back"
-					on_press:root.manager.current= 'main_page'
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press:
+						root.manager.current= 'main_page'
+						root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press:root.manager.current= 'stock'
-					on_press: root.manager.transition = SlideTransition(direction="left")
+					on_press: 
+						root.make_current_click_idx_null()
+						root.manager.current= 'stock'
+						root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
 				CustomListLabel:
-					text: "Item Code"				
+					text: "Date"				
 				CustomListLabel:
-					text: "Stock"
+					text: "Time"
 					
 			CustomListBoxLayout:
 				RecycleView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
 					id: sto
 					viewclass: 'StockGrid'
 					CustomListRecycleGridLayout:
@@ -70,23 +125,26 @@
 			padding: 20
 			spacing: 20
 		    BoxLayout:
-				size_hint_y: 0.07
+				size_hint_y: 0.22
 				CustomBackButton:
 					size_hint_x: 0.15
 					size_hint_y: 1.5
-					on_press:root.manager.current= 'stock_list'	
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press: 
+						app.root.ids.stock_list_screen.make_current_click_idx_null()
+						root.manager.current= 'stock_list'	
+						root.manager.transition = SlideTransition(direction="right")
 				Label:
 			CustomLineBoxLayout:
 				orientation: "vertical"
+				size_hint_y: 5
 				BoxLayout:
 					padding: 20
-					size_hint_y: 0.20
+					size_hint_y: 0.15
 				    Label:
 						size_hint_y: 4
 						size_hint_x: 0.2
 				        font_size: 30
-				        text: "Stock"
+				        text: "Stock Reconciliation"
 				        text_size: self.size
 				        bold: True
 				        italic: True
@@ -95,93 +153,107 @@
 					padding: 20
 					orientation: "vertical"
 				    BoxLayout:
-				    	size_hint_y: 0.05
+				    	size_hint_y: 0.02
 						Label:
-							size_hint_y: 2
-							size_hint_x: 0.2
+							size_hint_y: 3
+							size_hint_x: 0.05
 					        font_size: 20
 					        text: "Date:"
 					        text_size: self.size
 					        bold: True
 					        color: 0,0,0,1
-					    Label:
+					    DatePicker:					
+							pHint: 0.2,0.3
+							font_size: 15
+							text_size: self.size
 							size_hint_y: 2
-							size_hint_x: 0.2
-					        font_size: 20
-					        text: str(datetime.datetime.now().strftime("%d-%m-%y"))
-					        text_size: self.size
-					        bold: True
-					        color: 0,0,0,1
+							size_hint_x: 0.08
+					    	id: sr_date
 					    BoxLayout:
 					    	size_hint_x: 0.3
 					    Label:
-							size_hint_y: 2
-							size_hint_x: 0.2
+							size_hint_y: 3.5
+							size_hint_x: 0.05
 					        font_size: 20
 					        text: "Time:"
 					        text_size: self.size
 					        bold: True
 					        color: 0,0,0,1
 					    Label:
-							size_hint_y: 2
+							size_hint_y: 3
 							size_hint_x: 0.2
 					        font_size: 20
-					        text: root.tm or ""
+					        id: sr_time
+					        text: root.sr_time or "" 
 					        text_size: self.size
 					        bold: True
 					        color: 0,0,0,1
-					
 					BoxLayout:
-						size_hint_y: 0.2
+						size_hint_y: 0.02
+					BoxLayout:
+						size_hint_y: 0.1
 						Label:
+							text: "Item"
+							size_hint_y: 0.9
+							font_size: 19
+							color: 0,0,0,1
+							bold: True
+							text_size: self.size
+							size_hint_x: 0.6
+						TextInput:
+							id: item_code
+							text: str(root.item_code or "")
+							size_hint_y: 0.48
+					    	font_size: 17
+					    	on_text: root.on_item_input()
+					    BoxLayout:
+					    	size_hint_x: 1.5
+					BoxLayout:
+						size_hint_y: 0.07
+					BoxLayout:
+						size_hint_y: 0.03
+						CustomHeadingLabel:
 							text: 'Item Code '
-							font_size: 20
-							color: 0,0,0,1
-							bold: True
-						Label:
-							id: current_stock
+							font_size: 15
+						CustomHeadingLabel:
 							text: "Current Stock"
-							font_size: 20
-							color: 0,0,0,1
-							bold: True
-						Label:
+							font_size: 15
+						CustomHeadingLabel:
 							text: 'Revised Stock'
-							font_size: 20
-							color: 0,0,0,1
-							bold: True
+							font_size: 15
+						CustomHeadingLabel:
+							size_hint_x: 0.4
 
 					BoxLayout:
-						size_hint_y: 0.1
-						Button:
-							canvas:
-						        Color:
-						            rgba: 0, 0, 0, 0.8
-						        Line:
-						            width: 1
-						            rectangle: self.x, self.y, self.width, self.height
-							background_color: 0, 0, 0, 0.1
-							color: 0,0,0,1
-					        id: item_code
-					        text: 'Select Item Code'
-					        on_release: Factory.ItemCodeDropDown().open(self)
-					        size_hint_y: None
-					        height: 37
-						Label:
-							text: "50"
-							size_hint_y: 0.50
-							font_size: 20
-							color: 0,0,0,1
-							bold: True
-						TextInput:
-							id: revised_stock
-							size_hint_y: 0.60
-					    	font_size: 20
-					    	halign: 'top'
-					    	size_hint_y: 1
+						canvas:
+					        Color:
+					            rgba: 0, 0, 0, 0.8
+					        Line:
+					            width: 1
+					            rectangle: self.x, self.y, self.width, self.height
+					
+							Color:
+							    rgba: (1,1,1,1) 
+							Rectangle:
+							    pos: self.pos
+							    size: self.size
+						size_hint_y: 0.3
+						RecycleView:
+							id: stock_reconciliation_items
+							viewclass: 'StockReconciliationItemTable'
+							RecycleGridLayout:
+				                cols: 1
+				                key_selection: 'selectable'
+				                default_size: None, dp(35)
+				                default_size_hint: 1, None
+				                size_hint_y: None
+				                height: self.minimum_height
+				                multiselect: True
+				                touch_multiselect: True	
 					BoxLayout:
-						size_hint_y: 0.2
+						size_hint_y: 0.05
 					BoxLayout:
-						size_hint_y: 0.1
+						size_hint_y: 0.05
 						BoxLayout:
 							BoxLayout:
 								size_hint_x: 1.5
@@ -197,13 +269,13 @@
 			            		text: "Submit"
 			            		size_hint_y: 1.1
 			            		bold: True
-			            		on_press:
+			            		on_press: root.save()
 			            	BoxLayout:
 			            	BoxLayout:
 			            		
 				            	CustomCancelButton:
-				            		size_hint_y: 1.2
-				            		on_press:
+				            		size_hint_y: 1.1
+				            		on_press: root.cancel()
 			            	BoxLayout:
 			            		size_hint_x: 1.5
 			BoxLayout:

@@ -1,0 +1,106 @@
+
+<Login>:
+	canvas:
+		Color:
+		    rgba: (1,1,1,1) 
+		Rectangle:
+		    pos: self.pos
+		    size: self.size
+	CustomBoxLayout:
+		orientation: "vertical"
+		CustomBoxLayout:
+			orientation: "horizontal"
+			size_hint_y: 0.2
+		CustomBoxLayout:
+			orientation: "horizontal"
+			BoxLayout:
+				size_hint_x: 0.5
+			BoxLayout:
+				orientation: "vertical"
+				CustomLineBoxLayout:	
+					orientation: "vertical"
+					BoxLayout:
+						padding:20
+						size_hint_y: 0.6
+					    Label:
+							size_hint_y: 5
+							size_hint_x: 0.2
+					        font_size: 30
+					        text: "Login"
+					        text_size: self.size
+					        bold: True
+					        italic: True
+					        color: 0,0,0,1
+					
+					BoxLayout:
+						size_hint_y: 0.5
+						Label:
+							padding_x: 90
+					        text: "User Name"
+					        font_size: 18
+					        size_hint_x: 0.7
+						    text_size: self.size
+						    bold: True
+						    color: 0,0,0,1 
+					    TextInput:
+					    	id: user_name
+					    	focus: True
+					    	font_size: 18
+					    	text: "adhik_m"
+							valign: "middle"
+					    	write_tab: False
+					    	multiline: False
+					    	size_hint_y: 0.67
+					    	size_hint_x: 0.7
+					    	on_text_validate: root.submit()
+					    BoxLayout:
+					    	size_hint_x: 0.2
+
+					BoxLayout:
+						size_hint_y: 0.5
+						Label:
+							padding_x: 90
+					        text: "Password"
+					        font_size: 18
+					        size_hint_x: 0.7
+						    text_size: self.size
+						    bold: True
+						    color: 0,0,0,1 
+					    TextInput:
+					    	id: password
+					    	text: "adhik123"
+					    	font_size: 18
+							valign: "middle"
+					    	write_tab: False
+					    	multiline: False
+					    	size_hint_y: 0.67
+					    	password_mask: '*'
+					    	password: True
+					    	size_hint_x: 0.7
+					    	on_text_validate: root.submit()
+					    BoxLayout:
+					    	size_hint_x: 0.2
+
+					BoxLayout:
+						BoxLayout:
+							size_hint_x: 0.5
+						BoxLayout:
+							CustomSaveButton:
+			            		size_hint_y: 0.4
+			            		text : "Submit"
+			            		on_press: root.submit()
+			            		
+			            	BoxLayout:
+			            	CustomCancelButton:
+			            		size_hint_y: 0.4
+			            		on_press: app.stop()
+			            		
+			            BoxLayout:
+			            	size_hint_x: 0.5
+		            BoxLayout:
+		            	size_hint_y: 0.2
+		        BoxLayout:
+					orientation: "vertical"
+					size_hint_y: 1
+			BoxLayout:
+				size_hint_x: 0.5

@@ -1,7 +1,7 @@
 <TaxTypeDropDown>:
     on_select: 
     	app.root.ids.tax_screen.ids.tax_type.text = "{}".format(args[0].tax_type)
-        
+
 
 <TaxGrid@GridLayout>:
 	size_hint: 1.2,1.2
@@ -40,7 +40,7 @@
 					on_press: root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press: app.root.ids.tax_screen.cancel()
+					on_press: root.make_current_click_idx_null()
 					on_press:root.manager.current= 'tax'
 					on_press: root.manager.transition = SlideTransition(direction="left")
 					
@@ -55,6 +55,15 @@
 					
 			CustomListBoxLayout:
 				RecycleView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
 					id: tx
 					viewclass: 'TaxGrid'
 					CustomListRecycleGridLayout:
@@ -80,6 +89,7 @@
 				CustomBackButton:
 					size_hint_x: 0.15
 					size_hint_y: 1.4
+					on_press: app.root.ids.tax_list_screen.make_current_click_idx_null()
 					on_press:root.manager.current= 'tax_list'	
 					on_press: root.manager.transition = SlideTransition(direction="right")
 				Label:
@@ -111,11 +121,12 @@
 					        bold: True
 					        color: 0,0,0,1
 					    TextInput:
-					    	size_hint_y: 1.7
+					    	size_hint_y: 1.5
 					    	size_hint_x: 0.2
-					    	font_size: 20
+					    	font_size: 18
 					    	id: name
 					    	write_tab: False
+					    	multiline: False
 
 					BoxLayout:
 						size_hint_y: 0.5
@@ -138,9 +149,12 @@
 							color: 0,0,0,1
 					        id: tax_type
 					        text: 'Select'
-					        on_release: Factory.TaxTypeDropDown().open(self)
+					        on_release: Factory.TaxTypeDropDown(root).open(self)
 					        size_hint_y: None
-					        height: 40
+					        height: 35
+					        text_size: self.size
+					        padding_x: 10
+							valign: "middle"
 				
 					BoxLayout:
 						size_hint_y: 0.5
@@ -153,11 +167,13 @@
 					        bold: True
 					        color: 0,0,0,1
 					    TextInput:
-					    	size_hint_y: 0.7
+					    	size_hint_y: 0.6
 					    	size_hint_x: 0.2
-					    	font_size: 20
+					    	font_size: 18
 					    	id: percent
 					    	write_tab: False
+					    	multiline: False
+				    		on_text_validate: root.save()
 
 					BoxLayout:
 						BoxLayout:
@@ -166,12 +182,13 @@
 							CustomSaveButton:
 			            		size_hint_y: 0.4
 			            		on_press: root.save()
-
+			            		text: root.update_button_text or ""
 			            	BoxLayout:
 
 			            	CustomCancelButton:
 			            		size_hint_y: 0.4
 			            		on_press: root.cancel()
+			            		text: root.delete_button_text or ""
 			            BoxLayout:
 			            	size_hint_x: 0.4
 

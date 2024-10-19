@@ -1,10 +1,26 @@
 #:kivy 1.10
 #:import Factory kivy.factory.Factory
 #:import datetime datetime
-#: import ListAdapter kivy.adapters.listadapter.ListAdapter
-#: import ListItemButton kivy.uix.listview.ListItemButton
 #:import SlideTransition kivy.uix.screenmanager.SlideTransition
 #:import TabbedPanel kivy.uix.tabbedpanel 
+
+<warning_pop>:
+	title: "Warning!"
+	size_hint: (None, None)
+    size: (200,170)
+	BoxLayout:
+		orientation: "vertical"
+		Label:
+			id: messagetext
+			text_size: self.size
+			valign: 'middle'
+		BoxLayout:	
+			size_hint_y: 0.3
+			BoxLayout:
+			Button:
+				text: "Close"
+				on_press:  root.dismiss()
+			BoxLayout:
 
 <CustomListTitle@Label>:
 	text_size: self.size
@@ -32,6 +48,12 @@
 	bold: True
 	padding_x: 5
 	font_size: 18
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height/2
 
 <CustomListButton@Button>:
 	size_hint_x: 0.1
@@ -42,7 +64,7 @@
         Line:
             width: 1
             rectangle: self.x, self.y, self.width, self.height
-	background_color: 0, 0, 0, 0.2
+	background_color: 0, 0, 0, 0.1
 	color: 0,0,0,1
 	bold: True
 
@@ -112,11 +134,11 @@
 <MainPageButton@Button>:
 	canvas:
         Color:
-            rgba: 0, 0, 0, 0.8
+            rgba: 0, 0, 0, 1
         Line:
             width: 1
             rectangle: self.x, self.y, self.width, self.height
-	background_color: 0, 0, 0, 0.2
+	background_color: 0, 0, 0, 0.1
 	color: 0,0,0,1
 	bold: True
 	font_size: 20
@@ -124,7 +146,7 @@
 <CustomBoxLayout@BoxLayout>:
 	canvas:
 		Color: 
-		    rgba: (0,0,0,0.2) 
+		    rgba: (0,0,0,0.05) 
 		Rectangle:
 		    pos: self.pos
 		    size: self.size
@@ -137,7 +159,21 @@
         	width: 1
         	rectangle: self.x, self.y, self.width, self.height
 
-	
+<CustomHeadingLabel@Label>:
+	canvas:
+        Color:
+            rgba: 0, 0, 0, 0.8
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+    font_size: 15
+	color: 0,0,0,1
+	bold: True
+	text_size: self.size
+	padding_x: 5
+	size_hint_y: 1.5
+	valign: "middle"
+
 <MainPage>:
 	canvas:
 		Color:
@@ -152,24 +188,34 @@
 			padding: 100
 			MainPageButton:
 				text: "Customer"
-				on_press:root.manager.current= 'customer_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press: 
+					root.manager.current= 'customer_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Supplier"
-				on_press:root.manager.current= 'supplier_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'supplier_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Item"
-				on_press:root.manager.current= 'item_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'item_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Tax"
-				on_press:root.manager.current= 'tax_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'tax_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Category"
-				on_press:root.manager.current= 'category_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'category_list'
+					root.manager.transition = SlideTransition(direction="left")
+			MainPageButton:
+				text: "Account"
+				on_press:
+					root.manager.current= 'account_list'
+					root.manager.transition = SlideTransition(direction="left")
 
 		BoxLayout:
 			orientation: "vertical"
@@ -177,20 +223,29 @@
 			padding: 100
 			MainPageButton:
 				text: "Sale"
-				on_press:root.manager.current= 'sale_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'sale_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Purchase"
-				on_press:root.manager.current= 'purchase_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'purchase_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
-				text: "Stock"
-				on_press:root.manager.current= 'stock_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				text: "Stock Reconciliation"
+				on_press:
+					root.manager.current= 'stock_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Payment"
-				on_press:root.manager.current= 'payment_list'
-				on_press: root.manager.transition = SlideTransition(direction="left")
+				on_press:
+					root.manager.current= 'payment_list'
+					root.manager.transition = SlideTransition(direction="left")
+			MainPageButton:
+				text: "User"
+				on_press:
+					root.manager.current= 'user_list'
+					root.manager.transition = SlideTransition(direction="left")
 			MainPageButton:
 				text: "Exit"
 				on_press: app.stop() 
@@ -213,8 +268,19 @@
 	stock_list: stock_list_screen
 	stock: stock_screen
 	payment: payment_screen
+	payment_list: payment_list_screen
 	category_list: category_list_screen
 	category: category_screen 
+	account_list: account_list_screen
+	account: account_screen 
+	user_list: user_list_screen
+	user: user_screen 
+	login: login_screen 
+
+	Login:
+		id: login_screen
+		name: 'login'
+		manager: screen_manager
 
 	MainPage:
 		id: main_screen
@@ -310,3 +376,25 @@
 		id: category_screen
 		name: 'category'
 		manager: screen_manager
+
+	AccountList:
+		id: account_list_screen
+		name: 'account_list'
+		manager: screen_manager
+
+	Account:
+		id: account_screen
+		name: 'account'
+		manager: screen_manager
+
+	UserList:
+		id: user_list_screen
+		name: 'user_list'
+		manager: screen_manager
+
+	User:
+		id: user_screen
+		name: 'user'
+		manager: screen_manager
+
+	

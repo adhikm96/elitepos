@@ -2,6 +2,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.dropdown import DropDown
+from kivy.factory import Factory
 from kivy.uix.button import Button
 from kivy.clock import Clock
 import time, settings
@@ -14,6 +15,8 @@ class Tax(Screen):
     name = ObjectProperty()
     percent = ObjectProperty()
     tax_type = ObjectProperty()
+    delete_button_text = ObjectProperty()
+    update_button_text = ObjectProperty()
 
     def on_pre_enter(self):  
         global current_click_idx
@@ -23,17 +26,28 @@ class Tax(Screen):
                 self.ids.name.text = str(data.name)
                 self.ids.tax_type.text = str(data.tax_type)
                 self.ids.percent.text = str(data.percent)
+                self.delete_button_text = "Delete"
+                self.update_button_text = "Update"
         else:
             self.ids.name.text = ""
             self.ids.tax_type.text = "Select"
             self.ids.percent.text = ""
+            self.delete_button_text = "Cancel"
+            self.update_button_text = "Save"
 
     def cancel(self):
-        self.ids.name.text = ""
-        self.ids.tax_type.text = "Select"
-        self.ids.percent.text = ""
         global current_click_idx
-        current_click_idx = ""
+        if current_click_idx:
+            res = pconn.delete_single_dbrecord( 'Tax',current_click_idx)
+            if res == "Success":
+                current_click_idx = ""
+                self.manager.current= 'tax_list'
+            else:
+                pass
+        else:
+            self.ids.name.text = ""
+            self.ids.tax_type.text = "Select"
+            self.ids.percent.text = ""
 
     def save(self):
         global current_click_idx
@@ -75,20 +89,24 @@ class TaxList(Screen):
             self.tx.data = [{'idx': str(x.id), 'name': str(x.name),'tax_type':str(x.tax_type),'percent':str(x.percent)}
                             for x in data]
 
+    def make_current_click_idx_null(self):  
+        global current_click_idx
+        current_click_idx = ""
 class TaxTypeDropDown(DropDown):
     tax_type = ObjectProperty()
-
+    imparent = ObjectProperty()
     data = ['On Total','Actual']
 
-    def __init__(self, **kwargs):
+    def __init__(self,imparent, **kwargs):
         super(TaxTypeDropDown, self).__init__(**kwargs)
+        self.imparent = imparent
         self.add_buttons()
         # raise ValueError(self.tax_type)
         
 
     def add_buttons(self):
         for i in self.data:
-            btn = Button(text='%s' % i, size_hint_y=None, height=44)
+            btn = Factory.Custom_drop_down_button(text='%s' % i, text_size = self.imparent.ids.tax_type.size )
             # btn.bind(on_release=lambda btn: self.select(btn.text))
             btn.value = i
             btn.bind(on_release=self.set_tax)
@@ -108,6 +126,7 @@ class TaxDropDown(DropDown):
         self.add_buttons()
 
     def set_tax(self, cur):
+        print self.imparent
         self.imparent.tax = cur.value.id
         self.select(cur.text)
         self.imparent.ids.tax_type.text = cur.text
@@ -117,7 +136,7 @@ class TaxDropDown(DropDown):
         with db_session:
             for i in self.data:
                 btn_text = i.name
-                btn = Button(text='%s' % i.name, size_hint_y=None, height=44 )
+                btn = Factory.Custom_drop_down_button(text='%s' % i.name,height =30, text_size = self.imparent.ids.tax_type.size )
                 btn.value = i
                 # btn.cur_pclass = cur_pclass
                 btn.bind(on_release=self.set_tax)

@@ -18,6 +18,9 @@
         size_hint_y: None
         height: 37
         size_hint_x: 0.60
+        text_size: self.size
+        padding_x: 10
+		valign: "middle"
 
 	TextInput:
 		font_size: 20
@@ -27,6 +30,7 @@
             root.percent = float(self.text)
 		size_hint_x: 0.20
 		on_text: root.update_data()
+		input_filter: 'float'
 	TextInput:
 		font_size: 20
 		id: amount
@@ -35,15 +39,12 @@
             root.amount = float(self.text)
 		size_hint_x: 0.20
 		on_text: root.update_data()
-
-<CategoryDropDown>:
-    on_select:
-        app.root.ids.item_screen.ids.category.text = '{}'.format(args[1])  
+		input_filter: 'float'
 
 <ItemGrid@GridLayout>:
 	size_hint: 1.2,1.2
 	size_hint_y: 0.6
-	cols:3
+	cols: 4
 	CustomGridButton:
 		text: root.name or ""
 	    on_press: root.line_click()
@@ -51,6 +52,8 @@
 		text: root.item_code or ""
 	CustomGridButton:
 		text: root.category or ""
+	CustomGridButton:
+		text: root.valuation_rate or ""
 
 <ItemList>
 	itm: itm
@@ -73,13 +76,15 @@
 					
 				CustomListButton:
 					text: "Back"
-					on_press:root.manager.current= 'main_page'
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press:
+						root.manager.current= 'main_page'
+						root.manager.transition = SlideTransition(direction="right")
 				CustomListButton:
 					text: "Add New"
-					on_press: app.root.ids.item_screen.cancel()
-					on_press: root.manager.current= 'item'
-					on_press: root.manager.transition = SlideTransition(direction="left")
+					on_press: 
+						root.make_current_click_idx_null()
+						root.manager.current= 'item'
+						root.manager.transition = SlideTransition(direction="left")
 					
 			BoxLayout:
 				size_hint_y: 0.1
@@ -89,9 +94,20 @@
 					text: "Item Code"
 				CustomListLabel:
 					text: "Category"
+				CustomListLabel:
+					text: "Valuation Rate"
 					
 			CustomListBoxLayout:
 				RecycleView:
+					scroll_type:['bars', 'content']
+					bar_width: 10
+					bar_color: (0,0,0,0.2)
+					canvas.after:
+				        Color:
+				            rgba: self.bar_color[:3] + [self.bar_color[3] * 1 if self.do_scroll_y else 0]
+				        Rectangle:
+				            pos: self.right - self.bar_width - self.bar_margin, self.y + self.height * self.vbar[0]
+				            size: self.bar_width, self.height * self.vbar[1]
 					id: itm
 					viewclass: 'ItemGrid'
 					CustomListRecycleGridLayout:
@@ -119,16 +135,18 @@
 				CustomBackButton:
 					size_hint_x: 0.15
 					size_hint_y: 1.5
-					on_press:root.manager.current= 'item_list'	
-					on_press: root.manager.transition = SlideTransition(direction="right")
+					on_press: 
+						app.root.ids.item_list_screen.make_current_click_idx_null()
+						root.manager.current= 'item_list'	
+						root.manager.transition = SlideTransition(direction="right")
 				Label:
 			BoxLayout:
 				size_hint_y: 0.03
 			CustomLineBoxLayout:
+				padding:20
 				orientation: "vertical" 
 				BoxLayout:
-					padding:20
-					size_hint_y: 0.7
+					size_hint_y: 0.4
 				    Label:
 						size_hint_y:80
 						size_hint_x: 0.2
@@ -139,7 +157,6 @@
 				        italic: True
 				        color: 0,0,0,1
 				BoxLayout:
-					padding:20
 					size_hint_y: 0.5
 					Label:
 						size_hint_y: 3
@@ -150,14 +167,13 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y: 2.2
+				    	size_hint_y: 0.7
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: name
 				    	write_tab: False
 
 				BoxLayout:
-					padding:20
 					size_hint_y: 0.5
 					Label:
 						size_hint_y: 3
@@ -168,14 +184,30 @@
 				        bold: True
 				        color: 0,0,0,1
 				    TextInput:
-				    	size_hint_y: 2.2
+				    	size_hint_y: 0.7
 				    	size_hint_x: 0.2
 				    	font_size: 20
 				    	id: item_code
 				    	write_tab: False
 
 				BoxLayout:
-					padding:20
+					size_hint_y: 0.5
+					Label:
+						size_hint_y: 3
+						size_hint_x: 0.2
+				        font_size: 20
+				        text: "Valuation Rate"
+				        text_size: self.size
+				        bold: True
+				        color: 0,0,0,1
+				    TextInput:
+				    	size_hint_y: 0.7
+				    	size_hint_x: 0.2
+				    	font_size: 20
+				    	id: valuation_rate
+				    	write_tab: False
+				    	input_filter: 'float'
+				BoxLayout:
 					size_hint_y: 0.5
 					Label:
 						size_hint_y: 3
@@ -185,44 +217,26 @@
 				        text_size: self.size
 				        bold: True
 				        color: 0,0,0,1
-				    Button:
-				    	canvas:
-					        Color:
-					            rgba: 0, 0, 0, 0.8
-					        Line:
-					            width: 1
-					            rectangle: self.x, self.y, self.width, self.height
-						background_color: 0, 0, 0, 0.1
-						color: 0,0,0,1
-						size_hint_y: 3
-				        id: category
-				        text: 'Select'
-				        on_release: Factory.CategoryDropDown().open(self)
-				        size_hint_y: None
-				        height: 40
+				    TextInput:
+						id: category
+						size_hint_y: 0.70
+				    	font_size: 17
+				    	on_text: root.on_category_input()
 
 				BoxLayout:
 					size_hint_y: 0.4
 				BoxLayout:
-					padding:20
 					size_hint_y: 0.2
-					Label:
+					CustomHeadingLabel:
 						text: 'Tax Type'
 						size_hint_x: 0.60
-						color: 0,0,0,1
-						bold: True
-					Label:
+					CustomHeadingLabel:
 						text: "Percentage"
 						size_hint_x: 0.20
-						color: 0,0,0,1
-						bold: True
-					Label:
+					CustomHeadingLabel:
 						text: 'Amount'
 						size_hint_x: 0.20
-						color: 0,0,0,1
-						bold: True
 				BoxLayout:
-					padding:20
 					size_hint_y: 1.5
 					RecycleView:
 						id: tax_items
@@ -237,17 +251,16 @@
 			                multiselect: True
 			                touch_multiselect: True
 				BoxLayout:
-					padding:20
 					BoxLayout:
 						size_hint_x: 0.4
 					BoxLayout:
 						CustomSaveButton:
-		            		size_hint_y: 0.65
+		            		size_hint_y: 0.40
 		            		on_press: root.save()
 
 		            	BoxLayout:
 		            	CustomCancelButton:
-		            		size_hint_y: 0.65
+		            		size_hint_y: 0.40
 		            		on_press: root.cancel()
 		            BoxLayout:
 		            	size_hint_x: 0.4
@@ -257,3 +270,99 @@
 				size_hint_y: 0.1
         BoxLayout:
         	size_hint_x: 0.5
+
+
+<PurchaseItemPopup>:
+	BoxLayout:
+		canvas:
+			Color:
+			    rgba: (1,1,1,1) 
+			Rectangle:
+			    pos: self.pos
+			    size: self.size
+		CustomBoxLayout:
+			orientation: "horizontal"
+			padding: 20
+			spacing: 20
+			BoxLayout:
+				orientation: "vertical"
+			    BoxLayout:
+					size_hint_y: 0.05
+					CustomBackButton:
+						size_hint_x: 0.15
+						size_hint_y: 1.8
+						bold: True	
+						on_press: root.dismiss()
+					Label:
+				BoxLayout:
+					size_hint_y: 0.03
+				CustomLineBoxLayout: 
+					orientation: "vertical"
+					padding: 10
+					BoxLayout:
+						CustomPaymentLabel:
+							size_hint_x: 0.2
+					        text: "Item Code"
+					    TextInput:
+					    	size_hint_y: 0.55
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: item_code
+					    	write_tab: False
+					    	multiline: False
+
+					BoxLayout:
+						CustomPaymentLabel:
+							size_hint_x: 1
+					        text: "Category"
+					    CustomePaymentButton:
+					    	text: "Pay"
+					        on_release: Factory.PurchasePaymentTypeDropDown(root).open(self)
+					        text_size: self.size
+					        padding_x: 10
+							valign: "middle"
+
+					BoxLayout:
+						CustomPaymentLabel:
+							size_hint_x: 0.2
+					        text: "Item Name"
+					    TextInput:
+					    	size_hint_y: 0.55
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: name
+					    	text: str(root.name or "")
+					    	write_tab: False
+					    	multiline: False
+
+					BoxLayout:
+						CustomPaymentLabel:
+							size_hint_x: 0.2
+					        text: "Valuation Rate"
+					    TextInput:
+					    	size_hint_y: 0.55
+					    	size_hint_x: 0.2
+					    	font_size: 20
+					    	id: valuation_rate
+					    	input_filter: 'float'
+					    	write_tab: False
+					    	multiline: False
+			    			on_text_validate: root.save()
+
+					BoxLayout:
+						size_hint_y: 0.4
+					BoxLayout:
+						size_hint_y: 1
+						BoxLayout:
+							size_hint_x: 0.2
+						BoxLayout:
+							CustomSaveButton:
+			            		size_hint_y: 0.5
+			            		on_press:  root.save()
+
+			            	BoxLayout:
+			            	CustomCancelButton:
+			            		size_hint_y: 0.5
+			            		on_press: root.cancel()
+			            BoxLayout:
+			            	size_hint_x: 0.2
